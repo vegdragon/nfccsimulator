@@ -1,0 +1,37 @@
+[0musage:
+. live decoding      > adb logcat | skynet.pl
+. with timing        > adb logcat -v time | skynet.pl
+. with logcat store  > adb logcat -v time | skynet.pl -logcat=[file_name]
+. with decoded store > adb logcat -v time | skynet.pl -decode=[file_name]
+. with debug traces  > adb logcat -v time | skynet.pl -debug
+. only dump          > adb logcat -v time -d | skynet.pl
+. with BrcmNfcJni    > adb logcat -v time -d | skynet.pl BrcmNfcJni
+. with Nfc stack     > adb logcat -v time -d | skynet.pl Nfc
+. decode a file      > more mylog.txt | skynet.pl (windows)
+. decode a file      > cat mylog.txt | skynet.pl (Linux)
+Default modules: NxpNciX and NxpNciR
+NCI/LLCP/T2T/T3T/T4T/MFC/MFUL/MFD/NDEF/HCI
+# Andre/Ronan/Alexandre/Nicolas/Vincent - 05/06/2015 - V2.07
+
+[0m22:48:10.490 --> 21060100   -=(RF_DEACTIVATE_CMD)=- Idle[0m[0m
+[0m22:48:10.490     41060100[0m
+[0m22:48:10.500 --> 220102C000   -=(NFCEE_MODE_SET_CMD)=- disabled C0[0m[0m
+[0m22:48:10.500     42010100[0m
+[0m22:48:10.510 --> 20021701291446666D010111020207FF03020003040164070103   -=(CORE_SET_CONFIG_CMD)=-
+                 [0;33m PN_ATR_REQ_GEN_BYTES:46666D0101110202...[0m[0m
+[0m22:48:10.520     4002020000[0m
+[0m22:48:10.520 --> 20021701611446666D010111020207FF03020003040164070103   -=(CORE_SET_CONFIG_CMD)=-
+                 [0;33m LN_ATR_RES_GEN_BYTES:46666D0101110202...[0m[0m
+[0m22:48:10.530     4002020000[0m
+[0m22:48:10.530 --> 20020501A0070102   -=(CORE_SET_CONFIG_CMD)=-
+                 [0;33m VEN_CFG:02[0m[0m
+[0m22:48:10.530     4002020000[0m
+[0m22:48:10.530 --> 20050103   -=(CORE_CONN_CLOSE_CMD)=-[0m
+[0m22:48:10.540     40050100[0m
+[0m22:48:10.540 --> 21030703800181018201   -=([1;32mRF_DISCOVER_CMD[0m)=-
+                 [0;33m Apl Bpl Fpl[0m[0m
+[0m22:48:10.540     41030100[0m
+[0m22:48:10.540 --> 20000100   -=([1;31mCORE_RESET_CMD[0m)=- Keep Configuration[0m[0m
+[0m22:48:10.550     400003001000[0m
+[0m
+*** HARD POWER DOWN ***

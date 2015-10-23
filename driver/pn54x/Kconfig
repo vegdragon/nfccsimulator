@@ -1,0 +1,6 @@
+config PN54X
+  tristate "pn54x simulator driver"
+  default n
+  help
+  This is the pn54x simulator driver
+

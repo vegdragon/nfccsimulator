@@ -16,29 +16,22 @@ typedef struct nci_data
 
 using namespace std;
 
-
 void strToHex (const char * str, unsigned char * data)
 {
   const char *p1  = str;
   const char *p2  = p1;
   int i = 0;
 
-  for(i=0;*p2 != NULL;i++) 
+  printf("str=%s\n", str);
+
+  for(i=0;*p1 != NULL;i++) 
   {
     unsigned char byte;
 
-    ++p2;
-    if( *p2 != NULL ) {
-      ++p2;
-    }
-
-    std::stringstream sstm( std::string( p1, p2 ) );
-
-    sstm.flags( std::ios_base::hex );
-    sstm >> byte;
-
+    byte = (*p1-'0') * 0x10 + (*(p1+1)-'0');
     data[i] = byte;
-
+    printf("data[%d] = 0x%x\n", i, byte);
+    
     p1 += 2;
   }
 }

@@ -20,6 +20,7 @@ typedef struct nci_data
 {
     long		timestamp;
     char		data[300];
+    int                 len;
 } nci_data_t;
 
 int nci_kfifo_init(void);

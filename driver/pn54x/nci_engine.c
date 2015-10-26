@@ -40,7 +40,7 @@ static void print_nci_data(nci_data_t * pNci)
       printk(KERN_ALERT "%s=========================\n", TAG);
       print_current_time(0);
       printk(KERN_ALERT "timestamp=%ld\tdata=\n", pNci->timestamp);
-      for (i=0;i<20;i++)
+      for (i=0;i<pNci->len;i++)
 	printk(KERN_ALERT "%02x", pNci->data[i]);
       printk(KERN_ALERT "%s=========================\n", TAG);
     }

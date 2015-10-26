@@ -12,28 +12,52 @@ typedef struct nci_data
 {
     long		timestamp;
     unsigned char	data[300];
+    int                 len;
 } nci_data_t;
 
 using namespace std;
 
-void strToHex (const char * str, unsigned char * data)
+void strToHex (const char * str, nci_data_t & nciData)
 {
-  const char *p1  = str;
-  const char *p2  = p1;
+  const char *p  = str;
+
   int i = 0;
 
   printf("str=%s\n", str);
 
-  for(i=0;*p1 != NULL;i++) 
+  for(i=0;*p!=NULL;i++) 
   {
     unsigned char byte;
 
-    byte = (*p1-'0') * 0x10 + (*(p1+1)-'0');
-    data[i] = byte;
-    printf("data[%d] = 0x%x\n", i, byte);
-    
-    p1 += 2;
+    byte = (*p-'0') * 0x10 + (*(p+1)-'0');
+    nciData.data[i] = byte;
+    p += 2;
+    printf("data[%d] = 0x%02x, *(p)=0x%x\n", i, byte, *(p));
   }
+
+  // remove the last char, ^M
+  nciData.len = i - 1;
+}
+
+
+long parseTimestamp(string & line)
+{
+  size_t posStartOfTime=0, posEndOfTime=0;
+  const char * strTime = NULL;
+  long result = 0;
+  long h, m, s, ms;
+
+  posStartOfTime = line.find(" ") + 1;
+  posEndOfTime = line.find(" D/NxpNci");
+  strTime = line.substr(posStartOfTime, posEndOfTime).c_str();
+  h = (strTime[0] - '0') * 10 + strTime[1];
+  m = (strTime[3] - '0') * 10 + strTime[4];
+  s = (strTime[6] - '0') * 10 + strTime[7];
+  ms = (strTime[9] - '0') * 100 + (strTime[10] - '0') * 10 + strTime[11];
+  result = h * 60*60 * 1000 + m * 60*60 * 1000 + s * 1000 + ms;
+
+  cout<<"timestamp: "<<result<<endl;
+  return result;
 }
 
 int readNciDataFromFile(const char * fileName, int fd)
@@ -42,13 +66,16 @@ int readNciDataFromFile(const char * fileName, int fd)
 	ifstream infile(fileName);
 	string str ("> ");
 	size_t found;
+        long timestamp = 0;
 	while (getline(infile, line))
 	{
+                nci_data_t nciData;
+                nciData.timestamp = parseTimestamp(line);
 		found = line.find(str);
 		if (found!=string::npos)
 		{
-			nci_data_t nciData;
-			strToHex (line.substr (found+2).c_str(), nciData.data);
+			
+			strToHex (line.substr (found+2).c_str(), nciData);
 			printf("Send ioctl cmd 1...\n");
 		        ioctl(fd, 1, &nciData);
 			cout << line.substr (found+2).c_str() << endl;

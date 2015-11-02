@@ -61,8 +61,8 @@ static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
     }  
       
     /*读取设备的寄存器val的值*/  
-static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, loff_t* f_pos) 
-{  
+    static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, loff_t* f_pos) 
+    {  
         ssize_t err = 0;  
         struct pn54x_android_dev* dev = filp->private_data;    
       

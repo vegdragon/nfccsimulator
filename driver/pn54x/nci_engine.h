@@ -19,6 +19,8 @@
 typedef struct nci_data
 {
     long		timestamp;
+    long                delay;
+    char                direction;    // 'X': HOST->NFCC    'R':NFCC->HOST
     char		data[300];
     int                 len;
 } nci_data_t;
@@ -26,5 +28,5 @@ typedef struct nci_data
 int nci_kfifo_init(void);
 int nci_kfifo_release(void);
 int nci_kfifo_push(nci_data_t * pNciData);
-
+int nci_kfifo_get(nci_data_t ** ppNciData);
 #endif

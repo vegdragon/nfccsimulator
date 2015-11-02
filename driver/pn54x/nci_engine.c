@@ -39,7 +39,7 @@ static void print_nci_data(nci_data_t * pNci)
     {
       printk(KERN_ALERT "%s=========================\n", TAG);
       print_current_time(0);
-      printk(KERN_ALERT "timestamp=%ld\tdata=\n", pNci->timestamp);
+      printk(KERN_ALERT "timestamp=%ld\tdirection=%c\ndata=\n", pNci->timestamp, pNci->direction);
       for (i=0;i<pNci->len;i++)
 	printk(KERN_ALERT "%02x", pNci->data[i]);
       printk(KERN_ALERT "%s=========================\n", TAG);
@@ -91,6 +91,22 @@ int nci_kfifo_push(nci_data_t * pNciData)
         // WARN_ON(!ret);
         
     print_nci_data(pNciData);
+
+    TRACE_FUNC_EXIT;
+    return ret;
+}
+
+int nci_kfifo_get(nci_data_t ** ppNciData)
+{
+    int ret = 0;
+
+    TRACE_FUNC_ENTER;
+
+    ret = kfifo_get(&nci_fifo, ppNciData);
+    WARN_ON(!ret);
+    printk(KERN_ALERT "%s current &fifo length is : %d\n", TAG, kfifo_len(&nci_fifo));
+        
+    print_nci_data(*ppNciData);
 
     TRACE_FUNC_EXIT;
     return ret;

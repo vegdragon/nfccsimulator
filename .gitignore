@@ -1,2 +1,4 @@
 *.*~
 *.o
+*.cmd
+driver/pn54x/modules.builtin

@@ -24,6 +24,7 @@ void strToHex (const char * str, nci_data_t & nciData)
 
   printf("str=%s\n", str);
 
+  // line end with 0D0A
   for(i=0;*p!=0xd && *p!=0xa;i++) 
   {
     unsigned char byte;
@@ -34,8 +35,7 @@ void strToHex (const char * str, nci_data_t & nciData)
     printf("data[%d] = 0x%02x, *(p)=0x%x\n", i, byte, *(p));
   }
 
-  // remove the last char, ^M
-  nciData.len = i - 1;
+  nciData.len = i;
 }
 
 #if __USE_STL__
@@ -116,82 +116,82 @@ ret:
 
 int readNciDataFromFile(const char * fileName, int fd)
 {
-       FILE * fp;
-       char * line = NULL;
-       size_t len = 0;
-       ssize_t read;
-       char * strFound = NULL;
-       long prevTimestamp = 0;
+   FILE * fp;
+   char * line = NULL;
+   size_t len = 0;
+   ssize_t read;
+   char * strFound = NULL;
+   long prevTimestamp = 0;
 
-       fp = fopen(fileName, "r");
-       if (fp == NULL)
-           exit(EXIT_FAILURE);
+   fp = fopen(fileName, "r");
+   if (fp == NULL)
+       exit(EXIT_FAILURE);
 
-       while ((read = getline(&line, &len, fp)) != -1) {
-           printf("Retrieved line of length %zu :\n", read);
-           printf("%s", line);
-           nci_data_t nciData;
-           nciData.timestamp = parseTimestamp(line);
-           nciData.delay = nciData.timestamp - prevTimestamp;
-           prevTimestamp = nciData.timestamp;
-           
-           strFound = strchr (line, '>');
-           if (strFound != NULL)
-           {
-             strToHex (strFound+2, nciData);
-             nciData.direction = *(strFound - 21);
-             printf("strFound=%s, direction=%c\n", strFound, nciData.direction);
-             printf("Send ioctl cmd 1...\n");
-             ioctl(fd, 1, &nciData);
-             printf("%s\n", strFound+2);
-           }
+   while ((read = getline(&line, &len, fp)) != -1) {
+       printf("Retrieved line of length %zu :\n", read);
+       printf("%s", line);
+       nci_data_t nciData;
+       nciData.timestamp = parseTimestamp(line);
+       nciData.delay = nciData.timestamp - prevTimestamp;
+       prevTimestamp = nciData.timestamp;
+       
+       strFound = strchr (line, '>');
+       if (strFound != NULL)
+       {
+         strToHex (strFound+2, nciData);
+         nciData.direction = *(strFound - 21);
+         printf("strFound=%s, direction=%c\n", strFound, nciData.direction);
+         printf("Send ioctl cmd 1...\n");
+         ioctl(fd, 1, &nciData);
+         printf("%s\n", strFound+2);
        }
+   }
 
-       fclose(fp);
-       if (line)
-           free(line);
+   fclose(fp);
+   if (line)
+       free(line);
 
-       return 0;
+   return 0;
 }
 #endif /* __USE_STL__ */
 
-    int main(int argc, char** argv)  
-    {  
-        int fd = -1;  
-        int val = 0;  
-        //nci_data_t data1, data2;
-    // data1.timestamp = 0;
-    //strcpy(data1.data, "20000101");
-    //strcpy(data2.data, "400003001001");
+int main(int argc, char** argv)  
+{  
+    int fd = -1;  
+    int val = 0;  
+    //nci_data_t data1, data2;
+		// data1.timestamp = 0;
+		//strcpy(data1.data, "20000101");
+		//strcpy(data2.data, "400003001001");
 
-        fd = open(DEVICE_NAME, O_RDWR);  
-        if(fd == -1) {  
-            printf("Failed to open device %s.\n", DEVICE_NAME);  
-            return -1;  
-        }  
-          
-        printf("Read original value:\n");  
-        read(fd, &val, sizeof(val));  
-        printf("%d.\n\n", val);  
-        val = 5;  
-        printf("Write value %d to %s.\n\n", val, DEVICE_NAME);  
-            write(fd, &val, sizeof(val));  
-          
-        printf("Read the value again:\n");  
-            read(fd, &val, sizeof(val));  
-            printf("%d.\n\n", val); 
-
-        printf("Send ioctl cmd 0...\n");
-        ioctl(fd, 0, 1);
-
-    readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd);        
-
-        printf("Send ioctl cmd 2...\n");
-        ioctl(fd, 2, 1);
-        
-    printf("closing fd 0...\n");
-        close(fd);  
-
-        return 0;  
+    fd = open(DEVICE_NAME, O_RDWR);  
+    if(fd == -1) {  
+        printf("Failed to open device %s.\n", DEVICE_NAME);  
+        return -1;  
     }  
+      
+    printf("Read original value:\n");  
+    read(fd, &val, sizeof(val));  
+    printf("%d.\n\n", val);  
+    val = 5;  
+    printf("Write value %d to %s.\n\n", val, DEVICE_NAME);  
+        write(fd, &val, sizeof(val));  
+      
+    printf("Read the value again:\n");  
+        read(fd, &val, sizeof(val));  
+        printf("%d.\n\n", val); 
+
+    printf("Send ioctl cmd 0...\n");
+    ioctl(fd, 0, 1);
+
+		readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd);        
+
+    printf("Send ioctl cmd 2...\n");
+    ioctl(fd, 2, 1);
+    
+printf("closing fd 0...\n");
+    close(fd);  
+
+    return 0;  
+}  
 

@@ -1,4 +1,5 @@
 *.*~
 *.o
 *.cmd
+*.bak
 driver/pn54x/modules.builtin

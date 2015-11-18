@@ -4,6 +4,9 @@
 #include <linux/fs.h>  
 #include <linux/proc_fs.h>  
 #include <linux/device.h>  
+#include <linux/sched.h>
+#include <linux/delay.h>
+
 #include <asm/uaccess.h>  
 
 #include "pn54x.h"
@@ -73,50 +76,58 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     ssize_t err = 0;  
     struct pn54x_android_dev* pn54x_dev = filp->private_data;    
     nci_data_t * pNciData = NULL;
-    
+    int ret = 0;
+
+    TRACE_FUNC_ENTER
+        
     /* sync the access */  
     mutex_lock(&pn54x_dev->read_mutex);  
   
-    if(count < sizeof(dev->val)) {  
+    if(count < sizeof(pn54x_dev->val)) {  
         goto out;  
     }          
     
-    while (1) {
-			ret = wait_event_interruptible(
-					pn54x_dev->read_wq,
-					TRUE /*pn54x_dev->is_data_ready*/
-					);
-
-			if (ret)
-				goto out;
-
-			pr_warning("%s: spurious interrupt detected\n", __func__);
-		}
+    // while (1) 
+    {
+		ret = wait_event_interruptible(
+				pn54x_dev->read_wq,
+				pn54x_dev->is_data_ready
+				);
+        pn54x_dev->is_data_ready = false;
+		if (ret)
+			goto out;
+		pr_warning("%s: spurious interrupt detected\n", __func__);
+	}
 
     /* pop data from nci queue */
     ret = nci_kfifo_get (&pNciData);
-    if (ret != 0)
+    if (ret == 0)
     {
-      printk(KERN_ALERT"nci_kfifo_get failed: ret=%d.\n", ret);
+      printk(KERN_ALERT"nci_kfifo_get empty: ret=%d.\n", ret);
       err = EFAULT;
       goto out;
     }
     
-    /* simulate the delay nfcc response to the mw */
-    usleep (pNciData->delay * 1000);
-    
     /* copy data to user buffer */  
-    if(copy_to_user(buf, pNciData->data, pNciData->len)) {  
+    if(ret = copy_to_user(buf, pNciData->data, pNciData->len)) {  
+        printk(KERN_ALERT"pn54x_read: copy_to_user failed: ret=%d.\n", ret);
         err = -EFAULT;  
         goto out;  
     }
+
+    printk(KERN_ALERT"read nci data: \n");
+    print_nci_data(pNciData);
     
+    /* simulate the delay nfcc response to the mw */
+    msleep (pNciData->delay);
     
-    
-    err = sizeof(dev->val);  
+    err = sizeof(pn54x_dev->val);  
  
 out: 
     mutex_unlock(&pn54x_dev->read_mutex); 
+
+    TRACE_FUNC_EXIT
+        
     return err;  
 }  
   
@@ -127,26 +138,34 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
     ssize_t err = 0;
     nci_data_t * pNciData = NULL;  
     int ret = -1; 
+    TRACE_FUNC_ENTER
   
     /* sync the access */  
     mutex_lock(&pn54x_dev->read_mutex);            
   
     ret = nci_kfifo_get (&pNciData);
-    if (ret != 0)
+    if (ret == 0)
     {
       printk(KERN_ALERT"nci_kfifo_get failed: ret=%d.\n", ret);
       err = EFAULT;
       goto out;
     }
     
-    /* get nci cmd sent from nfc mw */  
+    /* get nci cmd sent from nfc mw */  \
     if(copy_from_user(&(pn54x_dev->data), buf, count)) {  
         err = -EFAULT;  
         goto out;
     }
+
+    printk("from usr(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", count,
+        pn54x_dev->data[0],pn54x_dev->data[1],pn54x_dev->data[2],pn54x_dev->data[3],pn54x_dev->data[4],
+        pn54x_dev->data[5],pn54x_dev->data[6],pn54x_dev->data[7],pn54x_dev->data[8],pn54x_dev->data[9]);
+    printk("from queue(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", pNciData->len,
+        pNciData->data[0],pNciData->data[1],pNciData->data[2],pNciData->data[3],pNciData->data[4],
+        pNciData->data[5],pNciData->data[6],pNciData->data[7],pNciData->data[8],pNciData->data[9]);
     
     /* compare received data with cmd in the queue */
-    if (memcpy(pn54x_dev->data, pNciData->data, pNciData->len) != 0)
+    if (memcmp(pn54x_dev->data, pNciData->data, pNciData->len) != 0)
     {
         printk(KERN_ALERT"Nci cmd data received is not as we expected!.\n");
         err = -EFAULT;
@@ -154,16 +173,21 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
     }
     else
     {
+        printk(KERN_ALERT"write nci data: \n");
+        // print_nci_data(pn54x_dev);
+        
         /* notify data received, so we can release data to be read */
+        pn54x_dev->is_data_ready = true;
         wake_up(&pn54x_dev->read_wq);
     }
     
     
-    err = sizeof(dev->val);  
+    err = sizeof(pn54x_dev->val);  
   
 out:  
     mutex_unlock(&pn54x_dev->read_mutex);  
-    
+    TRACE_FUNC_EXIT
+        
     return err;  
 }  
 
@@ -297,7 +321,9 @@ static int  __pn54x_setup_dev(struct pn54x_android_dev* dev) {
   
     /*初始化信号量和寄存器val的值*/  
     sema_init(&(dev->sem), 1);  
-    dev->val = 0;  
+    dev->val = 0;
+
+    pn54x_dev->is_data_ready = false;
   
     return 0;  
 }  

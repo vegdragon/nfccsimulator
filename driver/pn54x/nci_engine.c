@@ -32,16 +32,21 @@ void print_current_time(int is_new_line)
     kfree(t);
 }
 
-static void print_nci_data(nci_data_t * pNci)
+void print_nci_data(nci_data_t * pNciData)
 {
     int i;
-    if (pNci != NULL)
+    if (pNciData != NULL)
     {
       printk(KERN_ALERT "%s=========================\n", TAG);
-      print_current_time(0);
-      printk(KERN_ALERT "timestamp=%ld\tdirection=%c\ndata=\n", pNci->timestamp, pNci->direction);
-      for (i=0;i<pNci->len;i++)
-	    printk(KERN_ALERT "%02x", pNci->data[i]);
+      // print_current_time(0);
+      printk(KERN_ALERT "timestamp=%ld\tdirection=%c\ndata=\n", pNciData->timestamp, pNciData->direction);
+      //for (i=0;i<pNci->len;i++)
+	  //  printk(KERN_ALERT "%02x", pNciData->data[i]);
+	  
+      printk("print_nci_data: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
+              pNciData->data[0],pNciData->data[1],pNciData->data[2],pNciData->data[3],pNciData->data[4],
+              pNciData->data[5],pNciData->data[6],pNciData->data[7],pNciData->data[8],pNciData->data[9]);
+
       printk(KERN_ALERT "%s=========================\n", TAG);
     }
 }
@@ -53,7 +58,7 @@ int nci_kfifo_init(void)
     TRACE_FUNC_ENTER;
 
     // init kfifo
-    ret = kfifo_alloc(&nci_fifo, 4, GFP_KERNEL);
+    ret = kfifo_alloc(&nci_fifo, 500, GFP_KERNEL);
 
     if (ret != 0)
     {
@@ -85,12 +90,12 @@ int nci_kfifo_push(nci_data_t * pNciData)
 
     kfifo_put(&nci_fifo, &pNciData);
 
-    printk(KERN_ALERT "%s current &fifo length is : %d\n", TAG, kfifo_len(&nci_fifo));
+    printk(KERN_ALERT "%s nci_kfifo_push: current &fifo length is : %d\n", TAG, kfifo_len(&nci_fifo));
 
         // ret = kfifo_get(&nci_fifo, &nci_data_tmp);
         // WARN_ON(!ret);
         
-    print_nci_data(pNciData);
+    // print_nci_data(pNciData);
 
     TRACE_FUNC_EXIT;
     return ret;
@@ -104,7 +109,7 @@ int nci_kfifo_get(nci_data_t ** ppNciData)
 
     ret = kfifo_get(&nci_fifo, ppNciData);
     WARN_ON(!ret);
-    printk(KERN_ALERT "%s current &fifo length is : %d\n", TAG, kfifo_len(&nci_fifo));
+    printk(KERN_ALERT "%s nci_kfifo_get: current &fifo length is : %d\n", TAG, kfifo_len(&nci_fifo));
         
     print_nci_data(*ppNciData);
 

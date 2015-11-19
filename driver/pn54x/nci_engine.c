@@ -111,7 +111,7 @@ int nci_kfifo_get(nci_data_t ** ppNciData)
     WARN_ON(!ret);
     printk(KERN_ALERT "%s nci_kfifo_get: current &fifo length is : %d\n", TAG, kfifo_len(&nci_fifo));
         
-    print_nci_data(*ppNciData);
+    // print_nci_data(*ppNciData);
 
     TRACE_FUNC_EXIT;
     return ret;

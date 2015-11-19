@@ -89,14 +89,16 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     
     // while (1) 
     {
+        pr_warning("%s: waiting... is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
 		ret = wait_event_interruptible(
 				pn54x_dev->read_wq,
 				pn54x_dev->is_data_ready
 				);
         pn54x_dev->is_data_ready = false;
+        pr_warning("%s: wake up. is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
 		if (ret)
 			goto out;
-		pr_warning("%s: spurious interrupt detected\n", __func__);
+		// pr_warning("%s: spurious interrupt detected\n", __func__);
 	}
 
     /* pop data from nci queue */
@@ -115,7 +117,7 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
         goto out;  
     }
 
-    printk(KERN_ALERT"read nci data: \n");
+    printk(KERN_ALERT"read nci data: delay=%d\n", pNciData->delay);
     print_nci_data(pNciData);
     
     /* simulate the delay nfcc response to the mw */
@@ -178,6 +180,7 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
         
         /* notify data received, so we can release data to be read */
         pn54x_dev->is_data_ready = true;
+        pr_warning("%s: to call wake_up. is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
         wake_up(&pn54x_dev->read_wq);
     }
     
@@ -324,6 +327,7 @@ static int  __pn54x_setup_dev(struct pn54x_android_dev* dev) {
     dev->val = 0;
 
     pn54x_dev->is_data_ready = false;
+    pr_warning("%s: setup. is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
   
     return 0;  
 }  

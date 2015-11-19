@@ -4,6 +4,7 @@
 #include <string.h>
 #include <iostream>
 #include <vector>
+#include <sys/time.h>
 #define DEVICE_NAME "/dev/pn54x"
 
 typedef struct nci_data
@@ -16,6 +17,15 @@ typedef struct nci_data
 } nci_data_t;
 
 using namespace std;
+
+void timestamp()
+{
+    struct timeval detail_time;
+    gettimeofday(&detail_time,NULL);
+    printf("[%d.%d] ",
+    detail_time.time_t,  /* seconds */
+    detail_time.tv_usec); /* microseconds */
+}
 
 void strToHex (const char * str, nci_data_t & nciData)
 {
@@ -140,22 +150,23 @@ int readNciDataFromFile(const char * fileName,
     goto exit;
 
   while ((ret = getline(&line, &len, fp)) != -1) {
-    printf("Retrieved line of length %zu :\n", read);
+    // printf("Retrieved line of length %zu :\n", read);
     printf("%s", line);
     nci_data_t nciData;
     nciData.timestamp = parseTimestamp(line);
     nciData.delay = prevTimestamp==0 ? 0:nciData.timestamp - prevTimestamp;
     prevTimestamp = nciData.timestamp;
+    printf("%s: delay=%d, prevTimestamp=%d\n", __FUNCTION__, nciData.delay, prevTimestamp);
 
     strFound = strchr (line, '>'); 
     if (strFound != NULL)
     {
       strToHex (strFound+2, nciData);
       nciData.direction = *(strFound - 21);
-      printf("strFound=%s, direction=%c\n", strFound, nciData.direction);
-      printf("Send ioctl cmd 1...\n");
+      // printf("strFound=%s, direction=%c\n", strFound, nciData.direction);
+      // printf("Send ioctl cmd 1...\n");
       ioctl(fd, 1, &nciData);
-      printf("%s, \tdirection=%c\n", strFound+2, nciData.direction);
+      printf("%s: %s, \tdirection=%c\n", __FUNCTION__, strFound+2, nciData.direction);
       if ('X' == nciData.direction)
       {
         sendingData.push_back(nciData);
@@ -205,10 +216,12 @@ int startCommunication(int fd,
       usleep((*v).delay * 1000);
       write(fd, (*v).data, (*v).len);
 
+      timestamp();
       printf("write: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
         (*v).data[0],(*v).data[1],(*v).data[2],(*v).data[3],(*v).data[4],
         (*v).data[5],(*v).data[6],(*v).data[7],(*v).data[8],(*v).data[9]);
       read(fd, dataRead, sizeof(dataRead));
+      timestamp();
       printf("read: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
         dataRead[0],dataRead[1],dataRead[2],dataRead[3],dataRead[4],
         dataRead[5],dataRead[6],dataRead[7],dataRead[8],dataRead[9]);

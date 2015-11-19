@@ -5,7 +5,7 @@ APP_STL:= stlport_static
 include $(CLEAR_VARS)
 
 LOCAL_MODULE_TAGS := optional
-LOCAL_MODULE := nfccsimulator 
-LOCAL_SRC_FILES := nfccsimulator.cpp
+LOCAL_MODULE := NfcMiddlewareSimulator 
+LOCAL_SRC_FILES := NciLogFileProcessor.cpp NfcMiddlewareSimulator.cpp
 
 include $(BUILD_EXECUTABLE)

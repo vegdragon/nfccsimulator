@@ -15,8 +15,8 @@ struct pn54x_android_dev {
     struct semaphore  sem;  
     struct cdev       dev;
     wait_queue_head_t read_wq;
-	  struct mutex      read_mutex;
-	  int               is_data_ready;
+	struct mutex      read_mutex;
+	int               is_data_ready;
 };  
   
 #endif  

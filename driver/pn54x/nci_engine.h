@@ -8,9 +8,11 @@
 #include<linux/kfifo.h>
 #include<linux/time.h>
 
-#define CMD_NCI_FIFO_INIT	0
-#define CMD_NCI_FIFO_PUSH	1
+#define CMD_NCI_FIFO_INIT	    0
+#define CMD_NCI_FIFO_PUSH	    1
 #define CMD_NCI_FIFO_RELEASE	2
+#define CMD_NCI_ENGINE_START    3
+
 
 
 #define TRACE_FUNC_ENTER printk(KERN_ALERT "%s: entering...\n", __func__);

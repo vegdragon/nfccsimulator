@@ -29,7 +29,7 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
 static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
         unsigned long arg);
 
-/*设备文件操作方法表*/  
+/* device file operation func table */  
 static struct file_operations pn54x_fops = {  
     .owner = THIS_MODULE,  
     .open = pn54x_open,  
@@ -43,10 +43,10 @@ static struct file_operations pn54x_fops = {
 static ssize_t pn54x_val_show(struct device* dev, struct device_attribute* attr,  char* buf);  
 static ssize_t pn54x_val_store(struct device* dev, struct device_attribute* attr, const char* buf, size_t count);  
   
-/*定义设备属性*/  
+/* define device properties */  
 static DEVICE_ATTR(val, S_IRUGO | S_IWUSR, pn54x_val_show, pn54x_val_store);  
 
-/*打开设备方法*/  
+/* open the device */  
 static int pn54x_open(struct inode* inode, struct file* filp) 
 {  
     struct pn54x_android_dev* dev;          
@@ -60,7 +60,7 @@ static int pn54x_open(struct inode* inode, struct file* filp)
     return 0;  
 }  
   
-/*设备文件释放时调用，空实现*/  
+/* release device file */  
 static int pn54x_release(struct inode* inode, struct file* filp) 
 {  
     struct pn54x_android_dev* pn54x_dev = filp->private_data; 
@@ -84,10 +84,10 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     mutex_lock(&pn54x_dev->read_mutex);  
   
     if(count < sizeof(pn54x_dev->val)) {  
-        goto out;  
+        goto exit;  
     }          
     
-    // while (1) 
+    while (1)
     {
         pr_warning("%s: waiting... is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
 		ret = wait_event_interruptible(
@@ -97,24 +97,26 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
         pn54x_dev->is_data_ready = false;
         pr_warning("%s: wake up. is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
 		if (ret)
-			goto out;
+			goto exit;
 		// pr_warning("%s: spurious interrupt detected\n", __func__);
-	}
 
-    /* pop data from nci queue */
-    ret = nci_kfifo_get (&pNciData);
-    if (ret == 0)
-    {
-      printk(KERN_ALERT"nci_kfifo_get empty: ret=%d.\n", ret);
-      err = EFAULT;
-      goto out;
+        /* pop data from nci queue */
+        ret = nci_kfifo_get (&pNciData);
+        if (ret == 0)
+        {
+            printk(KERN_ALERT"nci_kfifo_get empty: ret=%d.\n", ret);
+        }
+        else
+        {
+            break;
+        }
     }
     
     /* copy data to user buffer */  
     if(ret = copy_to_user(buf, pNciData->data, pNciData->len)) {  
         printk(KERN_ALERT"pn54x_read: copy_to_user failed: ret=%d.\n", ret);
         err = -EFAULT;  
-        goto out;  
+        goto exit;  
     }
 
     printk(KERN_ALERT"read nci data: delay=%d\n", pNciData->delay);
@@ -125,7 +127,7 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     
     err = sizeof(pn54x_dev->val);  
  
-out: 
+exit: 
     mutex_unlock(&pn54x_dev->read_mutex); 
 
     TRACE_FUNC_EXIT
@@ -137,61 +139,27 @@ out:
 static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t count, loff_t* f_pos) 
 {  
     struct pn54x_android_dev* pn54x_dev = filp->private_data;  
-    ssize_t err = 0;
-    nci_data_t * pNciData = NULL;  
-    int ret = -1; 
+    int ret = 0; 
     TRACE_FUNC_ENTER
   
     /* sync the access */  
     mutex_lock(&pn54x_dev->read_mutex);            
-  
-    ret = nci_kfifo_get (&pNciData);
-    if (ret == 0)
-    {
-      printk(KERN_ALERT"nci_kfifo_get failed: ret=%d.\n", ret);
-      err = EFAULT;
-      goto out;
-    }
     
-    /* get nci cmd sent from nfc mw */  \
+    /* get nci cmd sent from nfc mw */ 
     if(copy_from_user(&(pn54x_dev->data), buf, count)) {  
-        err = -EFAULT;  
+        ret = -EFAULT;  
         goto out;
     }
 
-    printk("from usr(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", count,
-        pn54x_dev->data[0],pn54x_dev->data[1],pn54x_dev->data[2],pn54x_dev->data[3],pn54x_dev->data[4],
-        pn54x_dev->data[5],pn54x_dev->data[6],pn54x_dev->data[7],pn54x_dev->data[8],pn54x_dev->data[9]);
-    printk("from queue(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", pNciData->len,
-        pNciData->data[0],pNciData->data[1],pNciData->data[2],pNciData->data[3],pNciData->data[4],
-        pNciData->data[5],pNciData->data[6],pNciData->data[7],pNciData->data[8],pNciData->data[9]);
+    ret = nci_engine_write (pn54x_android_dev* pn54x_dev);
     
-    /* compare received data with cmd in the queue */
-    if (memcmp(pn54x_dev->data, pNciData->data, pNciData->len) != 0)
-    {
-        printk(KERN_ALERT"Nci cmd data received is not as we expected!.\n");
-        err = -EFAULT;
-        goto out;
-    }
-    else
-    {
-        printk(KERN_ALERT"write nci data: \n");
-        // print_nci_data(pn54x_dev);
-        
-        /* notify data received, so we can release data to be read */
-        pn54x_dev->is_data_ready = true;
-        pr_warning("%s: to call wake_up. is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
-        wake_up(&pn54x_dev->read_wq);
-    }
-    
-    
-    err = sizeof(pn54x_dev->val);  
+    // ret = sizeof(pn54x_dev->val);  
   
 out:  
     mutex_unlock(&pn54x_dev->read_mutex);  
     TRACE_FUNC_EXIT
         
-    return err;  
+    return ret;  
 }  
 
 
@@ -199,8 +167,7 @@ out:
 static ssize_t __pn54x_get_val(struct pn54x_android_dev* dev, char* buf) 
 {  
     int val = 0;          
-  
-    /*同步访问*/  
+
     if(down_interruptible(&(dev->sem))) {                  
         return -ERESTARTSYS;          
     }          
@@ -211,15 +178,15 @@ static ssize_t __pn54x_get_val(struct pn54x_android_dev* dev, char* buf)
     return snprintf(buf, PAGE_SIZE, "%d\n", val);  
 }  
   
-/*把缓冲区buf的值写到设备寄存器val中去，内部使用*/  
+/* write value in buf to dev register (val). internal usage */  
 static ssize_t __pn54x_set_val(struct pn54x_android_dev* dev, const char* buf, size_t count) 
 {  
     int val = 0;          
   
-    /*将字符串转换成数字*/          
+    /* convert str to number */          
     val = simple_strtol(buf, NULL, 10);          
   
-    /*同步访问*/          
+    /* sync */          
     if(down_interruptible(&(dev->sem))) {                  
         return -ERESTARTSYS;          
     }
@@ -230,7 +197,7 @@ static ssize_t __pn54x_set_val(struct pn54x_android_dev* dev, const char* buf, s
     return count;  
 }  
   
-/*读取设备属性val*/  
+/* read val */  
 static ssize_t pn54x_val_show(struct device* dev, struct device_attribute* attr, char* buf) 
 {  
     struct pn54x_android_dev* hdev = (struct pn54x_android_dev*)dev_get_drvdata(dev);          
@@ -238,7 +205,7 @@ static ssize_t pn54x_val_show(struct device* dev, struct device_attribute* attr,
     return __pn54x_get_val(hdev, buf);  
 }  
   
-/*写设备属性val*/  
+/* write val*/  
 static ssize_t pn54x_val_store(struct device* dev, struct device_attribute* attr, const char* buf, size_t count) 
 {   
     struct pn54x_android_dev* hdev = (struct pn54x_android_dev*)dev_get_drvdata(dev);    
@@ -246,7 +213,7 @@ static ssize_t pn54x_val_store(struct device* dev, struct device_attribute* attr
     return __pn54x_set_val(hdev, buf, count);  
 }  
 
-/*读取设备寄存器val的值，保存在page缓冲区中*/  
+/* read val and save it in page buffer */  
 static ssize_t pn54x_proc_read(char* page, char** start, off_t off, int count, int* eof, void* data) 
 {  
     if(off > 0) {  
@@ -273,7 +240,6 @@ static ssize_t pn54x_proc_write(struct file* filp, const char __user *buff, unsi
         return -ENOMEM;  
     }          
   
-    /*先把用户提供的缓冲区值拷贝到内核缓冲区中去*/  
     if(copy_from_user(page, buff, len)) {  
         printk(KERN_ALERT"Failed to copy buff from user.\n");                  
         err = -EFAULT;  
@@ -287,7 +253,7 @@ out:
     return err;  
 }  
   
-/*创建/proc/pn54x文件*/  
+/* create /proc/pn54x */  
 static void pn54x_create_proc(void) 
 {  
     struct proc_dir_entry* entry;  
@@ -300,12 +266,12 @@ static void pn54x_create_proc(void)
     }  
 }  
   
-/*删除/proc/pn54x文件*/  
+/* remove /proc/pn54x */  
 static void pn54x_remove_proc(void) {  
     remove_proc_entry(PN54X_DEVICE_PROC_NAME, NULL);  
 }  
 
-/*初始化设备*/  
+/* init the device */  
 static int  __pn54x_setup_dev(struct pn54x_android_dev* dev) {  
     int err;  
     dev_t devno = MKDEV(pn54x_major, pn54x_minor);  
@@ -316,13 +282,13 @@ static int  __pn54x_setup_dev(struct pn54x_android_dev* dev) {
     dev->dev.owner = THIS_MODULE;  
     dev->dev.ops = &pn54x_fops;          
   
-    /*注册字符设备*/  
+    /* register char device */  
     err = cdev_add(&(dev->dev),devno, 1);  
     if(err) {  
         return err;  
     }          
   
-    /*初始化信号量和寄存器val的值*/  
+    /* init semphore & dev register(val) */  
     sema_init(&(dev->sem), 1);  
     dev->val = 0;
 
@@ -459,15 +425,19 @@ static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
   case CMD_NCI_FIFO_INIT:
     nci_kfifo_init();
     break;
-        case CMD_NCI_FIFO_PUSH:
+  case CMD_NCI_FIFO_PUSH:
     pNciData = (nci_data_t*)kmalloc(sizeof(nci_data_t), GFP_KERNEL);
                 if (pNciData)
     {
       ret = copy_from_user(pNciData, (nci_data_t *)arg, sizeof(nci_data_t));
       if (ret) break;
-      nci_kfifo_push(pNciData);
+      ret = nci_engine_fill (pNciData);
     }
     break;
+  case CMD_NCI_ENGINE_START:
+    ret = nci_engine_start();
+    break;
+
   case CMD_NCI_FIFO_RELEASE:
     nci_kfifo_release();
     break;

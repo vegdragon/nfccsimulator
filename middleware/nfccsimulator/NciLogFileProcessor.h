@@ -2,7 +2,7 @@
 #define __NCILOGFILEPROCESSOR__
 
 #include <sys/time.h>
-
+#include <vector>
 
 typedef struct nci_data
 {

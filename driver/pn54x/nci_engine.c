@@ -7,6 +7,24 @@
 
 DECLARE_KFIFO_PTR(nci_fifo, nci_data_t *);
 
+static int g_is_engine_working = 0;
+static nci_data_t * _pNciReadData = NULL;
+
+nci_data_t * getNciReadData()
+{
+  return _pNciReadData;
+}
+
+void clearNciReadData()
+{
+  _pNciReadData = NULL;
+}
+
+void nci_engine_stop()
+{
+  g_is_engine_working = 0;
+}
+
 void print_current_time(int is_new_line)
 {
     struct timeval *tv;
@@ -125,62 +143,65 @@ int nci_engine_fill (nci_data_t * pNciData)
     return ret;
 }
 
-int nci_engine_start ()
+int nci_engine_start (pn54x_android_dev* pn54x_dev)
 {
-    int ret = 0;
-
-    // read a nci data
-
-    // check R or X
-
-    // if R, set is_data_ready=true, wait (delay), wakeup, then read the next nci data
-
-    // if X, waiting for nci_engine_write, set is_data_ready=false, then read the next nci data
-
-    return ret;
-}
-
-int nci_engine_write (pn54x_android_dev* pn54x_dev)
-{
+    int ret = 0;  
     nci_data_t * pNciData = NULL;  
-    int ret = 0; 
 
-    if (pn54x_dev==NULL)
+    g_is_engine_working = 1;
+    while (is_engine_working)
     {
-      return -1;
-    }
+      // read a nci data
+      ret = nci_kfifo_get (&pNciData);
+      if (ret == 0)
+      {
+        printk(KERN_ALERT"nci_kfifo_get failed: ret=%d.\n", ret);
+        ret = EFAULT;
+        goto out;
+      }
 
-    ret = nci_kfifo_get (&pNciData);
-    if (ret == 0)
-    {
-      printk(KERN_ALERT"nci_kfifo_get failed: ret=%d.\n", ret);
-      ret = EFAULT;
-      goto out;
-    }
+      // check R or X
 
-    printk("from usr(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", count,
+      // if R, set is_data_ready=true, wait (delay), wakeup, then read the next nci data
+      if ('R' == pNciData->direction)
+      {
+        msleep (pNciData->delay);
+        pn54x_dev->is_read_data_ready = true;
+        _nciReadData = pNciData;
+        wakeup (pn54x_dev->read_wq);
+      }
+      else if ('X' == pNciData->direction)
+      {
+        // if X, waiting for nci_engine_write, set is_data_ready=false, then read the next nci data
+        ret = wait_event_interruptible(
+            pn54x_dev->write_wq,
+            pn54x_dev->is_write_data_ready
+            );
+        pNciData->is_write_data_ready = false;
+
+        printk("from usr(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", count,
         pn54x_dev->data[0],pn54x_dev->data[1],pn54x_dev->data[2],pn54x_dev->data[3],pn54x_dev->data[4],
         pn54x_dev->data[5],pn54x_dev->data[6],pn54x_dev->data[7],pn54x_dev->data[8],pn54x_dev->data[9]);
     
     
-    /* compare received data with cmd in the queue */
-    if (memcmp(pn54x_dev->data, pNciData->data, pNciData->len) != 0)
-    {
-        printk(KERN_ALERT"Nci cmd data received is not as we expected!.\n");
-        printk("from queue(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", pNciData->len,
-          pNciData->data[0],pNciData->data[1],pNciData->data[2],pNciData->data[3],pNciData->data[4],
-          pNciData->data[5],pNciData->data[6],pNciData->data[7],pNciData->data[8],pNciData->data[9]);
+        /* compare received data with cmd in the queue */
+        if (memcmp(pn54x_dev->data, pNciData->data, pNciData->len) != 0)
+        {
+            printk(KERN_ALERT"Nci cmd data received is not as we expected!.\n");
+            printk("from queue(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", pNciData->len,
+              pNciData->data[0],pNciData->data[1],pNciData->data[2],pNciData->data[3],pNciData->data[4],
+              pNciData->data[5],pNciData->data[6],pNciData->data[7],pNciData->data[8],pNciData->data[9]);
 
-        ret = -EFAULT;
-        goto out;
+            ret = -EFAULT;
+            goto out;
+        }
+        else
+        {
+            /* notify data received, so we can release data to be read */
+            // to notifiy in the next start of loop, if ('R' == pNciData->direction);
+        }
+      }
     }
-    else
-    {
-        /* notify data received, so we can release data to be read */
-        pn54x_dev->is_data_ready = true;
-        pr_warning("%s: calling wake_up. is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
-        wake_up(&pn54x_dev->read_wq);
-    }
-    
+
     return ret;
 }

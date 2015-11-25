@@ -21,8 +21,8 @@
 typedef struct nci_data
 {
     long		timestamp;
-    long    delay;
-    char    direction;    // 'X': HOST->NFCC    'R':NFCC->HOST
+    long        delay;
+    char        direction;    // 'X': HOST->NFCC    'R':NFCC->HOST
     char		data[300];
     int     len;
 } nci_data_t;
@@ -33,5 +33,11 @@ int nci_kfifo_push(nci_data_t * pNciData);
 int nci_kfifo_get(nci_data_t ** ppNciData);
 
 void print_nci_data(nci_data_t * pNci);
+
+
+nci_data_t * getNciReadData ();
+void clearNciReadData ();
+int nci_engine_start (pn54x_android_dev* pn54x_dev);
+void nci_engine_stop ();
 
 #endif

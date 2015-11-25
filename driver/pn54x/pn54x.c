@@ -89,25 +89,27 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     
     while (1)
     {
-        pr_warning("%s: waiting... is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
+        pr_warning("%s: waiting... is_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
 		ret = wait_event_interruptible(
 				pn54x_dev->read_wq,
-				pn54x_dev->is_data_ready
+				pn54x_dev->is_read_data_ready
 				);
-        pn54x_dev->is_data_ready = false;
-        pr_warning("%s: wake up. is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
+        pn54x_dev->is_read_data_ready = false;
+        pr_warning("%s: wake up. is_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
 		if (ret)
 			goto exit;
 		// pr_warning("%s: spurious interrupt detected\n", __func__);
 
         /* pop data from nci queue */
-        ret = nci_kfifo_get (&pNciData);
-        if (ret == 0)
+        pNciData = getNciReadData();
+
+        if (NULL == pNciData)
         {
-            printk(KERN_ALERT"nci_kfifo_get empty: ret=%d.\n", ret);
+            printk(KERN_ALERT"getNciReadData empty!");
         }
         else
         {
+            clearNciReadData();
             break;
         }
     }
@@ -151,9 +153,9 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
         goto out;
     }
 
-    ret = nci_engine_write (pn54x_android_dev* pn54x_dev);
-    
-    // ret = sizeof(pn54x_dev->val);  
+    pn54x_dev->is_write_data_ready = true;
+    wakeup (pn54x_dev->read_wq);
+
   
 out:  
     mutex_unlock(&pn54x_dev->read_mutex);  
@@ -414,12 +416,12 @@ static void __exit pn54x_exit(void) {
 static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
         unsigned long arg)
 {
-  // struct pn54x_dev *pn54x_dev = filp->private_data;
-        nci_data_t * pNciData = NULL;
+  struct pn54x_dev *pn54x_dev = filp->private_data;
+  nci_data_t * pNciData = NULL;
   int ret = 0;
 
   pr_info("%s, cmd=%d, arg=%lu\n", __func__, cmd, arg);
-        printk(KERN_ALERT "%s, cmd=%d, arg=%lu\n", __func__, cmd, arg);      
+  printk(KERN_ALERT "%s, cmd=%d, arg=%lu\n", __func__, cmd, arg);      
 
   switch (cmd) {
   case CMD_NCI_FIFO_INIT:
@@ -435,9 +437,11 @@ static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
     }
     break;
   case CMD_NCI_ENGINE_START:
-    ret = nci_engine_start();
+    ret = nci_engine_start(pn54x_dev);
     break;
-
+  case CMD_NCI_ENGINE_STOP:
+    ret = nci_engine_stop();
+    break;
   case CMD_NCI_FIFO_RELEASE:
     nci_kfifo_release();
     break;

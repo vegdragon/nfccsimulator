@@ -39,19 +39,22 @@ static struct file_operations pn54x_fops = {
     .unlocked_ioctl = pn54x_dev_ioctl,
 };  
   
-/*访问设置属性方法*/  
+/* access dev attribute */  
 static ssize_t pn54x_val_show(struct device* dev, struct device_attribute* attr,  char* buf);  
 static ssize_t pn54x_val_store(struct device* dev, struct device_attribute* attr, const char* buf, size_t count);  
   
 /* define device properties */  
 static DEVICE_ATTR(val, S_IRUGO | S_IWUSR, pn54x_val_show, pn54x_val_store);  
 
+/* kernel thread task */
+static struct task_struct * task_nci_engine = NULL;
+
 /* open the device */  
 static int pn54x_open(struct inode* inode, struct file* filp) 
 {  
     struct pn54x_android_dev* dev;          
       
-    /*将自定义设备结构体保存在文件指针的私有数据域中，以便访问设备时拿来用*/  
+    /* save dev struct into private data field for further usage */  
     dev = container_of(inode->i_cdev, struct pn54x_android_dev, dev);  
     filp->private_data = dev;
 
@@ -106,6 +109,8 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
         if (NULL == pNciData)
         {
             printk(KERN_ALERT"getNciReadData empty!");
+            err = -1;
+            goto exit;
         }
         else
         {
@@ -165,7 +170,7 @@ out:
 }  
 
 
-/*读取寄存器val的值到缓冲区buf中，内部使用*/  
+/* read val to buffer */  
 static ssize_t __pn54x_get_val(struct pn54x_android_dev* dev, char* buf) 
 {  
     int val = 0;          
@@ -226,7 +231,7 @@ static ssize_t pn54x_proc_read(char* page, char** start, off_t off, int count, i
     return __pn54x_get_val(pn54x_dev, page);  
 }  
   
-/* 把缓冲区的值buff保存到设备寄存器val中去*/  
+/* copy buffer value to val */  
 static ssize_t pn54x_proc_write(struct file* filp, const char __user *buff, unsigned long len, void* data) {  
     int err = 0;  
     char* page = NULL;  
@@ -274,31 +279,34 @@ static void pn54x_remove_proc(void) {
 }  
 
 /* init the device */  
-static int  __pn54x_setup_dev(struct pn54x_android_dev* dev) {  
+static int  __pn54x_setup_dev(struct pn54x_android_dev* pn54x_dev) {  
     int err;  
     dev_t devno = MKDEV(pn54x_major, pn54x_minor);  
   
-    memset(dev, 0, sizeof(struct pn54x_android_dev));  
+    memset(pn54x_dev, 0, sizeof(struct pn54x_android_dev));  
   
     cdev_init(&(dev->dev), &pn54x_fops);  
-    dev->dev.owner = THIS_MODULE;  
-    dev->dev.ops = &pn54x_fops;          
+    pn54x_dev->dev.owner = THIS_MODULE;  
+    pn54x_dev->dev.ops = &pn54x_fops;          
   
     /* register char device */  
-    err = cdev_add(&(dev->dev),devno, 1);  
+    err = cdev_add(&(pn54x_dev->dev),devno, 1);  
     if(err) {  
         return err;  
     }          
   
     /* init semphore & dev register(val) */  
-    sema_init(&(dev->sem), 1);  
-    dev->val = 0;
+    sema_init(&(pn54x_dev->sem), 1);  
+    pn54x_dev->val = 0;
 
     pn54x_dev->is_data_ready = false;
     pr_warning("%s: setup. is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
-  
-    return 0;  
-}  
+
+    err = nci_engine_start (pn54x_dev);
+
+exit:
+    return err;  
+}
   
 /* init driver module */  
 static int __init pn54x_init(void){   
@@ -410,6 +418,8 @@ static void __exit pn54x_exit(void) {
   
     /* release device no. */  
     unregister_chrdev_region(devno, 1);  
+
+    nci_engine_stop();
 }  
 
 

@@ -22,7 +22,13 @@ void clearNciReadData()
 
 void nci_engine_stop()
 {
-  g_is_engine_working = 0;
+    /* exit engine_start thread */
+    if (task_nci_engine)
+    {
+        kthread_stop (task_nci_engine);
+        task_nci_engine = NULL;
+    }
+    g_is_engine_working = 0;
 }
 
 void print_current_time(int is_new_line)
@@ -145,12 +151,33 @@ int nci_engine_fill (nci_data_t * pNciData)
 
 int nci_engine_start (pn54x_android_dev* pn54x_dev)
 {
+    int err = 0;
+
+    /* start engin thread */
+    task_nci_engine = kthread_create(nci_engine_thread, pn54x_dev, "nci_engine_task");
+    if (IS_ERR(task_nci_engine))
+    {
+        printk (KERN_ALERT"Unable to start nci engine thread. \n");
+        err = PTR_ERR (task_nci_engine);
+        task_nci_engine = NULL;
+    }
+    wake_up_process (task_nci_engine);
+
+    return err;
+}
+
+int nci_engine_thread (void * data)
+{
     int ret = 0;  
     nci_data_t * pNciData = NULL;  
+    pn54x_android_dev* pn54x_dev = (pn54x_android_dev*)data;
 
     g_is_engine_working = 1;
     while (is_engine_working)
     {
+      set_current_state (TASK_UNINTERRUPTIABLE);
+      if (kthread_should_stop()) break;
+
       // read a nci data
       ret = nci_kfifo_get (&pNciData);
       if (ret == 0)

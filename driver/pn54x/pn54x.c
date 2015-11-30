@@ -18,7 +18,7 @@ static int pn54x_minor = 0;
   
 /* class & device */  
 static struct class* pn54x_class = NULL;  
-static struct pn54x_android_dev* pn54x_dev = NULL;  
+static pn54x_android_dev_t* pn54x_dev = NULL;  
   
 /* device file operations */  
 static int pn54x_open(struct inode* inode, struct file* filp);  
@@ -46,16 +46,13 @@ static ssize_t pn54x_val_store(struct device* dev, struct device_attribute* attr
 /* define device properties */  
 static DEVICE_ATTR(val, S_IRUGO | S_IWUSR, pn54x_val_show, pn54x_val_store);  
 
-/* kernel thread task */
-static struct task_struct * task_nci_engine = NULL;
-
 /* open the device */  
 static int pn54x_open(struct inode* inode, struct file* filp) 
 {  
-    struct pn54x_android_dev* dev;          
+    pn54x_android_dev_t* dev;          
       
     /* save dev struct into private data field for further usage */  
-    dev = container_of(inode->i_cdev, struct pn54x_android_dev, dev);  
+    dev = container_of(inode->i_cdev, pn54x_android_dev_t, dev);  
     filp->private_data = dev;
 
     nci_kfifo_init();  
@@ -66,7 +63,7 @@ static int pn54x_open(struct inode* inode, struct file* filp)
 /* release device file */  
 static int pn54x_release(struct inode* inode, struct file* filp) 
 {  
-    struct pn54x_android_dev* pn54x_dev = filp->private_data; 
+    pn54x_android_dev_t* pn54x_dev = filp->private_data; 
     mutex_destroy(&pn54x_dev->read_mutex);
     nci_kfifo_release();
   
@@ -77,7 +74,7 @@ static int pn54x_release(struct inode* inode, struct file* filp)
 static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, loff_t* f_pos) 
 {  
     ssize_t err = 0;  
-    struct pn54x_android_dev* pn54x_dev = filp->private_data;    
+    pn54x_android_dev_t* pn54x_dev = filp->private_data;    
     nci_data_t * pNciData = NULL;
     int ret = 0;
 
@@ -92,13 +89,13 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     
     while (1)
     {
-        pr_warning("%s: waiting... is_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
+        pr_warning("%s: waiting... is_read_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
 		ret = wait_event_interruptible(
 				pn54x_dev->read_wq,
 				pn54x_dev->is_read_data_ready
 				);
         pn54x_dev->is_read_data_ready = false;
-        pr_warning("%s: wake up. is_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
+        pr_warning("%s: wake up. is_read_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
 		if (ret)
 			goto exit;
 		// pr_warning("%s: spurious interrupt detected\n", __func__);
@@ -120,13 +117,15 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     }
     
     /* copy data to user buffer */  
-    if(ret = copy_to_user(buf, pNciData->data, pNciData->len)) {  
+    ret = copy_to_user(buf, pNciData->data, pNciData->len);
+    if(ret) 
+    {  
         printk(KERN_ALERT"pn54x_read: copy_to_user failed: ret=%d.\n", ret);
         err = -EFAULT;  
         goto exit;  
     }
 
-    printk(KERN_ALERT"read nci data: delay=%d\n", pNciData->delay);
+    printk(KERN_ALERT"read nci data: delay=%ld\n", pNciData->delay);
     print_nci_data(pNciData);
     
     /* simulate the delay nfcc response to the mw */
@@ -145,7 +144,7 @@ exit:
 /* write to pn54x driver */  
 static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t count, loff_t* f_pos) 
 {  
-    struct pn54x_android_dev* pn54x_dev = filp->private_data;  
+    pn54x_android_dev_t* pn54x_dev = filp->private_data;  
     int ret = 0; 
     TRACE_FUNC_ENTER
   
@@ -159,7 +158,7 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
     }
 
     pn54x_dev->is_write_data_ready = true;
-    wakeup (pn54x_dev->read_wq);
+    wake_up (&pn54x_dev->write_wq);
 
   
 out:  
@@ -171,7 +170,7 @@ out:
 
 
 /* read val to buffer */  
-static ssize_t __pn54x_get_val(struct pn54x_android_dev* dev, char* buf) 
+static ssize_t __pn54x_get_val(pn54x_android_dev_t* dev, char* buf) 
 {  
     int val = 0;          
 
@@ -186,7 +185,7 @@ static ssize_t __pn54x_get_val(struct pn54x_android_dev* dev, char* buf)
 }  
   
 /* write value in buf to dev register (val). internal usage */  
-static ssize_t __pn54x_set_val(struct pn54x_android_dev* dev, const char* buf, size_t count) 
+static ssize_t __pn54x_set_val(pn54x_android_dev_t* dev, const char* buf, size_t count) 
 {  
     int val = 0;          
   
@@ -207,7 +206,7 @@ static ssize_t __pn54x_set_val(struct pn54x_android_dev* dev, const char* buf, s
 /* read val */  
 static ssize_t pn54x_val_show(struct device* dev, struct device_attribute* attr, char* buf) 
 {  
-    struct pn54x_android_dev* hdev = (struct pn54x_android_dev*)dev_get_drvdata(dev);          
+    pn54x_android_dev_t* hdev = (pn54x_android_dev_t*)dev_get_drvdata(dev);          
   
     return __pn54x_get_val(hdev, buf);  
 }  
@@ -215,7 +214,7 @@ static ssize_t pn54x_val_show(struct device* dev, struct device_attribute* attr,
 /* write val*/  
 static ssize_t pn54x_val_store(struct device* dev, struct device_attribute* attr, const char* buf, size_t count) 
 {   
-    struct pn54x_android_dev* hdev = (struct pn54x_android_dev*)dev_get_drvdata(dev);    
+    pn54x_android_dev_t* hdev = (pn54x_android_dev_t*)dev_get_drvdata(dev);    
       
     return __pn54x_set_val(hdev, buf, count);  
 }  
@@ -279,28 +278,30 @@ static void pn54x_remove_proc(void) {
 }  
 
 /* init the device */  
-static int  __pn54x_setup_dev(struct pn54x_android_dev* pn54x_dev) {  
+static int  __pn54x_setup_dev(pn54x_android_dev_t* pn54x_dev) {  
     int err;  
     dev_t devno = MKDEV(pn54x_major, pn54x_minor);  
   
-    memset(pn54x_dev, 0, sizeof(struct pn54x_android_dev));  
+    memset(pn54x_dev, 0, sizeof(pn54x_android_dev_t));  
   
-    cdev_init(&(dev->dev), &pn54x_fops);  
+    cdev_init(&(pn54x_dev->dev), &pn54x_fops);  
     pn54x_dev->dev.owner = THIS_MODULE;  
     pn54x_dev->dev.ops = &pn54x_fops;          
   
     /* register char device */  
     err = cdev_add(&(pn54x_dev->dev),devno, 1);  
-    if(err) {  
-        return err;  
+    if(err) 
+    {  
+        goto exit;
     }          
   
     /* init semphore & dev register(val) */  
     sema_init(&(pn54x_dev->sem), 1);  
     pn54x_dev->val = 0;
 
-    pn54x_dev->is_data_ready = false;
-    pr_warning("%s: setup. is_data_ready=%d\n", __func__, pn54x_dev->is_data_ready);
+    pn54x_dev->is_read_data_ready = false;
+    pn54x_dev->is_write_data_ready = false;
+    pr_warning("%s: setup. is_read_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
 
     err = nci_engine_start (pn54x_dev);
 
@@ -327,7 +328,7 @@ static int __init pn54x_init(void){
     pn54x_minor = MINOR(dev);          
   
     /* alloc dev data structure */  
-    pn54x_dev = kmalloc(sizeof(struct pn54x_android_dev), GFP_KERNEL);  
+    pn54x_dev = kmalloc(sizeof(pn54x_android_dev_t), GFP_KERNEL);  
     if(!pn54x_dev) {  
         err = -ENOMEM;  
         printk(KERN_ALERT"Failed to alloc pn54x_dev.\n");  
@@ -426,7 +427,7 @@ static void __exit pn54x_exit(void) {
 static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
         unsigned long arg)
 {
-  struct pn54x_dev *pn54x_dev = filp->private_data;
+  pn54x_android_dev_t * pn54x_dev = filp->private_data;
   nci_data_t * pNciData = NULL;
   int ret = 0;
 

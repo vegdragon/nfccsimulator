@@ -1,5 +1,9 @@
 #include <linux/kfifo.h>
+#include <linux/kthread.h>
 #include <linux/spinlock_types.h>
+#include <linux/delay.h>
+#include <linux/sched.h>
+
 #include "nci_engine.h"
 
 #define KFF_LEN 512*256 
@@ -7,8 +11,12 @@
 
 DECLARE_KFIFO_PTR(nci_fifo, nci_data_t *);
 
-static int g_is_engine_working = 0;
+static int _is_engine_working = 0;
 static nci_data_t * _pNciReadData = NULL;
+/* kernel thread task */
+static struct task_struct * _task_nci_engine = NULL;
+
+static int nci_engine_thread (void * data);
 
 nci_data_t * getNciReadData()
 {
@@ -20,15 +28,19 @@ void clearNciReadData()
   _pNciReadData = NULL;
 }
 
-void nci_engine_stop()
+int nci_engine_stop()
 {
+    int err = 0;
+
     /* exit engine_start thread */
-    if (task_nci_engine)
+    if (_task_nci_engine)
     {
-        kthread_stop (task_nci_engine);
-        task_nci_engine = NULL;
+        err = kthread_stop (_task_nci_engine);
+        _task_nci_engine = NULL;
     }
-    g_is_engine_working = 0;
+    _is_engine_working = 0;
+
+    return err;
 }
 
 void print_current_time(int is_new_line)
@@ -58,7 +70,6 @@ void print_current_time(int is_new_line)
 
 void print_nci_data(nci_data_t * pNciData)
 {
-    int i;
     if (pNciData != NULL)
     {
       printk(KERN_ALERT "%s=========================\n", TAG);
@@ -149,19 +160,19 @@ int nci_engine_fill (nci_data_t * pNciData)
     return ret;
 }
 
-int nci_engine_start (pn54x_android_dev* pn54x_dev)
+int nci_engine_start (pn54x_android_dev_t * pn54x_dev)
 {
     int err = 0;
 
     /* start engin thread */
-    task_nci_engine = kthread_create(nci_engine_thread, pn54x_dev, "nci_engine_task");
-    if (IS_ERR(task_nci_engine))
+    _task_nci_engine = kthread_create(nci_engine_thread, pn54x_dev, "nci_engine_task");
+    if (IS_ERR(_task_nci_engine))
     {
         printk (KERN_ALERT"Unable to start nci engine thread. \n");
-        err = PTR_ERR (task_nci_engine);
-        task_nci_engine = NULL;
+        err = PTR_ERR (_task_nci_engine);
+        _task_nci_engine = NULL;
     }
-    wake_up_process (task_nci_engine);
+    wake_up_process (_task_nci_engine);
 
     return err;
 }
@@ -170,12 +181,12 @@ int nci_engine_thread (void * data)
 {
     int ret = 0;  
     nci_data_t * pNciData = NULL;  
-    pn54x_android_dev* pn54x_dev = (pn54x_android_dev*)data;
+    pn54x_android_dev_t * pn54x_dev = (pn54x_android_dev_t*)data;
 
-    g_is_engine_working = 1;
-    while (is_engine_working)
+    _is_engine_working = 1;
+    while (_is_engine_working)
     {
-      set_current_state (TASK_UNINTERRUPTIABLE);
+      set_current_state (TASK_UNINTERRUPTIBLE);
       if (kthread_should_stop()) break;
 
       // read a nci data
@@ -184,7 +195,7 @@ int nci_engine_thread (void * data)
       {
         printk(KERN_ALERT"nci_kfifo_get failed: ret=%d.\n", ret);
         ret = EFAULT;
-        goto out;
+        goto exit;
       }
 
       // check R or X
@@ -194,8 +205,8 @@ int nci_engine_thread (void * data)
       {
         msleep (pNciData->delay);
         pn54x_dev->is_read_data_ready = true;
-        _nciReadData = pNciData;
-        wakeup (pn54x_dev->read_wq);
+        _pNciReadData = pNciData;
+        wake_up (&pn54x_dev->read_wq);
       }
       else if ('X' == pNciData->direction)
       {
@@ -204,9 +215,9 @@ int nci_engine_thread (void * data)
             pn54x_dev->write_wq,
             pn54x_dev->is_write_data_ready
             );
-        pNciData->is_write_data_ready = false;
+        pn54x_dev->is_write_data_ready = false;
 
-        printk("from usr(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", count,
+        printk("from usr: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
         pn54x_dev->data[0],pn54x_dev->data[1],pn54x_dev->data[2],pn54x_dev->data[3],pn54x_dev->data[4],
         pn54x_dev->data[5],pn54x_dev->data[6],pn54x_dev->data[7],pn54x_dev->data[8],pn54x_dev->data[9]);
     
@@ -220,7 +231,7 @@ int nci_engine_thread (void * data)
               pNciData->data[5],pNciData->data[6],pNciData->data[7],pNciData->data[8],pNciData->data[9]);
 
             ret = -EFAULT;
-            goto out;
+            goto exit;
         }
         else
         {
@@ -230,5 +241,6 @@ int nci_engine_thread (void * data)
       }
     }
 
+exit:
     return ret;
 }

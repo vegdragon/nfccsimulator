@@ -26,12 +26,14 @@ int startCommunication(int fd,
       // pSendingData = v;
       printf("%s: (*v).delay = %d. (*v).len = %d\n", __FUNCTION__, (*v).delay, (*v).len);
       usleep((*v).delay * 1000);
-      write(fd, (*v).data, (*v).len);
 
       NciLogFileProcessor::printTimestamp();
       printf("write: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
         (*v).data[0],(*v).data[1],(*v).data[2],(*v).data[3],(*v).data[4],
         (*v).data[5],(*v).data[6],(*v).data[7],(*v).data[8],(*v).data[9]);
+
+      write(fd, (*v).data, (*v).len);
+      
       read(fd, dataRead, sizeof(dataRead));
       NciLogFileProcessor::printTimestamp();
       printf("read: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
@@ -61,8 +63,12 @@ int main(int argc, char** argv)
   }
 
 
-  nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, sendingData, receivingData); 
+  nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, sendingData, receivingData);
+
+  ioctl(fd, 3, NULL);
+  usleep(50000);
   startCommunication(fd, sendingData, receivingData);
+  ioctl(fd, 4, NULL);
 
 
   printf("closing fd 0...\n");

@@ -86,6 +86,7 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
   long prevTimestamp = 0;
   nci_data_t * pSendingData = NULL;
   unsigned char    dataRead[300];
+  int i = 0;
 
   printf("%s: enter.\n", __FUNCTION__);
 
@@ -93,7 +94,8 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
   if (fp == NULL)
     goto exit;
 
-  while ((ret = getline(&line, &len, fp)) != -1) {
+  while ((ret = getline(&line, &len, fp)) != -1 && i<10) {
+    i++;
     // printf("Retrieved line of length %zu :\n", read);
     printf("%s", line);
     nci_data_t nciData;

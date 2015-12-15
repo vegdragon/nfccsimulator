@@ -303,8 +303,6 @@ static int  __pn54x_setup_dev(pn54x_android_dev_t* pn54x_dev) {
     pn54x_dev->is_write_data_ready = false;
     pr_warning("%s: setup. is_read_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
 
-    err = nci_engine_start (pn54x_dev);
-
 exit:
     return err;  
 }
@@ -372,6 +370,7 @@ static int __init pn54x_init(void){
   
     /* init mutex and queues */
   	init_waitqueue_head(&pn54x_dev->read_wq);
+    init_waitqueue_head(&pn54x_dev->write_wq);
   	mutex_init(&pn54x_dev->read_mutex);
     
     printk(KERN_ALERT"Succedded to initialize pn54x device.\n");  
@@ -430,8 +429,7 @@ static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
   pn54x_android_dev_t * pn54x_dev = filp->private_data;
   nci_data_t * pNciData = NULL;
   int ret = 0;
-
-  pr_info("%s, cmd=%d, arg=%lu\n", __func__, cmd, arg);
+  
   printk(KERN_ALERT "%s, cmd=%d, arg=%lu\n", __func__, cmd, arg);      
 
   switch (cmd) {
@@ -440,7 +438,7 @@ static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
     break;
   case CMD_NCI_FIFO_PUSH:
     pNciData = (nci_data_t*)kmalloc(sizeof(nci_data_t), GFP_KERNEL);
-                if (pNciData)
+    if (pNciData)
     {
       ret = copy_from_user(pNciData, (nci_data_t *)arg, sizeof(nci_data_t));
       if (ret) break;
@@ -462,6 +460,8 @@ static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
     return -EINVAL;
   }
 
+  pr_info("%s, exit.\n", __func__);
+  
   return 0;
 }
 

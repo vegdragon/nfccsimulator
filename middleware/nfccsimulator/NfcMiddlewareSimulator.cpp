@@ -11,49 +11,68 @@
 
 using namespace std;
 
-int startCommunication(int fd, 
-                        std::vector<nci_data_t> &sendingData,
-                        std::vector<nci_data_t> &receivingData)
+int startCommunication(int fd, std::vector<nci_data_t> &rxData)
 {
   nci_data_t * pSendingData = NULL;
   nci_data_t * pReceivingData = NULL;
   unsigned char    dataRead[300];
+  int ret = 0;
 
   printf("%s: enter.\n", __FUNCTION__);
 
-  vector<nci_data_t>::iterator v = sendingData.begin();
-  while( v != sendingData.end()) {
+  vector<nci_data_t>::iterator vData = rxData.begin();
+  while( vData != rxData.end()) {
       // pSendingData = v;
-      printf("%s: (*v).delay = %d. (*v).len = %d\n", __FUNCTION__, (*v).delay, (*v).len);
-      usleep((*v).delay * 1000);
+      printf("%s: (*vData).delay = %ld. (*vData).len = %d\n", __FUNCTION__, (*vData).delay, (*vData).len);
+      usleep((*vData).delay * 1000);
 
       NciLogFileProcessor::printTimestamp();
-      printf("write: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
-        (*v).data[0],(*v).data[1],(*v).data[2],(*v).data[3],(*v).data[4],
-        (*v).data[5],(*v).data[6],(*v).data[7],(*v).data[8],(*v).data[9]);
 
-      write(fd, (*v).data, (*v).len);
-      
-      read(fd, dataRead, sizeof(dataRead));
-      NciLogFileProcessor::printTimestamp();
-      printf("read: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
-        dataRead[0],dataRead[1],dataRead[2],dataRead[3],dataRead[4],
-        dataRead[5],dataRead[6],dataRead[7],dataRead[8],dataRead[9]);
+      if ('X' == (*vData).direction)
+      {
+          printf("write[%ld][%c]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
+            (*vData).timestamp, (*vData).direction,
+            (*vData).data[0],(*vData).data[1],(*vData).data[2],(*vData).data[3],(*vData).data[4],
+            (*vData).data[5],(*vData).data[6],(*vData).data[7],(*vData).data[8],(*vData).data[9]);
+          write(fd, (*vData).data, (*vData).len); 
+      }
+      else if ('R' == (*vData).direction)
+      {
+          printf("reading[%ld][%c]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
+            (*vData).timestamp, (*vData).direction,
+            (*vData).data[0],(*vData).data[1],(*vData).data[2],(*vData).data[3],(*vData).data[4],
+            (*vData).data[5],(*vData).data[6],(*vData).data[7],(*vData).data[8],(*vData).data[9]);
+          read(fd, dataRead, sizeof(dataRead));
+          printf("read[%ld][%c]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
+            (*vData).timestamp,(*vData).direction,
+            dataRead[0],dataRead[1],dataRead[2],dataRead[3],dataRead[4],
+            dataRead[5],dataRead[6],dataRead[7],dataRead[8],dataRead[9]);
+      }
+      else
+      {
+          printf("%s: Invalid Data!!!.\n", __FUNCTION__);
+          ret = -1;
+          break;
+      }
 
-      v++;
+      vData++;
    }
+  
 
    printf("%s: exit.\n", __FUNCTION__);
 
-   return 0;
+   return ret;
 }
 
 int main(int argc, char** argv)  
 {  
   int fd = -1;
   int val = 0;
-  std::vector<nci_data_t> sendingData, receivingData;
+  std::vector<nci_data_t> rxData;
   NciLogFileProcessor nlfp;
+
+  (void)argc;
+  (void)argv;
 
   fd = open(DEVICE_NAME, O_RDWR);  
   if(fd == -1) 
@@ -63,11 +82,11 @@ int main(int argc, char** argv)
   }
 
 
-  nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, sendingData, receivingData);
+  nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, rxData);
 
   ioctl(fd, 3, NULL);
   usleep(50000);
-  startCommunication(fd, sendingData, receivingData);
+  startCommunication(fd, rxData);
   ioctl(fd, 4, NULL);
 
 

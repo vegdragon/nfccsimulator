@@ -74,11 +74,13 @@ void print_nci_data(nci_data_t * pNciData)
     {
       printk(KERN_ALERT "%s=========================\n", TAG);
       // print_current_time(0);
-      printk(KERN_ALERT "timestamp=%ld\tdirection=%c\ndata=\n", pNciData->timestamp, pNciData->direction);
-      //for (i=0;i<pNci->len;i++)
+      // printk(KERN_ALERT "timestamp=%ld\tdirection=%c\ndata=\n", pNciData->timestamp, pNciData->direction);
+      // for (i=0;i<pNci->len;i++)
 	  //  printk(KERN_ALERT "%02x", pNciData->data[i]);
 	  
-      printk("print_nci_data: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
+      printk("time(%ld)(%c)(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
+              pNciData->timestamp, pNciData->direction,
+              pNciData->len,
               pNciData->data[0],pNciData->data[1],pNciData->data[2],pNciData->data[3],pNciData->data[4],
               pNciData->data[5],pNciData->data[6],pNciData->data[7],pNciData->data[8],pNciData->data[9]);
 
@@ -205,6 +207,11 @@ int nci_engine_thread (void * data)
       {
         msleep (pNciData->delay);
         pn54x_dev->is_read_data_ready = true;
+        while (_pNciReadData != NULL)
+        {
+            printk(KERN_ALERT"nci_engine_thread: waiting for _pNciReadData get released\n");
+            msleep(1);
+        }
         _pNciReadData = pNciData;
         wake_up (&pn54x_dev->read_wq);
       }

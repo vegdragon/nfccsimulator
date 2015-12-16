@@ -21,6 +21,7 @@ void NciLogFileProcessor::printTimestamp()
 void NciLogFileProcessor::strToHex (const char * str, nci_data_t & nciData)
 {
   const char *p  = str;
+  static const char numMap[23] = { 0,1,2,3,4,5,6,7,8,9,-1,-1,-1,-1,-1,-1,-1,0xa,0xb,0xc,0xd,0xe,0xf };
 
   int i = 0;
 
@@ -30,11 +31,22 @@ void NciLogFileProcessor::strToHex (const char * str, nci_data_t & nciData)
   for(i=0;*p!=0xd && *p!=0xa;i++) 
   {
     unsigned char byte;
+    char bit1, bit2;
+    bit1 = *p - '0'; bit2 = *(p+1) - '0';
 
-    byte = (*p-'0') * 0x10 + (*(p+1)-'0');
-    nciData.data[i] = byte;
-    p += 2;
-  // printf("data[%d] = %02x, *(p)=0x%x\n", i, byte, *(p));
+    // byte = (*p-'0') * 0x10 + (*(p+1)-'0');
+    if ((bit1>=0 && bit1<23) && (bit2>=0 && bit2<23))
+    {
+        byte = numMap[(*p-'0')] * 0x10 + numMap[*(p+1)-'0'];
+        nciData.data[i] = byte;
+        p += 2;
+        // printf("data[%d] = %02x, *(p)=0x%x\n", i, byte, *(p));
+    }
+    else
+    {
+        printf ("%s(%d): ERROR Invalid data!", __FUNCTION__, __LINE__);
+        break;
+    }
   }
 
   nciData.len = i;
@@ -74,8 +86,7 @@ ret:
 
 int NciLogFileProcessor::readNciDataFromFile(const char * fileName, 
                         int fd, 
-                        std::vector<nci_data_t> &sendingData,
-                        std::vector<nci_data_t> &receivingData
+                        std::vector<nci_data_t> &rxData
                         )
 {
   FILE * fp;
@@ -86,7 +97,6 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
   long prevTimestamp = 0;
   nci_data_t * pSendingData = NULL;
   unsigned char    dataRead[300];
-  int i = 0;
 
   printf("%s: enter.\n", __FUNCTION__);
 
@@ -94,8 +104,7 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
   if (fp == NULL)
     goto exit;
 
-  while ((ret = getline(&line, &len, fp)) != -1 && i<10) {
-    i++;
+  while ((ret = getline(&line, &len, fp)) != -1) {
     // printf("Retrieved line of length %zu :\n", read);
     printf("%s", line);
     nci_data_t nciData;
@@ -113,18 +122,7 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
       // printf("Send ioctl cmd 1...\n");
       ioctl(fd, 1, &nciData);
       printf("%s: %s, \tdirection=%c\n", __FUNCTION__, strFound+2, nciData.direction);
-      if ('X' == nciData.direction)
-      {
-        sendingData.push_back(nciData);
-      }
-      else if ('R' == nciData.direction)
-      {
-        receivingData.push_back(nciData);
-      }
-      else
-      {
-        printf("Warning: Incorrect data from file!");
-      }
+      rxData.push_back(nciData);
     }
     else
     {

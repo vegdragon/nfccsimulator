@@ -18,9 +18,9 @@ class NciLogFileProcessor
 public:
   int readNciDataFromFile(const char * fileName, 
                         int fd, 
-                        std::vector<nci_data_t> &sendingData,
-                        std::vector<nci_data_t> &receivingData
+                        std::vector<nci_data_t> &rxData
                         );
+  
   static void printTimestamp ();
 
 private:

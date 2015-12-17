@@ -90,7 +90,7 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     while (1)
     {
         pr_warning("%s: waiting... is_read_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
-        clearNciReadData();
+        
 		ret = wait_event_interruptible(
 				pn54x_dev->read_wq,
 				pn54x_dev->is_read_data_ready
@@ -112,7 +112,7 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
         }
         else
         {
-            // clearNciReadData();
+            clearNciReadData();
             break;
         }
     }
@@ -128,11 +128,10 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
 
     printk(KERN_ALERT"read nci data: delay=%ld\n", pNciData->delay);
     print_nci_data(pNciData);
+    err = pNciData->len;
     
     /* simulate the delay nfcc response to the mw */
     msleep (pNciData->delay);
-    
-    err = sizeof(pn54x_dev->val);  
  
 exit: 
     mutex_unlock(&pn54x_dev->read_mutex); 

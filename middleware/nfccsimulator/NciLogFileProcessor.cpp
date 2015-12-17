@@ -97,6 +97,7 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
   long prevTimestamp = 0;
   nci_data_t * pSendingData = NULL;
   unsigned char    dataRead[300];
+  int idx = 0;
 
   printf("%s: enter.\n", __FUNCTION__);
 
@@ -104,7 +105,7 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
   if (fp == NULL)
     goto exit;
 
-  while ((ret = getline(&line, &len, fp)) != -1) {
+  for (idx=0;(ret = getline(&line, &len, fp)) != -1;idx++) {
     // printf("Retrieved line of length %zu :\n", read);
     printf("%s", line);
     nci_data_t nciData;
@@ -117,6 +118,7 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
     if (strFound != NULL)
     {
       strToHex (strFound+2, nciData);
+      nciData.index = idx;
       nciData.direction = *(strFound - 21);
       // printf("strFound=%s, direction=%c\n", strFound, nciData.direction);
       // printf("Send ioctl cmd 1...\n");

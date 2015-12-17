@@ -28,23 +28,20 @@ int startCommunication(int fd, std::vector<nci_data_t> &rxData)
 
       NciLogFileProcessor::printTimestamp();
 
+      printf("[%d][%ld][%c]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
+                  (*vData).index, (*vData).timestamp, (*vData).direction,
+                  (*vData).data[0],(*vData).data[1],(*vData).data[2],(*vData).data[3],(*vData).data[4],
+                  (*vData).data[5],(*vData).data[6],(*vData).data[7],(*vData).data[8],(*vData).data[9]);
+
       if ('X' == (*vData).direction)
       {
-          printf("write[%ld][%c]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
-            (*vData).timestamp, (*vData).direction,
-            (*vData).data[0],(*vData).data[1],(*vData).data[2],(*vData).data[3],(*vData).data[4],
-            (*vData).data[5],(*vData).data[6],(*vData).data[7],(*vData).data[8],(*vData).data[9]);
           write(fd, (*vData).data, (*vData).len); 
       }
       else if ('R' == (*vData).direction)
       {
-          printf("reading[%ld][%c]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
-            (*vData).timestamp, (*vData).direction,
-            (*vData).data[0],(*vData).data[1],(*vData).data[2],(*vData).data[3],(*vData).data[4],
-            (*vData).data[5],(*vData).data[6],(*vData).data[7],(*vData).data[8],(*vData).data[9]);
           read(fd, dataRead, sizeof(dataRead));
-          printf("read[%ld][%c]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
-            (*vData).timestamp,(*vData).direction,
+          printf("read[%d][%ld][%c]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
+            (*vData).index,(*vData).timestamp,(*vData).direction,
             dataRead[0],dataRead[1],dataRead[2],dataRead[3],dataRead[4],
             dataRead[5],dataRead[6],dataRead[7],dataRead[8],dataRead[9]);
       }

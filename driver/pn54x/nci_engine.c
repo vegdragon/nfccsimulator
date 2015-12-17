@@ -78,8 +78,8 @@ void print_nci_data(nci_data_t * pNciData)
       // for (i=0;i<pNci->len;i++)
 	  //  printk(KERN_ALERT "%02x", pNciData->data[i]);
 	  
-      printk("time(%ld)(%c)(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
-              pNciData->timestamp, pNciData->direction,
+      printk("[%d][%ld][%c][%d]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
+              pNciData->index, pNciData->timestamp, pNciData->direction,
               pNciData->len,
               pNciData->data[0],pNciData->data[1],pNciData->data[2],pNciData->data[3],pNciData->data[4],
               pNciData->data[5],pNciData->data[6],pNciData->data[7],pNciData->data[8],pNciData->data[9]);
@@ -128,6 +128,7 @@ int nci_kfifo_push(nci_data_t * pNciData)
     kfifo_put(&nci_fifo, &pNciData);
 
     printk(KERN_ALERT "%s nci_kfifo_push: current &fifo length is : %d\n", TAG, kfifo_len(&nci_fifo));
+    print_nci_data(pNciData);
 
         // ret = kfifo_get(&nci_fifo, &nci_data_tmp);
         // WARN_ON(!ret);
@@ -193,6 +194,7 @@ int nci_engine_thread (void * data)
 
       // read a nci data
       ret = nci_kfifo_get (&pNciData);
+      print_nci_data(pNciData);
       if (ret == 0)
       {
         printk(KERN_ALERT"nci_kfifo_get failed: ret=%d.\n", ret);
@@ -205,6 +207,7 @@ int nci_engine_thread (void * data)
       // if R, set is_data_ready=true, wait (delay), wakeup, then read the next nci data
       if ('R' == pNciData->direction)
       {
+        printk(KERN_ALERT"sleeping: delay=%d.\n", pNciData->delay);
         msleep (pNciData->delay);
         pn54x_dev->is_read_data_ready = true;
         while (_pNciReadData != NULL)
@@ -218,6 +221,7 @@ int nci_engine_thread (void * data)
       else if ('X' == pNciData->direction)
       {
         // if X, waiting for nci_engine_write, set is_data_ready=false, then read the next nci data
+        printk(KERN_ALERT"wait_event_interruptible: is_write_data_ready=%d.\n", pn54x_dev->is_write_data_ready);
         ret = wait_event_interruptible(
             pn54x_dev->write_wq,
             pn54x_dev->is_write_data_ready

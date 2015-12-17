@@ -6,6 +6,7 @@
 
 typedef struct nci_data
 {
+  int              index;
   long             timestamp;
   long             delay;
   char             direction;    // 'X': HOST->NFCC    'R':NFCC->HOST

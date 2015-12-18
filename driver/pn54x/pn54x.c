@@ -50,12 +50,15 @@ static DEVICE_ATTR(val, S_IRUGO | S_IWUSR, pn54x_val_show, pn54x_val_store);
 static int pn54x_open(struct inode* inode, struct file* filp) 
 {  
     pn54x_android_dev_t* dev;          
-      
+
+    TRACE_FUNC_ENTER
     /* save dev struct into private data field for further usage */  
     dev = container_of(inode->i_cdev, pn54x_android_dev_t, dev);  
     filp->private_data = dev;
 
     nci_kfifo_init();  
+
+    TRACE_FUNC_EXIT
 
     return 0;  
 }  
@@ -64,9 +67,12 @@ static int pn54x_open(struct inode* inode, struct file* filp)
 static int pn54x_release(struct inode* inode, struct file* filp) 
 {  
     pn54x_android_dev_t* pn54x_dev = filp->private_data; 
+    TRACE_FUNC_ENTER
+
     mutex_destroy(&pn54x_dev->read_mutex);
     nci_kfifo_release();
-  
+
+    TRACE_FUNC_EXIT
     return 0;  
 }  
   
@@ -455,14 +461,19 @@ static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
     nci_kfifo_release();
     break;
 
+  case PN544_SET_PWR:
+  case PN54X_CLK_REQ:
+    ret = 0;
+    break;
+
   default:
     pr_err("%s bad ioctl %u\n", __func__, cmd);
-    return -EINVAL;
+    ret = -EINVAL;
   }
 
-  pr_info("%s, exit.\n", __func__);
+  pr_info("%s: ret=%d, exit.\n", __func__, ret);
   
-  return 0;
+  return ret;
 }
 
 MODULE_LICENSE("GPL");  

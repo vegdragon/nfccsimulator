@@ -83,7 +83,7 @@ int main(int argc, char** argv)
 
   ioctl(fd, 3, NULL);
   usleep(50000);
-  startCommunication(fd, rxData);
+  // startCommunication(fd, rxData);
   ioctl(fd, 4, NULL);
 
 

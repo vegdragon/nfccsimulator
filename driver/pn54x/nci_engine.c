@@ -28,9 +28,18 @@ void clearNciReadData()
   _pNciReadData = NULL;
 }
 
-int nci_engine_stop()
+int nci_engine_stop(pn54x_android_dev_t * pn54x_dev)
 {
     int err = 0;
+
+	pn54x_dev->is_reading = true;
+	wake_up(&pn54x_dev->is_reading_wq);
+	pn54x_dev->is_read_data_ready= true;
+	wake_up(&pn54x_dev->read_wq);
+	pn54x_dev->is_write_data_ready= true;
+	wake_up(&pn54x_dev->write_wq);
+	pn54x_dev->is_write_complete = true;
+	wake_up(&pn54x_dev->write_complete_wq);
 
     /* exit engine_start thread */
     if (_task_nci_engine)
@@ -132,8 +141,6 @@ int nci_kfifo_push(nci_data_t * pNciData)
 
         // ret = kfifo_get(&nci_fifo, &nci_data_tmp);
         // WARN_ON(!ret);
-        
-    // print_nci_data(pNciData);
 
     TRACE_FUNC_EXIT;
     return ret;
@@ -147,12 +154,12 @@ int nci_kfifo_get(nci_data_t ** ppNciData)
 
     ret = kfifo_get(&nci_fifo, ppNciData);
     WARN_ON(!ret);
-    printk(KERN_ALERT "%s nci_kfifo_get: current &fifo length is : %d\n", TAG, kfifo_len(&nci_fifo));
+    printk(KERN_ALERT "%s nci_kfifo_get: current &fifo length is : %d, ret=%d\n", TAG, kfifo_len(&nci_fifo), ret);
         
     // print_nci_data(*ppNciData);
 
     TRACE_FUNC_EXIT;
-    return ret;
+    return kfifo_len(&nci_fifo);
 }
 
 int nci_engine_fill (nci_data_t * pNciData)
@@ -197,7 +204,7 @@ int nci_engine_thread (void * data)
       print_nci_data(pNciData);
       if (ret == 0)
       {
-        printk(KERN_ALERT"nci_kfifo_get failed: ret=%d.\n", ret);
+        printk(KERN_ALERT"nci_kfifo_get empty: ret=%d.\n", ret);
         ret = EFAULT;
         goto exit;
       }
@@ -207,15 +214,20 @@ int nci_engine_thread (void * data)
       // if R, set is_data_ready=true, wait (delay), wakeup, then read the next nci data
       if ('R' == pNciData->direction)
       {
-        printk(KERN_ALERT"sleeping: delay=%d.\n", pNciData->delay);
+        printk(KERN_ALERT"sleeping: delay=%ld.\n", pNciData->delay);
         msleep (pNciData->delay);
-        pn54x_dev->is_read_data_ready = true;
-        while (_pNciReadData != NULL)
-        {
-            printk(KERN_ALERT"nci_engine_thread: waiting for _pNciReadData get released\n");
-            msleep(1);
-        }
+ 
+		pr_warning("%s: waiting... is_reading=%d\n", __func__, pn54x_dev->is_reading);
+        
+		ret = wait_event_interruptible(
+				pn54x_dev->is_reading_wq,
+				pn54x_dev->is_reading
+				);
+        pn54x_dev->is_reading = false;
+        pr_warning("%s: wake up. is_reading=%d\n", __func__, pn54x_dev->is_reading);
+		
         _pNciReadData = pNciData;
+		pn54x_dev->is_read_data_ready = true;
         wake_up (&pn54x_dev->read_wq);
       }
       else if ('X' == pNciData->direction)
@@ -248,10 +260,18 @@ int nci_engine_thread (void * data)
         {
             /* notify data received, so we can release data to be read */
             // to notifiy in the next start of loop, if ('R' == pNciData->direction);
+
+			pn54x_dev->is_write_complete = true;
+        	wake_up (&pn54x_dev->write_complete_wq);
         }
       }
     }
 
 exit:
+	pn54x_dev->is_read_data_ready = true;
+    wake_up (&pn54x_dev->read_wq);
+    pn54x_dev->is_write_complete = true;
+    wake_up (&pn54x_dev->write_complete_wq);
+
     return ret;
 }

@@ -14,7 +14,7 @@
 #define CMD_NCI_FIFO_RELEASE	2
 #define CMD_NCI_ENGINE_START    3
 #define CMD_NCI_ENGINE_STOP		4
-
+#define CMD_NCI_FIFO_GETALL     5
 
 #define TRACE_FUNC_ENTER printk(KERN_ALERT "%s: entering...\n", __func__);
 #define TRACE_FUNC_EXIT printk(KERN_ALERT "%s: exiting...\n", __func__);
@@ -42,6 +42,7 @@ void clearNciReadData (void);
 
 int nci_engine_fill (nci_data_t * pNciData);
 int nci_engine_start (pn54x_android_dev_t * pn54x_dev);
-int nci_engine_stop (void);
+int nci_engine_stop(pn54x_android_dev_t * pn54x_dev);
+
 
 #endif

@@ -34,11 +34,15 @@ typedef struct pn54x_android_dev {
     char              data[300];
     struct semaphore  sem;  
     struct cdev       dev;
+	wait_queue_head_t is_reading_wq;
     wait_queue_head_t read_wq;
     wait_queue_head_t write_wq;
+	wait_queue_head_t write_complete_wq;
 	struct mutex      read_mutex;
+	int               is_reading;
 	int               is_read_data_ready;
 	int               is_write_data_ready;
+	int               is_write_complete;
 } pn54x_android_dev_t;  
   
 #endif  

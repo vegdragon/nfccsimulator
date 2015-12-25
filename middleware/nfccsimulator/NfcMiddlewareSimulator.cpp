@@ -9,6 +9,14 @@
 
 #define DEVICE_NAME "/dev/pn54x"
 
+#define CMD_NCI_FIFO_INIT       0
+#define CMD_NCI_FIFO_PUSH       1
+#define CMD_NCI_FIFO_RELEASE    2
+#define CMD_NCI_ENGINE_START    3
+#define CMD_NCI_ENGINE_STOP     4
+#define CMD_NCI_FIFO_GETALL     5
+
+
 using namespace std;
 
 int startCommunication(int fd, std::vector<nci_data_t> &rxData)
@@ -24,7 +32,7 @@ int startCommunication(int fd, std::vector<nci_data_t> &rxData)
   while( vData != rxData.end()) {
       // pSendingData = v;
       printf("%s: (*vData).delay = %ld. (*vData).len = %d\n", __FUNCTION__, (*vData).delay, (*vData).len);
-      usleep((*vData).delay * 1000);
+      if ((*vData).delay>0) usleep((*vData).delay * 1000);
 
       NciLogFileProcessor::printTimestamp();
 
@@ -67,9 +75,9 @@ int main(int argc, char** argv)
   int val = 0;
   std::vector<nci_data_t> rxData;
   NciLogFileProcessor nlfp;
+  int i;
 
-  (void)argc;
-  (void)argv;
+  if (argc < 2) return 0;
 
   fd = open(DEVICE_NAME, O_RDWR);  
   if(fd == -1) 
@@ -79,16 +87,41 @@ int main(int argc, char** argv)
   }
 
 
-  nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, rxData);
+  switch (argv[1][0])
+  {
+  case 'h':
+    printf ("help: \n\tr - read log;\n\ts - start nci engine;\n\to - stop engine;\n\tc - start communication;\n\tx- release engine\n\n");
+    break;
+  case 'r':
+    nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, rxData); 
+    break;
+  case 'e':
+    nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, rxData); 
+    ioctl(fd, CMD_NCI_FIFO_GETALL, NULL);
+    break;
+  case 's':
+    ioctl(fd, CMD_NCI_ENGINE_START, NULL);
+    break;
+  case 'o':
+    ioctl(fd, CMD_NCI_ENGINE_STOP, NULL);
+    break;
+  case 'c':
+    nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, rxData); 
+    ioctl(fd, CMD_NCI_ENGINE_START, NULL);
+    usleep (20000);
+    startCommunication(fd, rxData);
+    break;
+  case 'x':
+    ioctl(fd, CMD_NCI_FIFO_RELEASE, NULL);
+    break;
+  default:
+    break;
+  };
 
-  ioctl(fd, 3, NULL);
-  usleep(50000);
-  // startCommunication(fd, rxData);
-  ioctl(fd, 4, NULL);
-
+  ioctl(fd, CMD_NCI_ENGINE_STOP, NULL);
 
   printf("closing fd 0...\n");
-  close(fd);  
+  close(fd);
 
   return 0;  
 }  

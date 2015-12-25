@@ -1,4 +1,4 @@
-#include <linux/init.h>  
+#include <linux/init.h> 
 #include <linux/module.h>  
 #include <linux/types.h>  
 #include <linux/fs.h>  
@@ -88,9 +88,11 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
         
     /* sync the access */  
     mutex_lock(&pn54x_dev->read_mutex);  
-  
+    pn54x_dev->is_reading = 1;
+	wake_up(&pn54x_dev->is_reading_wq);
+    
     if(count < sizeof(pn54x_dev->val)) {  
-        goto exit;  
+        goto exit;
     }          
     
     while (1)
@@ -133,7 +135,7 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     }
 
     printk(KERN_ALERT"read nci data: delay=%ld\n", pNciData->delay);
-    print_nci_data(pNciData);
+    //print_nci_data(pNciData);
     err = pNciData->len;
     
     /* simulate the delay nfcc response to the mw */
@@ -166,8 +168,16 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
     pn54x_dev->is_write_data_ready = true;
     wake_up (&pn54x_dev->write_wq);
 
+	pr_warning("%s: waiting... is_write_complete=%d\n", __func__, pn54x_dev->is_write_complete);
+	ret = wait_event_interruptible(
+			pn54x_dev->write_complete_wq,
+			pn54x_dev->is_write_complete
+			);
+    pn54x_dev->is_write_complete = false;
+    pr_warning("%s: wake up. is_write_complete=%d\n", __func__, pn54x_dev->is_write_complete);
+
   
-out:  
+out:
     mutex_unlock(&pn54x_dev->read_mutex);  
     TRACE_FUNC_EXIT
         
@@ -375,8 +385,10 @@ static int __init pn54x_init(void){
     pn54x_create_proc();  
   
     /* init mutex and queues */
+	init_waitqueue_head(&pn54x_dev->is_reading_wq);
   	init_waitqueue_head(&pn54x_dev->read_wq);
     init_waitqueue_head(&pn54x_dev->write_wq);
+	init_waitqueue_head(&pn54x_dev->write_complete_wq);
   	mutex_init(&pn54x_dev->read_mutex);
     
     printk(KERN_ALERT"Succedded to initialize pn54x device.\n");  
@@ -425,7 +437,7 @@ static void __exit pn54x_exit(void) {
     /* release device no. */  
     unregister_chrdev_region(devno, 1);  
 
-    nci_engine_stop();
+    nci_engine_stop(pn54x_dev);
 }  
 
 
@@ -455,12 +467,17 @@ static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
     ret = nci_engine_start(pn54x_dev);
     break;
   case CMD_NCI_ENGINE_STOP:
-    ret = nci_engine_stop();
+    ret = nci_engine_stop(pn54x_dev);
     break;
   case CMD_NCI_FIFO_RELEASE:
     nci_kfifo_release();
     break;
-
+  case CMD_NCI_FIFO_GETALL:
+    while (nci_kfifo_get(&pNciData)>0)
+    {
+      print_nci_data(pNciData);
+    }
+    break;
   case PN544_SET_PWR:
   case PN54X_CLK_REQ:
     ret = 0;

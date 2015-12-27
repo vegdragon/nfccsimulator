@@ -94,6 +94,7 @@ int main(int argc, char** argv)
     break;
   case 'r':
     nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, rxData); 
+    ioctl(fd, CMD_NCI_ENGINE_START, NULL);
     break;
   case 'e':
     nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, rxData); 
@@ -120,6 +121,8 @@ int main(int argc, char** argv)
 
   ioctl(fd, CMD_NCI_ENGINE_STOP, NULL);
 
+  getchar();
+  
   printf("closing fd 0...\n");
   close(fd);
 

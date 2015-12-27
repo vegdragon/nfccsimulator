@@ -88,7 +88,7 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
         
     /* sync the access */  
     mutex_lock(&pn54x_dev->read_mutex);  
-    pn54x_dev->is_reading = 1;
+    pn54x_dev->is_reading = true;
 	wake_up(&pn54x_dev->is_reading_wq);
     
     if(count < sizeof(pn54x_dev->val)) {  

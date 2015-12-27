@@ -49,6 +49,12 @@ int nci_engine_stop(pn54x_android_dev_t * pn54x_dev)
     }
     _is_engine_working = 0;
 
+    /* reset data ready flag so that thread can wait before next round of r/w request coming */
+    pn54x_dev->is_read_data_ready = false;
+	pn54x_dev->is_write_data_ready = false;
+	pn54x_dev->is_reading = false;
+	pn54x_dev->is_write_complete = false;
+	
     return err;
 }
 
@@ -205,6 +211,7 @@ int nci_engine_thread (void * data)
       if (ret == 0)
       {
         printk(KERN_ALERT"nci_kfifo_get empty: ret=%d.\n", ret);
+		pNciData = NULL;
         ret = EFAULT;
         goto exit;
       }
@@ -272,6 +279,7 @@ exit:
     wake_up (&pn54x_dev->read_wq);
     pn54x_dev->is_write_complete = true;
     wake_up (&pn54x_dev->write_complete_wq);
+	clearNciReadData();
 
     return ret;
 }

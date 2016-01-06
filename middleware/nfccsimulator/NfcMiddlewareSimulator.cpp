@@ -120,8 +120,6 @@ int main(int argc, char** argv)
   };
 
   ioctl(fd, CMD_NCI_ENGINE_STOP, NULL);
-
-  getchar();
   
   printf("closing fd 0...\n");
   close(fd);

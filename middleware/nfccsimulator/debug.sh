@@ -3,5 +3,6 @@ adb push out/target/product/generic/system/bin/NfcMiddlewareSimulator /system/bi
 adb push external/nfccsimulator/nfc_on_off_filtered.log /etc/
 adb push external/nfccsimulator/conf/libnfc-brcm.conf /etc/
 adb push external/nfccsimulator/conf/libnfc-nxp.conf /etc/
+adb shell setenforce 0
 adb shell cat /proc/kmsg
 

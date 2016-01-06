@@ -70,7 +70,7 @@ static int pn54x_release(struct inode* inode, struct file* filp)
     TRACE_FUNC_ENTER
 
     mutex_destroy(&pn54x_dev->read_mutex);
-    nci_kfifo_release();
+    // nci_kfifo_release();
 
     TRACE_FUNC_EXIT
     return 0;  

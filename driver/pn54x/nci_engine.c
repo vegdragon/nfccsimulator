@@ -28,6 +28,34 @@ void clearNciReadData()
   _pNciReadData = NULL;
 }
 
+int nci_engine_start (pn54x_android_dev_t * pn54x_dev)
+{
+    int err = 0;
+
+    TRACE_FUNC_ENTER
+        
+    /* start engin thread */
+    _task_nci_engine = kthread_create(nci_engine_thread, pn54x_dev, "nci_engine_task");
+    if (IS_ERR(_task_nci_engine))
+    {
+        printk (KERN_ALERT"Unable to start nci engine thread. \n");
+        err = PTR_ERR (_task_nci_engine);
+        _task_nci_engine = NULL;
+    }
+    wake_up_process (_task_nci_engine);
+
+    /* reset data ready flag so that thread can wait before next round of r/w request coming */
+    pn54x_dev->is_read_data_ready = false;
+	pn54x_dev->is_write_data_ready = false;
+	pn54x_dev->is_reading = false;
+	pn54x_dev->is_write_complete = false; /* set to true to make write go through at the first time */
+
+    TRACE_FUNC_EXIT
+        
+    return err;
+}
+
+
 int nci_engine_stop(pn54x_android_dev_t * pn54x_dev)
 {
     int err = 0;
@@ -48,12 +76,6 @@ int nci_engine_stop(pn54x_android_dev_t * pn54x_dev)
         _task_nci_engine = NULL;
     }
     _is_engine_working = 0;
-
-    /* reset data ready flag so that thread can wait before next round of r/w request coming */
-    pn54x_dev->is_read_data_ready = false;
-	pn54x_dev->is_write_data_ready = false;
-	pn54x_dev->is_reading = false;
-	pn54x_dev->is_write_complete = false;
 	
     return err;
 }
@@ -176,28 +198,13 @@ int nci_engine_fill (nci_data_t * pNciData)
     return ret;
 }
 
-int nci_engine_start (pn54x_android_dev_t * pn54x_dev)
-{
-    int err = 0;
-
-    /* start engin thread */
-    _task_nci_engine = kthread_create(nci_engine_thread, pn54x_dev, "nci_engine_task");
-    if (IS_ERR(_task_nci_engine))
-    {
-        printk (KERN_ALERT"Unable to start nci engine thread. \n");
-        err = PTR_ERR (_task_nci_engine);
-        _task_nci_engine = NULL;
-    }
-    wake_up_process (_task_nci_engine);
-
-    return err;
-}
-
 int nci_engine_thread (void * data)
 {
     int ret = 0;  
     nci_data_t * pNciData = NULL;  
     pn54x_android_dev_t * pn54x_dev = (pn54x_android_dev_t*)data;
+
+    TRACE_FUNC_ENTER
 
     _is_engine_working = 1;
     while (_is_engine_working)
@@ -268,6 +275,7 @@ int nci_engine_thread (void * data)
             /* notify data received, so we can release data to be read */
             // to notifiy in the next start of loop, if ('R' == pNciData->direction);
 
+            printk(KERN_ALERT "%s: pn54x_dev->is_write_complete = true.\n", __FUNCTION__);
 			pn54x_dev->is_write_complete = true;
         	wake_up (&pn54x_dev->write_complete_wq);
         }
@@ -280,6 +288,8 @@ exit:
     pn54x_dev->is_write_complete = true;
     wake_up (&pn54x_dev->write_complete_wq);
 	clearNciReadData();
+
+    TRACE_FUNC_EXIT
 
     return ret;
 }

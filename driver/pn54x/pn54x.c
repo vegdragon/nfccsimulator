@@ -56,8 +56,6 @@ static int pn54x_open(struct inode* inode, struct file* filp)
     dev = container_of(inode->i_cdev, pn54x_android_dev_t, dev);  
     filp->private_data = dev;
 
-    nci_kfifo_init();  
-
     TRACE_FUNC_EXIT
 
     return 0;  
@@ -87,14 +85,10 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     TRACE_FUNC_ENTER
         
     /* sync the access */  
-    mutex_lock(&pn54x_dev->read_mutex);  
+    // mutex_lock(&pn54x_dev->read_mutex);  
     pn54x_dev->is_reading = true;
 	wake_up(&pn54x_dev->is_reading_wq);
-    
-    if(count < sizeof(pn54x_dev->val)) {  
-        goto exit;
-    }          
-    
+
     while (1)
     {
         pr_warning("%s: waiting... is_read_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
@@ -105,21 +99,26 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
 				);
         pn54x_dev->is_read_data_ready = false;
         pr_warning("%s: wake up. is_read_data_ready=%d\n", __func__, pn54x_dev->is_read_data_ready);
+        /*
 		if (ret)
+        {
+            printk(KERN_ALERT "wait_event_interruptible returned error, ret=%d\n", ret);
 			goto exit;
-		// pr_warning("%s: spurious interrupt detected\n", __func__);
+        }
+        */
 
         /* pop data from nci queue */
         pNciData = getNciReadData();
 
         if (NULL == pNciData)
         {
-            printk(KERN_ALERT"getNciReadData empty!");
+            printk(KERN_ALERT "getNciReadData empty!\n");
             err = -1;
             goto exit;
         }
         else
         {
+            printk(KERN_ALERT "clearNciReadData!\n");
             clearNciReadData();
             break;
         }
@@ -129,12 +128,12 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     ret = copy_to_user(buf, pNciData->data, pNciData->len);
     if(ret) 
     {  
-        printk(KERN_ALERT"pn54x_read: copy_to_user failed: ret=%d.\n", ret);
+        printk(KERN_ALERT "pn54x_read: copy_to_user failed: ret=%d.\n", ret);
         err = -EFAULT;  
         goto exit;  
     }
 
-    printk(KERN_ALERT"read nci data: delay=%ld\n", pNciData->delay);
+    printk(KERN_ALERT "read nci data: delay=%ld, len=%d\n", pNciData->delay, pNciData->len);
     //print_nci_data(pNciData);
     err = pNciData->len;
     
@@ -142,9 +141,9 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     msleep (pNciData->delay);
  
 exit: 
-    mutex_unlock(&pn54x_dev->read_mutex); 
+    // mutex_unlock(&pn54x_dev->read_mutex); 
 
-    TRACE_FUNC_EXIT
+    TRACE_FUNC_EXIT_VALUE(err);
         
     return err;  
 }  
@@ -157,7 +156,7 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
     TRACE_FUNC_ENTER
   
     /* sync the access */  
-    mutex_lock(&pn54x_dev->read_mutex);            
+    // mutex_lock(&pn54x_dev->read_mutex);            
     
     /* get nci cmd sent from nfc mw */ 
     if(copy_from_user(&(pn54x_dev->data), buf, count)) {  
@@ -176,10 +175,11 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
     pn54x_dev->is_write_complete = false;
     pr_warning("%s: wake up. is_write_complete=%d\n", __func__, pn54x_dev->is_write_complete);
 
+    ret = count;
   
 out:
-    mutex_unlock(&pn54x_dev->read_mutex);  
-    TRACE_FUNC_EXIT
+    // mutex_unlock(&pn54x_dev->read_mutex);  
+    TRACE_FUNC_EXIT_VALUE(ret);
         
     return ret;  
 }  
@@ -390,6 +390,9 @@ static int __init pn54x_init(void){
     init_waitqueue_head(&pn54x_dev->write_wq);
 	init_waitqueue_head(&pn54x_dev->write_complete_wq);
   	mutex_init(&pn54x_dev->read_mutex);
+
+    /* init fifo for nci commands */
+    nci_kfifo_init(); 
     
     printk(KERN_ALERT"Succedded to initialize pn54x device.\n");  
     return 0;  

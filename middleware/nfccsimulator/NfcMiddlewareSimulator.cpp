@@ -43,13 +43,14 @@ int startCommunication(int fd, std::vector<nci_data_t> &rxData)
 
       if ('X' == (*vData).direction)
       {
-          write(fd, (*vData).data, (*vData).len); 
+          ret = write(fd, (*vData).data, (*vData).len); 
+          printf ("write returned(%d)\n", ret);
       }
       else if ('R' == (*vData).direction)
       {
-          read(fd, dataRead, sizeof(dataRead));
-          printf("read[%d][%ld][%c]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
-            (*vData).index,(*vData).timestamp,(*vData).direction,
+          ret = read(fd, dataRead, sizeof(dataRead));
+          printf("read[%d][%ld][%c][%d]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
+            (*vData).index,(*vData).timestamp,(*vData).direction, ret,
             dataRead[0],dataRead[1],dataRead[2],dataRead[3],dataRead[4],
             dataRead[5],dataRead[6],dataRead[7],dataRead[8],dataRead[9]);
       }
@@ -86,18 +87,18 @@ int main(int argc, char** argv)
     return -1;  
   }
 
-
+  printf ("argv[1][0]= %c\n", argv[1][0]);
   switch (argv[1][0])
   {
   case 'h':
     printf ("help: \n\tr - read log;\n\ts - start nci engine;\n\to - stop engine;\n\tc - start communication;\n\tx- release engine\n\n");
     break;
   case 'r':
-    nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, rxData); 
+    nlfp.readNciDataFromFile("/etc/nexus6p_nfc_on_filtered.log", fd, rxData); 
     ioctl(fd, CMD_NCI_ENGINE_START, NULL);
     break;
   case 'e':
-    nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, rxData); 
+    nlfp.readNciDataFromFile("/etc/nexus6p_nfc_on_filtered.log", fd, rxData); 
     ioctl(fd, CMD_NCI_FIFO_GETALL, NULL);
     break;
   case 's':
@@ -107,19 +108,20 @@ int main(int argc, char** argv)
     ioctl(fd, CMD_NCI_ENGINE_STOP, NULL);
     break;
   case 'c':
-    nlfp.readNciDataFromFile("/etc/nfc_on_off_filtered.log", fd, rxData); 
+    nlfp.readNciDataFromFile("/etc/nexus6p_nfc_on_filtered.log", fd, rxData); 
     ioctl(fd, CMD_NCI_ENGINE_START, NULL);
     usleep (20000);
     startCommunication(fd, rxData);
     break;
   case 'x':
+    printf ("issue CMD_NCI_FIFO_RELEASE...\n");
     ioctl(fd, CMD_NCI_FIFO_RELEASE, NULL);
     break;
   default:
     break;
   };
 
-  ioctl(fd, CMD_NCI_ENGINE_STOP, NULL);
+  // ioctl(fd, CMD_NCI_ENGINE_STOP, NULL);
   
   printf("closing fd 0...\n");
   close(fd);

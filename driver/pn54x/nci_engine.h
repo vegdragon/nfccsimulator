@@ -18,6 +18,8 @@
 
 #define TRACE_FUNC_ENTER printk(KERN_ALERT "%s: entering...\n", __func__);
 #define TRACE_FUNC_EXIT printk(KERN_ALERT "%s: exiting...\n", __func__);
+#define TRACE_FUNC_EXIT_VALUE(ret) printk(KERN_ALERT "%s: exiting (%d)...\n", __func__, (ret));
+
 
 typedef struct nci_data
 {

@@ -7,21 +7,24 @@
 #include <sys/time.h>
 #include "NciLogFileProcessor.h"
 
+
+#define NORMAL_MODE_HEADER_LEN      3
+
 using namespace std;
 
 void NciLogFileProcessor::printTimestamp()
 {
     struct timeval detail_time;
     gettimeofday(&detail_time,NULL);
-    printf("[%d.%d] ",
-    detail_time.tv_sec,  /* seconds */
-    detail_time.tv_usec); /* microseconds */
+    printf("[%ld.%ld] ",
+        detail_time.tv_sec,  /* seconds */
+        detail_time.tv_usec); /* microseconds */
 }
 
 void NciLogFileProcessor::strToHex (const char * str, nci_data_t & nciData)
 {
   const char *p  = str;
-  static const char numMap[23] = { 0,1,2,3,4,5,6,7,8,9,-1,-1,-1,-1,-1,-1,-1,0xa,0xb,0xc,0xd,0xe,0xf };
+  static const char numMap[23] = { 0,1,2,3,4,5,6,7,8,9,'x','x','x','x','x','x','x',0xa,0xb,0xc,0xd,0xe,0xf };
 
   int i = 0;
 
@@ -35,7 +38,7 @@ void NciLogFileProcessor::strToHex (const char * str, nci_data_t & nciData)
     bit1 = *p - '0'; bit2 = *(p+1) - '0';
 
     // byte = (*p-'0') * 0x10 + (*(p+1)-'0');
-    if ((bit1>=0 && bit1<23) && (bit2>=0 && bit2<23))
+    if ((bit1<23) && (bit2<23))
     {
         byte = numMap[(*p-'0')] * 0x10 + numMap[*(p+1)-'0'];
         nciData.data[i] = byte;
@@ -92,7 +95,7 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
   FILE * fp;
   char * line = NULL;
   size_t len = 0;
-  ssize_t ret;
+  int ret = 0;
   char * strFound = NULL;
   long prevTimestamp = 0;
   nci_data_t * pSendingData = NULL;
@@ -103,16 +106,19 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
 
   fp = fopen(fileName, "r");
   if (fp == NULL)
+  {
+    printf("%s: fopen failed!\n", __FUNCTION__);
+    ret = -1;
     goto exit;
+  }
 
   for (idx=0;(ret = getline(&line, &len, fp)) != -1;idx++) {
     // printf("Retrieved line of length %zu :\n", read);
     printf("%s", line);
+    nci_data_t nciHeader;
     nci_data_t nciData;
-    nciData.timestamp = parseTimestamp(line);
-    nciData.delay = prevTimestamp==0 ? 0:nciData.timestamp - prevTimestamp;
-    prevTimestamp = nciData.timestamp;
-    printf("%s: delay=%d, prevTimestamp=%d\n", __FUNCTION__, nciData.delay, prevTimestamp);
+    
+    printf("%s: delay=%ld, prevTimestamp=%ld\n", __FUNCTION__, nciHeader.delay, prevTimestamp);
 
     strFound = strchr (line, '>'); 
     if (strFound != NULL)
@@ -120,11 +126,47 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
       strToHex (strFound+2, nciData);
       nciData.index = idx;
       nciData.direction = *(strFound - 21);
+      nciData.timestamp = parseTimestamp(line);
+      nciData.delay = prevTimestamp==0 ? 0:nciData.timestamp - prevTimestamp;
+      prevTimestamp = nciData.timestamp;
+
+      if ('R' == nciData.direction)
+      {
+        nciHeader.len = NORMAL_MODE_HEADER_LEN;
+        nciHeader.index = idx;
+        nciHeader.direction  = nciData.direction;
+        nciHeader.timestamp = nciData.timestamp;
+        nciHeader.delay = prevTimestamp==0 ? 0:nciData.timestamp - prevTimestamp;
+        nciData.delay = 0;
+
+        nciHeader.data[0] = 0; nciHeader.data[1] = 0;
+        nciHeader.data[2] = nciData.len;
+
+        ioctl(fd, 1, &nciHeader);
+        printf("%s: len(%d), \tdirection(%c)\n", __FUNCTION__, nciData.len, nciHeader.direction);
+        rxData.push_back(nciHeader);
+
+        ioctl(fd, 1, &nciData);
+        printf("%s: %s, \tdirection=%c\n", __FUNCTION__, strFound+2, nciData.direction);
+        rxData.push_back(nciData);
+      }
+      else if ('X' == nciData.direction)
+      {
+        
+
+        ioctl(fd, 1, &nciData);
+        printf("%s: %s, \tdirection=%c\n", __FUNCTION__, strFound+2, nciData.direction);
+        rxData.push_back(nciData);
+      }
+      else
+      {
+        ret = -1;
+        goto exit;
+      }
+
+      
       // printf("strFound=%s, direction=%c\n", strFound, nciData.direction);
       // printf("Send ioctl cmd 1...\n");
-      ioctl(fd, 1, &nciData);
-      printf("%s: %s, \tdirection=%c\n", __FUNCTION__, strFound+2, nciData.direction);
-      rxData.push_back(nciData);
     }
     else
     {
@@ -140,6 +182,6 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
 exit:
   printf("%s: exit.\n", __FUNCTION__);
 
-  return 0;
+  return ret;
 }
 

@@ -49,6 +49,7 @@ int nci_engine_start (pn54x_android_dev_t * pn54x_dev)
 	pn54x_dev->is_write_data_ready = false;
 	pn54x_dev->is_reading = false;
 	pn54x_dev->is_write_complete = false; /* set to true to make write go through at the first time */
+    pn54x_dev->is_ready_to_go = true;
 
     TRACE_FUNC_EXIT
         
@@ -76,6 +77,8 @@ int nci_engine_stop(pn54x_android_dev_t * pn54x_dev)
         _task_nci_engine = NULL;
     }
     _is_engine_working = 0;
+
+    pn54x_dev->is_ready_to_go = false;
 	
     return err;
 }

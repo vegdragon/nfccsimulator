@@ -43,6 +43,7 @@ typedef struct pn54x_android_dev {
 	int               is_read_data_ready;
 	int               is_write_data_ready;
 	int               is_write_complete;
+    int               is_ready_to_go;
 } pn54x_android_dev_t;  
   
 #endif  

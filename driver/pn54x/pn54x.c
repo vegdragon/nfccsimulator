@@ -83,6 +83,11 @@ static ssize_t pn54x_read(struct file* filp, char __user *buf, size_t count, lof
     int ret = 0;
 
     TRACE_FUNC_ENTER
+
+    if (NULL==pn54x_dev || !pn54x_dev->is_ready_to_go)
+    {
+        goto exit;
+    }
         
     /* sync the access */  
     // mutex_lock(&pn54x_dev->read_mutex);  
@@ -154,14 +159,20 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
     pn54x_android_dev_t* pn54x_dev = filp->private_data;  
     int ret = 0; 
     TRACE_FUNC_ENTER
-  
+
+    if (NULL==pn54x_dev || !pn54x_dev->is_ready_to_go)
+    {
+        goto exit;
+    }
+    
     /* sync the access */  
     // mutex_lock(&pn54x_dev->read_mutex);            
     
     /* get nci cmd sent from nfc mw */ 
-    if(copy_from_user(&(pn54x_dev->data), buf, count)) {  
+    if(copy_from_user(&(pn54x_dev->data), buf, count)) 
+    {  
         ret = -EFAULT;  
-        goto out;
+        goto exit;
     }
 
     pn54x_dev->is_write_data_ready = true;
@@ -177,7 +188,7 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
 
     ret = count;
   
-out:
+exit:
     // mutex_unlock(&pn54x_dev->read_mutex);  
     TRACE_FUNC_EXIT_VALUE(ret);
         
@@ -390,6 +401,8 @@ static int __init pn54x_init(void){
     init_waitqueue_head(&pn54x_dev->write_wq);
 	init_waitqueue_head(&pn54x_dev->write_complete_wq);
   	mutex_init(&pn54x_dev->read_mutex);
+
+    pn54x_dev->is_ready_to_go = false;
 
     /* init fifo for nci commands */
     nci_kfifo_init(); 

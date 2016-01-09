@@ -137,15 +137,18 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
         nciHeader.direction  = nciData.direction;
         nciHeader.timestamp = nciData.timestamp;
         nciHeader.delay = prevTimestamp==0 ? 0:nciData.timestamp - prevTimestamp;
-        nciData.delay = 0;
 
-        nciHeader.data[0] = 0; nciHeader.data[1] = 0;
-        nciHeader.data[2] = nciData.len;
+        nciHeader.data[0] = nciData.data[0]; 
+        nciHeader.data[1] = nciData.data[1];
+        nciHeader.data[2] = nciData.data[2];
 
         ioctl(fd, 1, &nciHeader);
         printf("%s: len(%d), \tdirection(%c)\n", __FUNCTION__, nciData.len, nciHeader.direction);
         rxData.push_back(nciHeader);
 
+        nciData.len -= NORMAL_MODE_HEADER_LEN;
+        memcpy (nciData.data, nciData.data+NORMAL_MODE_HEADER_LEN, nciData.len);
+        nciData.delay = 0;
         ioctl(fd, 1, &nciData);
         printf("%s: %s, \tdirection=%c\n", __FUNCTION__, strFound+2, nciData.direction);
         rxData.push_back(nciData);

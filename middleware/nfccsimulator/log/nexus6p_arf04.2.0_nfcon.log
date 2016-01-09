@@ -1,0 +1,1410 @@
+--------- beginning of main
+05-22 09:12:10.684 E/QCOMPowerHAL(  766): Failed to acquire lock.
+05-22 09:12:10.684 E/QCOMPowerHAL(  766): Failed to acquire lock.
+05-22 09:12:10.684 E/QCOMPowerHAL(  766): Failed to acquire lock.
+05-22 09:12:10.685 E/QCOMPowerHAL(  766): Failed to acquire lock.
+05-22 09:12:10.824 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_DEFAULT_SE=(0x3)
+05-22 09:12:10.824 I/NfcService( 1247): getDefaultSE 3
+05-22 09:12:10.825 W/Settings( 1247): Setting airplane_mode_on has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+05-22 09:12:10.826 D/audio_hw_primary(  471): out_set_parameters: enter: usecase(1: low-latency-playback) kvpairs: routing=2
+05-22 09:12:10.827 I/NfcService( 1247): Enabling NFC
+05-22 09:12:10.828 D/WirelessSettings( 3050): onPreferenceTreeClick: preference=NFC Allow data exchange when the phone touches another device
+05-22 09:12:10.833 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_DEFAULT_NFCEE_DISC_TIMEOUT=(0x14)
+05-22 09:12:10.833 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_DEFAULT_NFCEE_TIMEOUT=(0x6)
+05-22 09:12:10.833 I/NfcService( 1247): Enabling NFC timeout26000
+05-22 09:12:10.839 D/audio_hw_primary(  471): select_devices: out_snd_device(2: speaker) in_snd_device(0: none)
+05-22 09:12:10.839 D/msm8974_platform(  471): platform_send_audio_calibration: sending audio calibration for snd_device(2) acdb_id(15)
+05-22 09:12:10.839 E/ACDB-LOADER(  471): ACDB -> Not correctly initialized!
+05-22 09:12:10.839 D/audio_hw_primary(  471): enable_snd_device: snd_device(2: speaker)
+05-22 09:12:10.843 D/audio_hw_primary(  471): enable_audio_route: apply and update mixer path: low-latency-playback speaker
+05-22 09:12:10.849 E/NfcAdaptation( 1247): NfcAdaptation::Initialize: ver=NFCDROID-AOSP_L_00.01 nfa=NFA_PI_1.03.66+
+05-22 09:12:10.850 I/BrcmNfcNfa( 1247): NFC_TASK started.
+05-22 09:12:10.852 D/NxpNfcNciHal( 1247): nfc_open: enter; name=nci
+05-22 09:12:10.852 D/NxpNfcNciHal( 1247): nfc_open: exit 0
+05-22 09:12:10.852 I/BrcmNfcNfa( 1247): nfa_dm_init ()
+05-22 09:12:10.852 I/BrcmNfcNfa( 1247): nfa_sys_register () id=1, enable_cplt_mask=0x0
+05-22 09:12:10.852 I/BrcmNfcNfa( 1247): nfa_sys_register () id=3, enable_cplt_mask=0x8
+05-22 09:12:10.852 I/BrcmNfcNfa( 1247): nfa_rw_init ()
+05-22 09:12:10.852 I/BrcmNfcNfa( 1247): nfa_sys_register () id=6, enable_cplt_mask=0x48
+05-22 09:12:10.852 I/BrcmNfcNfa( 1247): nfa_ce_init ()
+05-22 09:12:10.852 I/BrcmNfcNfa( 1247): nfa_sys_register () id=7, enable_cplt_mask=0xc8
+05-22 09:12:10.853 I/BrcmNfcNfa( 1247): nfa_ee_init ()
+05-22 09:12:10.853 I/BrcmNfcNfa( 1247): nfa_sys_register () id=2, enable_cplt_mask=0xcc
+05-22 09:12:10.853 I/BrcmNfcNfa( 1247): nfa_hci_init ()
+05-22 09:12:10.853 I/BrcmNfcNfa( 1247): nfa_sys_register () id=8, enable_cplt_mask=0x1cc
+05-22 09:12:10.853 I/BrcmNfcNfa( 1247): LLCP - llcp_init ()
+05-22 09:12:10.853 I/BrcmNfcNfa( 1247): num_rx_buff = 21, rx_congest_start = 14, rx_congest_end = 10, max_num_ll_rx_buff = 6
+05-22 09:12:10.853 I/BrcmNfcNfa( 1247): max_num_tx_buff = 49, max_num_ll_tx_buff = 14
+05-22 09:12:10.853 I/BrcmNfcNfa( 1247): LLCP_RegisterServer (): SAP:0x1, link_type:0x2, ServiceName:<urn:nfc:sn:sdp>
+05-22 09:12:10.853 I/BrcmNfcNfa( 1247): LLCP_RegisterServer (): Registered SAP = 0x01
+05-22 09:12:10.853 I/BrcmNfcNfa( 1247): NFA_Enable ()
+05-22 09:12:10.854 I/BrcmNfcNfa( 1247): NFC_SetTraceLevel () new_level = 1
+05-22 09:12:10.857 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXPLOG_TML_LOGLEVEL=(0x3)
+05-22 09:12:10.858 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXPLOG_FWDNLD_LOGLEVEL=(0x3)
+05-22 09:12:10.858 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXPLOG_NCIX_LOGLEVEL=(0x3)
+05-22 09:12:10.858 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXPLOG_NCIR_LOGLEVEL=(0x3)
+05-22 09:12:10.858 D/        ( 1247): phNxpLog_InitializeLogLevel: global =1, Fwdnld =3, extns =3,                 hal =3, tml =3, ncir =3,                 ncix =3
+05-22 09:12:10.858 D/NxpHal  ( 1247): Entering phNxpNciHal_init_monitor
+05-22 09:12:10.859 D/NxpHal  ( 1247): Returning with SUCCESS
+05-22 09:12:10.859 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_NFC_DEV_NODE=/dev/pn54x
+05-22 09:12:10.859 D/NxpTml  ( 1247): Opening port=/dev/pn54x
+05-22 09:12:10.859 D/NxpTml  ( 1247): phTmlNfc_i2c_reset(), VEN level 1
+05-22 09:12:11.098 D/NxpTml  ( 1247): phTmlNfc_i2c_reset(), VEN level 0
+05-22 09:12:11.378 D/NxpTml  ( 1247): phTmlNfc_i2c_reset(), VEN level 1
+05-22 09:12:11.444 D/audio_hw_primary(  471): disable_audio_route: reset and update mixer path: low-latency-playback speaker
+05-22 09:12:11.446 D/audio_hw_primary(  471): disable_snd_device: snd_device(2: speaker)
+05-22 09:12:11.518 D/NxpTml  ( 1247): PN54X - Tml Reader Thread Started................
+05-22 09:12:11.518 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Started................
+05-22 09:12:11.519 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.519 D/NxpHal  ( 1247): thread started
+05-22 09:12:11.519 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.519 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.519 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.519 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(4)
+05-22 09:12:11.519 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=4
+05-22 09:12:11.519 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.519 D/NxpTml  ( 1247): WRITING: bytes to write = 4
+05-22 09:12:11.522 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=4
+05-22 09:12:11.522 D/NxpTml  ( 1247): PN54X - I2C Write returned (4)
+05-22 09:12:11.522 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.522 D/NxpNciX ( 1247): len =   4 > 20000101
+05-22 09:12:11.522 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.522 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.522 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.522 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.523 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.523 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.547 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.547 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=6, numRead=3
+05-22 09:12:11.549 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.550 D/NxpNciR ( 1247): len =   3 > 001101
+05-22 09:12:11.550 D/NxpNciR ( 1247): len =   6 > 400003001101
+05-22 09:12:11.550 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.550 D/NxpNciR ( 1247): len =   6 > 400003001101
+05-22 09:12:11.550 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.550 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.551 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.551 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.551 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.551 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.551 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.551 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.551 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(3)
+05-22 09:12:11.551 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=3
+05-22 09:12:11.551 D/NxpTml  ( 1247): WRITING: bytes to write = 3
+05-22 09:12:11.553 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=3
+05-22 09:12:11.553 D/NxpTml  ( 1247): PN54X - I2C Write returned (3)
+05-22 09:12:11.553 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.553 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.554 D/NxpNciX ( 1247): len =   3 > 200100
+05-22 09:12:11.554 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=28, numRead=3
+05-22 09:12:11.554 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.554 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.554 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.554 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.554 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.554 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.555 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=25
+05-22 09:12:11.555 D/NxpNciR ( 1247): len =  25 > 00031E030008000102038081828302D002FF0200043810011A
+05-22 09:12:11.555 D/NxpNciR ( 1247): len =  28 > 40011900031E030008000102038081828302D002FF0200043810011A
+05-22 09:12:11.556 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.556 D/NxpNciR ( 1247): len =  28 > 40011900031E030008000102038081828302D002FF0200043810011A
+05-22 09:12:11.556 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.556 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.556 D/NxpHal  ( 1247): NxpNci> FW Version: 10.1.1a
+05-22 09:12:11.556 D/NxpHal  ( 1247): NxpNci> Model id: 3
+05-22 09:12:11.557 D/NxpHal  ( 1247): NxpNci> Product: PN66U
+05-22 09:12:11.558 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.558 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.558 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.559 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.559 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.559 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_I2C_FRAGMENTATION_ENABLED=(0x0)
+05-22 09:12:11.559 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.559 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(6)
+05-22 09:12:11.559 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=6
+05-22 09:12:11.559 D/NxpTml  ( 1247): WRITING: bytes to write = 6
+05-22 09:12:11.561 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=6
+05-22 09:12:11.561 D/NxpTml  ( 1247): PN54X - I2C Write returned (6)
+05-22 09:12:11.561 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.561 D/NxpNciX ( 1247): len =   6 > 20030301A005
+05-22 09:12:11.561 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.561 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.562 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.562 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.562 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.562 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=9, numRead=3
+05-22 09:12:11.562 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.562 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.563 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=6
+05-22 09:12:11.563 D/NxpNciR ( 1247): len =   6 > 0001A0050100
+05-22 09:12:11.563 D/NxpNciR ( 1247): len =   9 > 4003060001A0050100
+05-22 09:12:11.563 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.564 D/NxpNciR ( 1247): len =   9 > 4003060001A0050100
+05-22 09:12:11.564 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.564 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.564 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.564 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.564 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.564 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.564 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.564 E/NxpHal  ( 1247): i2c_fragmentation_status existing
+05-22 09:12:11.564 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.565 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_FW_NAME=libpn548ad_fw.so
+05-22 09:12:11.565 D/NxpFwDnld( 1247): @@@/system/vendor/firmware/libpn548ad_fw.so
+05-22 09:12:11.565 E/NxpFwDnld( 1247): NULL handler : unable to load the library file, specify correct path
+05-22 09:12:11.565 D/NxpFwDnld( 1247): FW Image Length - ImageInfoLen 0
+05-22 09:12:11.565 D/NxpFwDnld( 1247): FW Image Info Pointer - pImageInfo 0
+05-22 09:12:11.565 E/NxpFwDnld( 1247): Image extraction Failed - invalid imginfo or imginfolen!!
+05-22 09:12:11.565 E/NxpFwDnld( 1247): Error loading libpn54x_fw !!
+05-22 09:12:11.565 D/NxpHal  ( 1247): FW version for FW file = 0x0
+05-22 09:12:11.566 D/NxpHal  ( 1247): FW version from device = 0x10011a
+05-22 09:12:11.566 D/NxpHal  ( 1247): phNxpNciHal_CheckValidFwVersion current_major_no = 0x0
+05-22 09:12:11.566 E/NxpHal  ( 1247): Wrong FW Version >>> Firmware download not allowed
+05-22 09:12:11.566 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.567 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.567 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(4)
+05-22 09:12:11.567 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=4
+05-22 09:12:11.567 D/NxpTml  ( 1247): WRITING: bytes to write = 4
+05-22 09:12:11.569 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=4
+05-22 09:12:11.569 D/NxpTml  ( 1247): PN54X - I2C Write returned (4)
+05-22 09:12:11.569 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.569 D/NxpNciX ( 1247): len =   4 > 20000101
+05-22 09:12:11.569 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.569 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.569 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.569 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.571 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.571 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=6, numRead=3
+05-22 09:12:11.573 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.573 D/NxpNciR ( 1247): len =   3 > 001101
+05-22 09:12:11.573 D/NxpNciR ( 1247): len =   6 > 400003001101
+05-22 09:12:11.573 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.573 D/NxpNciR ( 1247): len =   6 > 400003001101
+05-22 09:12:11.573 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.573 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.573 E/BrcmNfcNfa( 1247): reset notification nfc_state : #### 1
+05-22 09:12:11.573 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.573 E/BrcmNfcNfa( 1247): NCI version mismatch!!:0x10 != 0x11 
+05-22 09:12:11.573 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.573 E/BrcmNfcNfa( 1247): reset notification sending core init
+05-22 09:12:11.574 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.574 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.574 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.574 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(3)
+05-22 09:12:11.574 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=3
+05-22 09:12:11.575 D/NxpTml  ( 1247): WRITING: bytes to write = 3
+05-22 09:12:11.576 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=3
+05-22 09:12:11.576 D/NxpTml  ( 1247): PN54X - I2C Write returned (3)
+05-22 09:12:11.576 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.576 D/NxpNciX ( 1247): len =   3 > 200100
+05-22 09:12:11.576 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.576 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.576 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.576 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.578 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.578 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=28, numRead=3
+05-22 09:12:11.579 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=25
+05-22 09:12:11.580 D/NxpNciR ( 1247): len =  25 > 00031E030008000102038081828302D002FF0200043810011A
+05-22 09:12:11.580 D/NxpNciR ( 1247): len =  28 > 40011900031E030008000102038081828302D002FF0200043810011A
+05-22 09:12:11.580 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.580 D/NxpNciR ( 1247): len =  28 > 40011900031E030008000102038081828302D002FF0200043810011A
+05-22 09:12:11.580 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.580 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.580 D/NxpHal  ( 1247): NxpNci> FW Version: 10.1.1a
+05-22 09:12:11.580 D/NxpHal  ( 1247): NxpNci> Model id: 3
+05-22 09:12:11.580 D/NxpHal  ( 1247): NxpNci> Product: PN66U
+05-22 09:12:11.580 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.581 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_ACT_PROP_EXTN=/
+05-22 09:12:11.581 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.581 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.581 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.581 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(3)
+05-22 09:12:11.581 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=3
+05-22 09:12:11.581 D/NxpTml  ( 1247): WRITING: bytes to write = 3
+05-22 09:12:11.583 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=3
+05-22 09:12:11.583 D/NxpTml  ( 1247): PN54X - I2C Write returned (3)
+05-22 09:12:11.584 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.584 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.584 D/NxpNciX ( 1247): len =   3 > 2F0200
+05-22 09:12:11.584 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=8, numRead=3
+05-22 09:12:11.584 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.584 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.584 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.584 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.584 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.584 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.585 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=5
+05-22 09:12:11.585 D/NxpNciR ( 1247): len =   5 > 000000A1A8
+05-22 09:12:11.585 D/NxpNciR ( 1247): len =   8 > 4F0205000000A1A8
+05-22 09:12:11.585 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.585 D/NxpNciR ( 1247): len =   8 > 4F0205000000A1A8
+05-22 09:12:11.585 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.586 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.586 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.586 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.586 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.586 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_SYS_CLK_SRC_SEL=(0x2)
+05-22 09:12:11.586 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.586 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_SYS_CLK_FREQ_SEL=(0x2)
+05-22 09:12:11.586 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.586 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_SYS_CLOCK_TO_CFG=(0x1a)
+05-22 09:12:11.586 D/NxpFwDnld( 1247): gphNxpNciHal_fw_IoctlCtx.bClkSrcVal = 0x2
+05-22 09:12:11.586 D/NxpFwDnld( 1247): gphNxpNciHal_fw_IoctlCtx.bClkFreqVal = 0x2
+05-22 09:12:11.586 D/NxpFwDnld( 1247): gphNxpNciHal_fw_IoctlCtx.bClkFreqVal = 0x1a
+05-22 09:12:11.586 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.587 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(10)
+05-22 09:12:11.587 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=10
+05-22 09:12:11.587 D/NxpTml  ( 1247): WRITING: bytes to write = 10
+05-22 09:12:11.588 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=10
+05-22 09:12:11.588 D/NxpTml  ( 1247): PN54X - I2C Write returned (10)
+05-22 09:12:11.588 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.588 D/NxpNciX ( 1247): len =  10 > 20030703A002A003A004
+05-22 09:12:11.588 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.589 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.589 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.589 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.589 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.589 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.589 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.589 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=17, numRead=3
+05-22 09:12:11.591 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=14
+05-22 09:12:11.591 D/NxpNciR ( 1247): len =  14 > 0003A0020101A0030111A004011A
+05-22 09:12:11.591 D/NxpNciR ( 1247): len =  17 > 40030E0003A0020101A0030111A004011A
+05-22 09:12:11.591 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.591 D/NxpNciR ( 1247): len =  17 > 40030E0003A0020101A0030111A004011A
+05-22 09:12:11.592 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.592 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.592 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.592 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.592 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.592 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.592 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.592 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.592 D/        ( 1247): int nxp::CNfcConfig::checkTimestamp() file not exist.
+05-22 09:12:11.592 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.592 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(12)
+05-22 09:12:11.592 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=12
+05-22 09:12:11.592 D/NxpTml  ( 1247): WRITING: bytes to write = 12
+05-22 09:12:11.594 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=12
+05-22 09:12:11.594 D/NxpTml  ( 1247): PN54X - I2C Write returned (12)
+05-22 09:12:11.594 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.594 D/NxpNciX ( 1247): len =  12 > 20020902A0030111A004011A
+05-22 09:12:11.594 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.594 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.594 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.594 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.594 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.594 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.594 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.595 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.596 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.596 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.596 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.596 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.596 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.596 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.596 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.596 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.596 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.596 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.596 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.596 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.596 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.596 D/NxpHal  ( 1247): phNxpNciHal_check_factory_reset file not present = /data/nfc/nfaStorage.bin1
+05-22 09:12:11.597 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.597 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(26)
+05-22 09:12:11.597 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=26
+05-22 09:12:11.597 D/NxpTml  ( 1247): WRITING: bytes to write = 26
+05-22 09:12:11.598 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=26
+05-22 09:12:11.598 D/NxpTml  ( 1247): PN54X - I2C Write returned (26)
+05-22 09:12:11.598 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.598 D/NxpNciX ( 1247): len =  26 > 20021702A0EA08FFFFFFFFFFFFFFFFA0EB08FFFFFFFFFFFFFFFF
+05-22 09:12:11.599 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.599 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.599 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.599 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.599 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.599 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.599 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.599 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.601 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.601 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.601 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.601 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.601 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.601 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.601 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.601 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.601 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.601 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.601 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.601 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.601 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.601 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_NFC_PROFILE_EXTN=  D
+05-22 09:12:11.602 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.602 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(8)
+05-22 09:12:11.602 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=8
+05-22 09:12:11.602 D/NxpTml  ( 1247): WRITING: bytes to write = 8
+05-22 09:12:11.603 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=8
+05-22 09:12:11.603 D/NxpTml  ( 1247): PN54X - I2C Write returned (8)
+05-22 09:12:11.603 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.603 D/NxpNciX ( 1247): len =   8 > 20020501A0440100
+05-22 09:12:11.603 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.603 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.604 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.604 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.604 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.604 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.604 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.604 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.605 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.605 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.605 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.605 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.605 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.605 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.606 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.606 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.606 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.606 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.606 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.606 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.606 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.606 D/        ( 1247): int nxp::CNfcConfig::checkTimestamp() file not exist.
+05-22 09:12:11.606 D/NxpHal  ( 1247): Performing TVDD Settings
+05-22 09:12:11.606 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_EXT_TVDD_CFG=(0x1)
+05-22 09:12:11.606 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_EXT_TVDD_CFG_1=  f
+05-22 09:12:11.606 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.606 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(14)
+05-22 09:12:11.606 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=14
+05-22 09:12:11.606 D/NxpTml  ( 1247): WRITING: bytes to write = 14
+05-22 09:12:11.608 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=14
+05-22 09:12:11.608 D/NxpTml  ( 1247): PN54X - I2C Write returned (14)
+05-22 09:12:11.608 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.608 D/NxpNciX ( 1247): len =  14 > 20020B02A0660100A00E03020900
+05-22 09:12:11.608 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.608 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.608 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.608 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.609 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.609 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.609 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.609 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.610 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.610 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.610 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.610 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.610 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.610 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.610 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.610 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.610 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.611 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.611 D/NxpHal  ( 1247): Performing RF Settings BLK 1
+05-22 09:12:11.611 D/NxpHal  ( 1247): Performing RF Settings BLK 2
+05-22 09:12:11.611 D/NxpHal  ( 1247): Performing RF Settings BLK 3
+05-22 09:12:11.611 D/NxpHal  ( 1247): Performing RF Settings BLK 4
+05-22 09:12:11.611 D/NxpHal  ( 1247): Performing RF Settings BLK 5
+05-22 09:12:11.611 D/NxpHal  ( 1247): Performing RF Settings BLK 6
+05-22 09:12:11.611 D/NxpHal  ( 1247): Performing NAME_NXP_CORE_CONF_EXTN Settings
+05-22 09:12:11.611 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_CORE_CONF_EXTN=  ì í
+05-22 09:12:11.611 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.611 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.611 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(28)
+05-22 09:12:11.611 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.611 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=28
+05-22 09:12:11.611 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.611 D/NxpTml  ( 1247): WRITING: bytes to write = 28
+05-22 09:12:11.613 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=28
+05-22 09:12:11.613 D/NxpTml  ( 1247): PN54X - I2C Write returned (28)
+05-22 09:12:11.613 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.613 D/NxpNciX ( 1247): len =  28 > 20021906A0EC0101A0ED0100A05E0101A0400101A0DD012DA0960101
+05-22 09:12:11.613 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.613 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.613 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.613 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.614 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.614 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.614 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.614 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.616 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.616 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.616 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.616 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.616 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.616 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.616 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.616 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.617 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.617 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.617 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.617 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_CORE_RF_FIELD=  b
+05-22 09:12:11.617 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.617 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.617 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.617 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(8)
+05-22 09:12:11.617 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=8
+05-22 09:12:11.617 D/NxpTml  ( 1247): WRITING: bytes to write = 8
+05-22 09:12:11.618 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=8
+05-22 09:12:11.618 D/NxpTml  ( 1247): PN54X - I2C Write returned (8)
+05-22 09:12:11.618 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.619 D/NxpNciX ( 1247): len =   8 > 20020501A0620101
+05-22 09:12:11.619 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.619 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.619 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.619 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.619 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.619 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.619 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.619 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.620 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.620 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.620 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.620 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.620 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.620 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.621 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.621 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.621 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.621 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.621 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.621 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.621 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.621 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_SWP_SWITCH_TIMEOUT=(0xa)
+05-22 09:12:11.621 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.621 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(9)
+05-22 09:12:11.621 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=9
+05-22 09:12:11.621 D/NxpTml  ( 1247): WRITING: bytes to write = 9
+05-22 09:12:11.622 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=9
+05-22 09:12:11.622 D/NxpTml  ( 1247): PN54X - I2C Write returned (9)
+05-22 09:12:11.622 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.623 D/NxpNciX ( 1247): len =   9 > 20020601A0F3021027
+05-22 09:12:11.623 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.623 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.623 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.623 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.623 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.623 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.623 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.623 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.625 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.625 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.625 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.625 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.625 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.625 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.625 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.625 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.625 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.625 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.625 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.625 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.625 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.625 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.625 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(6)
+05-22 09:12:11.626 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=6
+05-22 09:12:11.626 D/NxpTml  ( 1247): WRITING: bytes to write = 6
+05-22 09:12:11.627 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=6
+05-22 09:12:11.627 D/NxpTml  ( 1247): PN54X - I2C Write returned (6)
+05-22 09:12:11.627 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.627 D/NxpNciX ( 1247): len =   6 > 20030301A085
+05-22 09:12:11.627 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.627 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.627 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.627 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.627 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.627 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.628 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.628 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=12, numRead=3
+05-22 09:12:11.629 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=9
+05-22 09:12:11.629 D/NxpNciR ( 1247): len =   9 > 0001A0850450082800
+05-22 09:12:11.629 D/NxpNciR ( 1247): len =  12 > 4003090001A0850450082800
+05-22 09:12:11.629 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.629 D/NxpNciR ( 1247): len =  12 > 4003090001A0850450082800
+05-22 09:12:11.629 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.629 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.629 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.630 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.630 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.630 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_CHINA_TIANJIN_RF_ENABLED=(0x1)
+05-22 09:12:11.630 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_CORE_STANDBY=/
+05-22 09:12:11.630 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.630 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.630 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.630 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(4)
+05-22 09:12:11.630 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=4
+05-22 09:12:11.630 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.630 D/NxpTml  ( 1247): WRITING: bytes to write = 4
+05-22 09:12:11.631 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=4
+05-22 09:12:11.631 D/NxpTml  ( 1247): PN54X - I2C Write returned (4)
+05-22 09:12:11.631 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.631 D/NxpNciX ( 1247): len =   4 > 2F000101
+05-22 09:12:11.631 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.631 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.631 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.631 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.632 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.632 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.632 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=4, numRead=3
+05-22 09:12:11.632 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.633 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=1
+05-22 09:12:11.633 D/NxpNciR ( 1247): len =   1 > 00
+05-22 09:12:11.633 D/NxpNciR ( 1247): len =   4 > 4F000100
+05-22 09:12:11.633 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.633 D/NxpNciR ( 1247): len =   4 > 4F000100
+05-22 09:12:11.633 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.633 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.634 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.634 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.634 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.634 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.634 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_CORE_CONF= +(
+05-22 09:12:11.634 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.634 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.634 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(46)
+05-22 09:12:11.634 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=46
+05-22 09:12:11.634 D/NxpTml  ( 1247): WRITING: bytes to write = 46
+05-22 09:12:11.636 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=46
+05-22 09:12:11.636 D/NxpTml  ( 1247): PN54X - I2C Write returned (46)
+05-22 09:12:11.636 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.636 D/NxpNciX ( 1247): len =  46 > 20022B0D2801002101003001083101033304010203045401065001025B010060010E80010181010182010E180101
+05-22 09:12:11.636 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.636 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.636 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.636 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.636 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.636 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.655 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.655 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.657 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.657 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.657 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.657 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.657 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.657 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.657 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.657 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.657 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.657 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.657 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.657 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.657 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.657 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(10)
+05-22 09:12:11.657 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=10
+05-22 09:12:11.657 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.657 D/NxpTml  ( 1247): WRITING: bytes to write = 10
+05-22 09:12:11.659 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=10
+05-22 09:12:11.659 D/NxpTml  ( 1247): PN54X - I2C Write returned (10)
+05-22 09:12:11.659 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.659 D/NxpNciX ( 1247): len =  10 > 21010700010103000105
+05-22 09:12:11.659 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.659 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.659 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.659 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.659 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.659 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.665 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.665 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=4, numRead=3
+05-22 09:12:11.666 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=1
+05-22 09:12:11.666 D/NxpNciR ( 1247): len =   1 > 00
+05-22 09:12:11.666 D/NxpNciR ( 1247): len =   4 > 41010100
+05-22 09:12:11.666 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.666 D/NxpNciR ( 1247): len =   4 > 41010100
+05-22 09:12:11.666 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.666 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.666 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.666 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.666 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.666 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.666 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.666 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_SWP_FULL_PWR_ON=(0x0)
+05-22 09:12:11.667 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.667 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(8)
+05-22 09:12:11.667 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=8
+05-22 09:12:11.667 D/NxpTml  ( 1247): WRITING: bytes to write = 8
+05-22 09:12:11.668 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=8
+05-22 09:12:11.668 D/NxpTml  ( 1247): PN54X - I2C Write returned (8)
+05-22 09:12:11.668 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.668 D/NxpNciX ( 1247): len =   8 > 20020501A0F10100
+05-22 09:12:11.668 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.668 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.668 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.668 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.668 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.668 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.669 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.669 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.670 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.670 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.670 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.670 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.670 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.670 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.670 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.670 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.670 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.670 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.670 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.670 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.670 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found AID_MATCHING_PLATFORM=(0x1)
+05-22 09:12:11.670 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.670 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.670 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(8)
+05-22 09:12:11.671 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=8
+05-22 09:12:11.671 D/NxpTml  ( 1247): WRITING: bytes to write = 8
+05-22 09:12:11.672 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=8
+05-22 09:12:11.672 D/NxpTml  ( 1247): PN54X - I2C Write returned (8)
+05-22 09:12:11.672 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.672 D/NxpNciX ( 1247): len =   8 > 20020501A0910101
+05-22 09:12:11.672 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.672 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.672 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.672 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.672 D/NxpHal  ( 1247): Response timer started
+05-22 09:12:11.672 D/NxpHal  ( 1247): Waiting after ext cmd sent
+05-22 09:12:11.672 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.672 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.674 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.674 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.674 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.674 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.674 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.674 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.674 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.674 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.674 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.674 D/NxpHal  ( 1247): Response timer stopped
+05-22 09:12:11.674 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.674 D/NxpHal  ( 1247): Checking response
+05-22 09:12:11.674 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.674 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.674 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.674 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(16)
+05-22 09:12:11.674 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=16
+05-22 09:12:11.674 D/NxpTml  ( 1247): WRITING: bytes to write = 16
+05-22 09:12:11.676 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=16
+05-22 09:12:11.676 D/NxpTml  ( 1247): PN54X - I2C Write returned (16)
+05-22 09:12:11.676 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.676 D/NxpNciX ( 1247): len =  16 > 21000D04040302050303800180030201
+05-22 09:12:11.676 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.676 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.676 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.676 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.691 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.691 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=4, numRead=3
+05-22 09:12:11.692 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=1
+05-22 09:12:11.692 D/NxpNciR ( 1247): len =   1 > 00
+05-22 09:12:11.692 D/NxpNciR ( 1247): len =   4 > 41000100
+05-22 09:12:11.692 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.692 D/NxpNciR ( 1247): len =   4 > 41000100
+05-22 09:12:11.692 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.692 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.692 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.692 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.692 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.692 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.692 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.693 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(4)
+05-22 09:12:11.693 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=4
+05-22 09:12:11.693 D/NxpTml  ( 1247): WRITING: bytes to write = 4
+05-22 09:12:11.694 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=4
+05-22 09:12:11.694 D/NxpTml  ( 1247): PN54X - I2C Write returned (4)
+05-22 09:12:11.694 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.694 D/NxpNciX ( 1247): len =   4 > 22000101
+05-22 09:12:11.694 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.694 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.694 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.694 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.697 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.697 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.698 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.698 D/NxpNciR ( 1247): len =   2 > 0001
+05-22 09:12:11.698 D/NxpNciR ( 1247): len =   5 > 4200020001
+05-22 09:12:11.699 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.699 D/NxpNciR ( 1247): len =   5 > 4200020001
+05-22 09:12:11.699 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.699 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.699 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.699 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.699 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.700 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.700 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=8, numRead=3
+05-22 09:12:11.702 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=5
+05-22 09:12:11.702 D/NxpNciR ( 1247): len =   5 > 0101010100
+05-22 09:12:11.702 D/NxpNciR ( 1247): len =   8 > 6200050101010100
+05-22 09:12:11.702 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.702 D/NxpNciR ( 1247): len =   8 > 6200050101010100
+05-22 09:12:11.702 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.702 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.702 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.702 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.702 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.702 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.702 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.702 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(9)
+05-22 09:12:11.702 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=9
+05-22 09:12:11.702 D/NxpTml  ( 1247): WRITING: bytes to write = 9
+05-22 09:12:11.704 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=9
+05-22 09:12:11.704 D/NxpTml  ( 1247): PN54X - I2C Write returned (9)
+05-22 09:12:11.704 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.704 D/NxpNciX ( 1247): len =   9 > 200406030101020101
+05-22 09:12:11.704 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.704 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.704 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.704 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.704 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.704 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=7, numRead=3
+05-22 09:12:11.705 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=4
+05-22 09:12:11.705 D/NxpNciR ( 1247): len =   4 > 00FF0103
+05-22 09:12:11.705 D/NxpNciR ( 1247): len =   7 > 40040400FF0103
+05-22 09:12:11.705 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.705 D/NxpNciR ( 1247): len =   7 > 40040400FF0103
+05-22 09:12:11.706 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.706 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.706 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.706 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.706 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.706 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.706 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.706 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(5)
+05-22 09:12:11.706 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=5
+05-22 09:12:11.706 D/NxpTml  ( 1247): WRITING: bytes to write = 5
+05-22 09:12:11.707 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=5
+05-22 09:12:11.707 D/NxpTml  ( 1247): PN54X - I2C Write returned (5)
+05-22 09:12:11.707 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.707 D/NxpNciX ( 1247): len =   5 > 0300028103
+05-22 09:12:11.707 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.707 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.707 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.707 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.707 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.708 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=6, numRead=3
+05-22 09:12:11.709 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.709 D/NxpNciR ( 1247): len =   3 > 010301
+05-22 09:12:11.709 D/NxpNciR ( 1247): len =   6 > 600603010301
+05-22 09:12:11.709 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.709 D/NxpNciR ( 1247): len =   6 > 600603010301
+05-22 09:12:11.709 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.709 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.709 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.709 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.709 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.711 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.711 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.712 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.712 D/NxpNciR ( 1247): len =   2 > 8180
+05-22 09:12:11.712 D/NxpNciR ( 1247): len =   5 > 0300028180
+05-22 09:12:11.712 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.712 D/NxpNciR ( 1247): len =   5 > 0300028180
+05-22 09:12:11.712 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.712 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.712 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.712 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.712 D/NxpHal  ( 1247): > Going through the set host list
+05-22 09:12:11.712 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.712 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.712 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.712 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(8)
+05-22 09:12:11.713 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=8
+05-22 09:12:11.713 D/NxpTml  ( 1247): WRITING: bytes to write = 8
+05-22 09:12:11.714 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=8
+05-22 09:12:11.714 D/NxpTml  ( 1247): PN54X - I2C Write returned (8)
+05-22 09:12:11.714 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.714 D/NxpNciX ( 1247): len =   8 > 03000581010302C0
+05-22 09:12:11.714 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.714 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.714 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.714 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.714 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.714 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=6, numRead=3
+05-22 09:12:11.715 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.716 D/NxpNciR ( 1247): len =   3 > 010301
+05-22 09:12:11.716 D/NxpNciR ( 1247): len =   6 > 600603010301
+05-22 09:12:11.716 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.716 D/NxpNciR ( 1247): len =   6 > 600603010301
+05-22 09:12:11.716 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.716 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.716 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.716 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.716 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.717 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.717 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.718 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.719 D/NxpNciR ( 1247): len =   2 > 8180
+05-22 09:12:11.719 D/NxpNciR ( 1247): len =   5 > 0300028180
+05-22 09:12:11.719 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.719 D/NxpNciR ( 1247): len =   5 > 0300028180
+05-22 09:12:11.719 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.719 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.719 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.719 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.719 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.719 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.719 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.719 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(14)
+05-22 09:12:11.719 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=14
+05-22 09:12:11.719 D/NxpTml  ( 1247): WRITING: bytes to write = 14
+05-22 09:12:11.720 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=14
+05-22 09:12:11.721 D/NxpTml  ( 1247): PN54X - I2C Write returned (14)
+05-22 09:12:11.721 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.721 D/NxpNciX ( 1247): len =  14 > 03000B81010155C5110051C51100
+05-22 09:12:11.721 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.721 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.721 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.721 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.727 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.727 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=6, numRead=3
+05-22 09:12:11.728 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.728 D/NxpNciR ( 1247): len =   3 > 010301
+05-22 09:12:11.728 D/NxpNciR ( 1247): len =   6 > 600603010301
+05-22 09:12:11.728 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.728 D/NxpNciR ( 1247): len =   6 > 600603010301
+05-22 09:12:11.728 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.728 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.729 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.729 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.729 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.730 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.730 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.731 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.731 D/NxpNciR ( 1247): len =   2 > 8180
+05-22 09:12:11.731 D/NxpNciR ( 1247): len =   5 > 0300028180
+05-22 09:12:11.731 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.731 D/NxpNciR ( 1247): len =   5 > 0300028180
+05-22 09:12:11.731 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.732 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.732 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.732 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.732 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.732 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.732 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.732 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(5)
+05-22 09:12:11.732 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=5
+05-22 09:12:11.732 D/NxpTml  ( 1247): WRITING: bytes to write = 5
+05-22 09:12:11.733 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=5
+05-22 09:12:11.733 D/NxpTml  ( 1247): PN54X - I2C Write returned (5)
+05-22 09:12:11.733 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.733 D/NxpNciX ( 1247): len =   5 > 2201020101
+05-22 09:12:11.734 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.734 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.734 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.734 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.737 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.737 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=4, numRead=3
+05-22 09:12:11.738 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=1
+05-22 09:12:11.738 D/NxpNciR ( 1247): len =   1 > 00
+05-22 09:12:11.738 D/NxpNciR ( 1247): len =   4 > 42010100
+05-22 09:12:11.738 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.738 D/NxpNciR ( 1247): len =   4 > 42010100
+05-22 09:12:11.738 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.738 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.738 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.739 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.739 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.741 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.741 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=8, numRead=3
+05-22 09:12:11.742 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=5
+05-22 09:12:11.742 D/NxpNciR ( 1247): len =   5 > 0202018000
+05-22 09:12:11.742 D/NxpNciR ( 1247): len =   8 > 6200050202018000
+05-22 09:12:11.742 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.742 D/NxpNciR ( 1247): len =   8 > 6200050202018000
+05-22 09:12:11.742 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.743 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.743 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.743 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.743 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.889 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.889 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.889 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(6)
+05-22 09:12:11.889 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=6
+05-22 09:12:11.890 D/NxpTml  ( 1247): WRITING: bytes to write = 6
+05-22 09:12:11.891 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=6
+05-22 09:12:11.891 D/NxpTml  ( 1247): PN54X - I2C Write returned (6)
+05-22 09:12:11.891 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.892 D/NxpNciX ( 1247): len =   6 > 030003810204
+05-22 09:12:11.892 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.892 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.892 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=6, numRead=3
+05-22 09:12:11.892 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.892 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.892 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.893 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.894 D/NxpNciR ( 1247): len =   3 > 010301
+05-22 09:12:11.894 D/NxpNciR ( 1247): len =   6 > 600603010301
+05-22 09:12:11.894 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.894 D/NxpNciR ( 1247): len =   6 > 600603010301
+05-22 09:12:11.894 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.894 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.895 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.895 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.895 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.896 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.897 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=7, numRead=3
+05-22 09:12:11.898 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=4
+05-22 09:12:11.898 D/NxpNciR ( 1247): len =   4 > 818000C0
+05-22 09:12:11.898 D/NxpNciR ( 1247): len =   7 > 030004818000C0
+05-22 09:12:11.899 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.899 D/NxpNciR ( 1247): len =   7 > 030004818000C0
+05-22 09:12:11.899 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.899 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.899 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.900 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.900 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.900 E/        ( 1247): nfa_nv_co_write: fail to open, error = 13
+10-10 15:05:17.285 W/com.android.nfc( 4706): type=1400 audit(0.0:70): avc: denied { write } for comm=4173796E635461736B202333 name="nfc" dev="dm-0" ino=719489 scontext=u:r:nfc:s0 tcontext=u:object_r:system_data_file:s0 tclass=dir permissive=0
+05-22 09:12:11.915 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXPLOG_TML_LOGLEVEL=(0x3)
+05-22 09:12:11.915 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXPLOG_FWDNLD_LOGLEVEL=(0x3)
+05-22 09:12:11.915 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXPLOG_NCIX_LOGLEVEL=(0x3)
+10-10 15:05:17.295 W/com.android.nfc( 4706): type=1400 audit(0.0:71): avc: denied { write } for comm=4173796E635461736B202333 name="nfc" dev="dm-0" ino=719489 scontext=u:r:nfc:s0 tcontext=u:object_r:system_data_file:s0 tclass=dir permissive=0
+05-22 09:12:11.916 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXPLOG_NCIR_LOGLEVEL=(0x3)
+05-22 09:12:11.916 D/        ( 1247): phNxpLog_InitializeLogLevel: global =1, Fwdnld =3, extns =3,                 hal =3, tml =3, ncir =3,                 ncix =3
+05-22 09:12:11.916 E/BrcmNfcJni( 1247): initialize:HOST_LISTEN_ENABLE=1;
+05-22 09:12:11.916 E/        ( 1247): nfa_nv_co_write: fail to open, error = 13
+05-22 09:12:11.916 E/BrcmNfcJni( 1247): initialize:NXP_FWD_FUNCTIONALITY_ENABLE=0;
+05-22 09:12:11.917 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_DEFAULT_SE=(0x3)
+05-22 09:12:11.917 D/BrcmNfcJni( 1247): 3: nfcManager_GetDefaultSE
+05-22 09:12:11.917 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_ENABLE_ADD_AID=(0x1)
+05-22 09:12:11.917 D/BrcmNfcJni( 1247): 1: mAddAid
+05-22 09:12:11.917 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_NFC_CHIP=(0x3)
+05-22 09:12:11.917 D/BrcmNfcJni( 1247): initialize:NXP_NFC_CHIP=0x03;
+05-22 09:12:11.917 D/BrcmNfcJni( 1247): RoutingManager::initialize(): try ee register
+05-22 09:12:11.917 D/BrcmNfcJni( 1247): RoutingManager::nfaEeCallback: NFA_EE_REGISTER_EVT; status=0
+05-22 09:12:11.918 D/BrcmNfcJni( 1247): nfaEeCallback: NFA_EE_DISCOVER_REQ_EVT; status=0x0; num ee=0
+05-22 09:12:11.918 D/BrcmNfcJni( 1247): gSeDiscoverycount = 2
+05-22 09:12:11.918 D/BrcmNfcJni( 1247): RoutingManager::stackCallback: event=0x15
+05-22 09:12:11.918 D/BrcmNfcJni( 1247): RoutingManager::stackCallback: NFA_CE_REGISTERED_EVT; status=0x0; h=0x301
+05-22 09:12:11.918 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.918 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.919 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(6)
+05-22 09:12:11.919 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=6
+05-22 09:12:11.919 D/NxpTml  ( 1247): WRITING: bytes to write = 6
+05-22 09:12:11.920 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=6
+05-22 09:12:11.920 D/NxpTml  ( 1247): PN54X - I2C Write returned (6)
+05-22 09:12:11.921 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.921 D/NxpNciX ( 1247): len =   6 > 20030301A0F0
+05-22 09:12:11.921 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.921 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.921 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.921 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.921 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.921 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=77, numRead=3
+05-22 09:12:11.924 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=74
+05-22 09:12:11.925 D/NxpNciR ( 1247): len =  74 > 0001A0F04500FF000000000000000000000000000000000000000000000000000000000000EE000103030000FF000000000000000000E400000000000000000000000000000000030300
+05-22 09:12:11.925 D/NxpNciR ( 1247): len =  77 > 40034A0001A0F04500FF000000000000000000000000000000000000000000000000000000000000EE000103030000FF000000000000000000E400000000000000000000000000000000030300
+05-22 09:12:11.925 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.926 D/NxpNciR ( 1247): len =  77 > 40034A0001A0F04500FF000000000000000000000000000000000000000000000000000000000000EE000103030000FF000000000000000000E400000000000000000000000000000000030300
+05-22 09:12:11.926 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.926 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.926 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.926 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.926 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.927 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.927 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.927 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.927 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(8)
+05-22 09:12:11.927 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=8
+05-22 09:12:11.927 D/NxpTml  ( 1247): WRITING: bytes to write = 8
+05-22 09:12:11.929 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=8
+05-22 09:12:11.929 D/NxpTml  ( 1247): PN54X - I2C Write returned (8)
+05-22 09:12:11.929 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.929 D/NxpNciX ( 1247): len =   8 > 20030502A0ECA0ED
+05-22 09:12:11.929 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.929 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.930 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.930 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.930 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.930 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=13, numRead=3
+05-22 09:12:11.932 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=10
+05-22 09:12:11.932 D/NxpNciR ( 1247): len =  10 > 0002A0EC0101A0ED0100
+05-22 09:12:11.932 D/NxpNciR ( 1247): len =  13 > 40030A0002A0EC0101A0ED0100
+05-22 09:12:11.932 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.932 D/NxpNciR ( 1247): len =  13 > 40030A0002A0EC0101A0ED0100
+05-22 09:12:11.932 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.932 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.933 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.933 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.933 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.933 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_DEFAULT_NFCEE_TIMEOUT=(0x6)
+05-22 09:12:11.933 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.933 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.933 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.933 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(6)
+05-22 09:12:11.934 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=6
+05-22 09:12:11.934 D/NxpTml  ( 1247): WRITING: bytes to write = 6
+05-22 09:12:11.935 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=6
+05-22 09:12:11.935 D/NxpTml  ( 1247): PN54X - I2C Write returned (6)
+05-22 09:12:11.935 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.935 D/NxpNciX ( 1247): len =   6 > 20030301A0EF
+05-22 09:12:11.936 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.936 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.936 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.936 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.936 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.936 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=77, numRead=3
+05-22 09:12:11.939 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=74
+05-22 09:12:11.939 D/NxpNciR ( 1247): len =  74 > 0001A0EF4500FF000000000000000000000000000000000000000000000000000000000000EE000103030000FF000000000000000000E400000000000000000000000000000000030300
+05-22 09:12:11.939 D/NxpNciR ( 1247): len =  77 > 40034A0001A0EF4500FF000000000000000000000000000000000000000000000000000000000000EE000103030000FF000000000000000000E400000000000000000000000000000000030300
+05-22 09:12:11.940 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.940 D/NxpNciR ( 1247): len =  77 > 40034A0001A0EF4500FF000000000000000000000000000000000000000000000000000000000000EE000103030000FF000000000000000000E400000000000000000000000000000000030300
+05-22 09:12:11.940 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.940 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.940 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.940 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.941 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.941 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.941 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.941 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.941 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(8)
+05-22 09:12:11.941 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=8
+05-22 09:12:11.941 D/NxpTml  ( 1247): WRITING: bytes to write = 8
+05-22 09:12:11.943 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=8
+05-22 09:12:11.943 D/NxpTml  ( 1247): PN54X - I2C Write returned (8)
+05-22 09:12:11.943 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.943 D/NxpNciX ( 1247): len =   8 > 20020501A0C00104
+05-22 09:12:11.943 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.943 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.943 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.943 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.943 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.943 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.945 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.945 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.945 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.945 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.945 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.945 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.945 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.945 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.946 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.946 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.946 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.946 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.946 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.946 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(8)
+05-22 09:12:11.946 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=8
+05-22 09:12:11.946 D/NxpTml  ( 1247): WRITING: bytes to write = 8
+05-22 09:12:11.948 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=8
+05-22 09:12:11.949 D/NxpTml  ( 1247): PN54X - I2C Write returned (8)
+05-22 09:12:11.949 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.949 D/NxpNciX ( 1247): len =   8 > 20020501A0070103
+05-22 09:12:11.949 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.949 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.950 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.950 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.951 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.951 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:11.953 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:11.953 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:11.953 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.953 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.953 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:11.953 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.953 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.953 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:11.953 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.953 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.953 E/BrcmNfcJni( 1247): nfcManager_doInitialize: set the VEN_CFG to VEN_CFG_NFC_ON_POWER_ON
+05-22 09:12:11.953 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:11.954 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_CE_ROUTE_STRICT_DISABLE=(0x1)
+10-10 15:05:17.335 W/com.android.nfc( 3118): type=1400 audit(0.0:72): avc: denied { write } for comm=4173796E635461736B202333 name="nfc" dev="dm-0" ino=719489 scontext=u:r:nfc:s0 tcontext=u:object_r:system_data_file:s0 tclass=dir permissive=0
+05-22 09:12:11.954 D/BrcmNfcJni( 1247): setCeRouteStrictDisable: mCeRouteScreenLock = 0x1
+05-22 09:12:11.954 D/        ( 1247): int nxp::CNfcConfig::checkTimestamp() file /data/nfc/libnfc-nxpConfigState.bin not exist, creat it.
+05-22 09:12:11.954 D/        ( 1247): int nxp::CNfcConfig::checkTimestamp() file not exist.
+05-22 09:12:11.954 D/        ( 1247): int nxp::CNfcConfig::updateTimestamp() file /data/nfc/libnfc-nxpConfigState.bin not exist, creat it.
+05-22 09:12:11.956 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found NXP_DEFAULT_SE=(0x3)
+05-22 09:12:11.956 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found DEFAULT_AID_ROUTE=(0x0)
+05-22 09:12:11.957 D/NfcService( 1247): GetDefaultRouteEntry :1
+05-22 09:12:11.957 D/NfcService( 1247): GetDefaultRouteLoc  :0
+05-22 09:12:11.957 D/AidRoutingManager( 1247): mDefaultRoute=0x0
+05-22 09:12:11.957 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found DEFAULT_AID_ROUTE=(0x0)
+05-22 09:12:11.957 D/NfcService( 1247): GetDefaultRouteEntry :1
+05-22 09:12:11.957 D/NfcService( 1247): GetDefaultRouteLoc  :0
+05-22 09:12:11.957 D/AidRoutingManager( 1247): Routing table unchanged, not updating
+05-22 09:12:11.958 D/RegisteredNfcid2Cache( 1247): updateRoutingLocked:  mNfcid2Cache size 0
+05-22 09:12:11.958 D/RegisteredNfcid2Cache( 1247): Finding NFCID2s to be removed
+05-22 09:12:11.958 D/Nfcid2RoutingManager( 1247): Not committing routing because table not dirty.
+05-22 09:12:11.959 D/NdefPushServer( 1247): start, thread = null
+05-22 09:12:11.959 D/NdefPushServer( 1247): starting new server thread
+05-22 09:12:11.961 I/NfcService( 1247): Enter: NfcAlaService constructor
+05-22 09:12:11.961 I/NfcService( 1247): Enter: NfcAlaService constructor file open
+10-10 15:05:17.345 W/com.android.nfc( 3118): type=1400 audit(0.0:73): avc: denied { write } for comm=4173796E635461736B202333 name="nfc" dev="dm-0" ino=719489 scontext=u:r:nfc:s0 tcontext=u:object_r:system_data_file:s0 tclass=dir permissive=0
+05-22 09:12:11.962 I/NfcService( 1247): FileNotFound ls backup
+05-22 09:12:11.962 D/NdefPushServer( 1247): about create LLCP service socket
+05-22 09:12:11.962 D/NdefPushServer( 1247): created LLCP service socket
+05-22 09:12:11.962 I/NfcService( 1247): FileNotFoundException Raised during LS Initialization
+05-22 09:12:11.962 D/NdefPushServer( 1247): about to accept
+05-22 09:12:11.966 E/NfcService( 1247): Loader service update start from NFC_ON Broadcast
+05-22 09:12:11.971 E/NfcService( 1247): applyRouting -3
+05-22 09:12:11.972 D/NfcService( 1247): applyRouting - enter force = true mScreenState = 3
+05-22 09:12:11.972 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found DEFAULT_DESFIRE_ROUTE=(0x2)
+05-22 09:12:11.972 D/NfcService( 1247): GetDefaultMifareDesfireRouteEntry :2
+05-22 09:12:11.972 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found DEFAULT_DESFIRE_ROUTE=(0x2)
+05-22 09:12:11.972 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found DEFAULT_AID_ROUTE=(0x0)
+05-22 09:12:11.972 D/NfcService( 1247): GetDefaultRouteEntry :1
+05-22 09:12:11.972 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found DEFAULT_MIFARE_CLT_ROUTE=(0x2)
+05-22 09:12:11.973 D/NfcService( 1247): getDefaultMifareCLTRoute :2
+05-22 09:12:11.973 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found DEFAULT_MIFARE_CLT_ROUTE=(0x2)
+05-22 09:12:11.973 D/NfcService( 1247): Set default Route Entry
+05-22 09:12:11.973 D/BrcmNfcJni( 1247): RoutingManager::setDefaultRoute: enter, defaultRoute:1 protoRoute:0x13 TechRoute:0x33 
+05-22 09:12:11.973 D/BrcmNfcJni( 1247): RoutingManager::setDefaultRoute: enter, defaultSeID:400 defaultPowerstate:0x1
+05-22 09:12:11.973 D/BrcmNfcJni( 1247): RoutingManager::setDefaultRoute: enter, defaultProtoSeID:402 defaultProtoPowerstate:0x3
+05-22 09:12:11.973 D/BrcmNfcJni( 1247): RoutingManager::setDefaultRoute: enter, defaultTechSeID:402 defaultTechAPowerstate:0x3,defaultTechType:0x1
+05-22 09:12:11.973 D/BrcmNfcJni( 1247): RoutingManager::nfaEeCallback: NFA_EE_SET_TECH_CFG_EVT; status=0x0
+05-22 09:12:11.973 D/BrcmNfcJni( 1247): RoutingManager::nfaEeCallback: NFA_EE_SET_PROTO_CFG_EVT; status=0x0
+05-22 09:12:11.973 D/BrcmNfcJni( 1247): RoutingManager::setDefaultRoute: enter, isDefaultProtoSeIDPresent:0
+05-22 09:12:11.974 E/BrcmNfcNfa( 1247): CE_T4tRegisterAID (): only one wildcard AID can be registered at time.
+05-22 09:12:11.974 E/BrcmNfcNfa( 1247): Unable to register AID
+05-22 09:12:11.974 D/BrcmNfcJni( 1247): RoutingManager::stackCallback: event=0x15
+05-22 09:12:11.974 D/BrcmNfcJni( 1247): RoutingManager::stackCallback: NFA_CE_REGISTERED_EVT; status=0x3; h=0xFFFF
+05-22 09:12:11.974 D/BrcmNfcJni( 1247): RoutingManager::nfaEeCallback: NFA_EE_SET_PROTO_CFG_EVT; status=0x0
+05-22 09:12:11.974 D/BrcmNfcJni( 1247): RoutingManager::setDefaultRoute: enter, defaultHandle:ffff
+05-22 09:12:11.974 D/BrcmNfcJni( 1247): RoutingManager::setDefaultRoute: enter, preferred_defaultHandle:402
+05-22 09:12:11.974 D/BrcmNfcJni( 1247): RoutingManager::setDefaultRoute: enter,max_tech_mask :0
+05-22 09:12:11.974 D/BrcmNfcJni( 1247): RoutingManager::setDefaultRoute: enter, defaultTechSeID:402
+05-22 09:12:11.974 D/BrcmNfcJni( 1247): RoutingManager::nfaEeCallback: NFA_EE_SET_TECH_CFG_EVT; status=0x0
+05-22 09:12:11.974 D/BrcmNfcJni( 1247): setDefaultRoute:UICC_TECH_MASK=0x07;
+05-22 09:12:11.974 D/BrcmNfcJni( 1247): RoutingManager::commitRouting
+05-22 09:12:11.974 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:11.974 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:11.975 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(25)
+05-22 09:12:11.975 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=25
+05-22 09:12:11.975 D/NxpTml  ( 1247): WRITING: bytes to write = 25
+05-22 09:12:11.976 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=25
+05-22 09:12:11.976 D/NxpTml  ( 1247): PN54X - I2C Write returned (25)
+05-22 09:12:11.976 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:11.976 D/NxpNciX ( 1247): len =  25 > 21011600040103004103010300410401030041A00103000105
+05-22 09:12:11.976 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:11.976 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:11.976 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:11.976 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:11.979 I/OMXClient( 1247): Using client-side OMX mux.
+05-22 09:12:11.982 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:11.982 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=4, numRead=3
+05-22 09:12:11.989 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=1
+05-22 09:12:11.989 D/NxpNciR ( 1247): len =   1 > 00
+05-22 09:12:11.989 D/NxpNciR ( 1247): len =   4 > 41010100
+05-22 09:12:11.989 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:11.989 D/NxpNciR ( 1247): len =   4 > 41010100
+05-22 09:12:11.989 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:11.989 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:11.989 D/BrcmNfcJni( 1247): RoutingManager::nfaEeCallback: NFA_EE_UPDATED_EVT
+05-22 09:12:11.989 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:11.990 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:11.990 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:12.061 I/OMXClient( 1247): Using client-side OMX mux.
+05-22 09:12:12.110 I/OMXClient( 1247): Using client-side OMX mux.
+05-22 09:12:12.990 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:12.990 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:12.990 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(19)
+05-22 09:12:12.991 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=19
+05-22 09:12:12.991 D/NxpTml  ( 1247): WRITING: bytes to write = 19
+05-22 09:12:13.049 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=19
+05-22 09:12:13.050 D/NxpTml  ( 1247): PN54X - I2C Write returned (19)
+05-22 09:12:13.050 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:13.050 D/NxpNciX ( 1247): len =  19 > 20021005320120300104310100380101500100
+05-22 09:12:13.050 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:13.050 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:13.050 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:13.050 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:13.065 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:13.065 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:13.067 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:13.067 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:13.067 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:13.067 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:13.068 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:13.068 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:13.068 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:13.068 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:13.069 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:13.069 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:13.069 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:13.069 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:13.069 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:13.069 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(8)
+05-22 09:12:13.069 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=8
+05-22 09:12:13.069 D/NxpTml  ( 1247): WRITING: bytes to write = 8
+05-22 09:12:13.071 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=8
+05-22 09:12:13.071 D/NxpTml  ( 1247): PN54X - I2C Write returned (8)
+05-22 09:12:13.071 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:13.072 D/NxpNciX ( 1247): len =   8 > 200205010002F401
+05-22 09:12:13.072 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:13.072 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:13.072 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:13.072 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:13.074 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:13.075 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:13.076 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:13.076 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:13.076 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:13.076 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:13.077 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:13.077 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:13.077 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:13.077 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:13.077 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:13.078 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:13.078 D/NxpHal  ( 1247): > Polling Loop Started
+05-22 09:12:13.078 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:13.078 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:13.078 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:13.078 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(8)
+05-22 09:12:13.078 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=8
+05-22 09:12:13.078 D/NxpTml  ( 1247): WRITING: bytes to write = 8
+05-22 09:12:13.080 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=8
+05-22 09:12:13.080 D/NxpTml  ( 1247): PN54X - I2C Write returned (8)
+05-22 09:12:13.080 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:13.080 D/NxpNciX ( 1247): len =   8 > 2103050280018101
+05-22 09:12:13.080 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:13.081 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:13.081 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:13.081 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:13.081 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:13.081 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=4, numRead=3
+05-22 09:12:13.083 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=1
+05-22 09:12:13.083 D/NxpNciR ( 1247): len =   1 > 00
+05-22 09:12:13.083 D/NxpNciR ( 1247): len =   4 > 41030100
+05-22 09:12:13.083 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:13.083 D/NxpNciR ( 1247): len =   4 > 41030100
+05-22 09:12:13.084 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:13.084 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:13.084 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:13.084 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:13.084 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:13.085 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:13.085 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:13.085 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(4)
+05-22 09:12:13.085 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=4
+05-22 09:12:13.085 D/NxpTml  ( 1247): WRITING: bytes to write = 4
+05-22 09:12:13.087 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=4
+05-22 09:12:13.087 D/NxpTml  ( 1247): PN54X - I2C Write returned (4)
+05-22 09:12:13.087 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:13.087 D/NxpNciX ( 1247): len =   4 > 21060100
+05-22 09:12:13.087 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:13.088 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:13.088 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:13.089 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=4, numRead=3
+05-22 09:12:13.089 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:13.089 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:13.090 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=1
+05-22 09:12:13.091 D/NxpNciR ( 1247): len =   1 > 00
+05-22 09:12:13.091 D/NxpNciR ( 1247): len =   4 > 41060100
+05-22 09:12:13.091 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:13.091 D/NxpNciR ( 1247): len =   4 > 41060100
+05-22 09:12:13.091 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:13.091 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:13.092 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:13.092 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:13.092 E/BrcmNfcJni( 1247): getReconnectState = 0x0
+05-22 09:12:13.092 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:13.092 E/BrcmNfcJni( 1247): nfcManager_enableDiscovery:UICC_LISTEN_MASK=0x07;
+05-22 09:12:13.093 E/BrcmNfcJni( 1247): nfaConnectionCallback: unknown event ????
+05-22 09:12:13.093 E/BrcmNfcNfa( 1247): nfa_ce_api_dereg_listen (): cannot find listen_info for UICC/ESE
+05-22 09:12:13.093 E/BrcmNfcNfa( 1247): UICC/ESE[0x402] is not activated
+05-22 09:12:13.094 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:13.094 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:13.094 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(26)
+05-22 09:12:13.094 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=26
+05-22 09:12:13.094 D/NxpTml  ( 1247): WRITING: bytes to write = 26
+05-22 09:12:13.096 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=26
+05-22 09:12:13.096 D/NxpTml  ( 1247): PN54X - I2C Write returned (26)
+05-22 09:12:13.096 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:13.097 D/NxpNciX ( 1247): len =  26 > 20021701291446666D010112020207FF03020013040164070103
+05-22 09:12:13.097 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:13.097 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:13.097 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:13.097 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:13.103 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:13.103 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:13.104 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:13.104 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:13.104 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:13.105 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:13.105 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:13.105 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:13.105 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:13.105 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:13.105 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:13.105 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:13.106 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:13.106 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:13.106 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(29)
+05-22 09:12:13.106 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:13.106 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=29
+05-22 09:12:13.106 D/NxpTml  ( 1247): WRITING: bytes to write = 29
+05-22 09:12:13.108 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=29
+05-22 09:12:13.108 D/NxpTml  ( 1247): PN54X - I2C Write returned (29)
+05-22 09:12:13.108 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:13.108 D/NxpNciX ( 1247): len =  29 > 20021A02611446666D010112020207FF03020013040164070103600107
+05-22 09:12:13.109 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:13.109 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:13.109 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:13.109 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:13.120 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:13.120 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:13.121 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:13.122 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:13.122 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:13.122 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:13.122 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:13.122 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:13.122 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:13.122 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:13.123 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:13.123 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:13.123 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:13.123 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:13.123 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:13.123 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(16)
+05-22 09:12:13.123 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=16
+05-22 09:12:13.123 D/NxpTml  ( 1247): WRITING: bytes to write = 16
+05-22 09:12:13.125 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=16
+05-22 09:12:13.125 D/NxpTml  ( 1247): PN54X - I2C Write returned (16)
+05-22 09:12:13.125 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:13.125 D/NxpNciX ( 1247): len =  16 > 20020D04320160310100380101500102
+05-22 09:12:13.125 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:13.125 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:13.125 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:13.125 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:13.132 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:13.132 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=5, numRead=3
+05-22 09:12:13.133 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=2
+05-22 09:12:13.133 D/NxpNciR ( 1247): len =   2 > 0000
+05-22 09:12:13.133 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:13.134 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:13.134 D/NxpNciR ( 1247): len =   5 > 4002020000
+05-22 09:12:13.134 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:13.134 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:13.134 D/NxpHal  ( 1247): phNxpNciHal_print_res_status: response status =STATUS_OK
+05-22 09:12:13.134 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:13.134 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:13.134 D/NxpExtns( 1247): const nxp::CNfcParam* nxp::CNfcConfig::find(const char*) const found MIFARE_READER_ENABLE=(0x1)
+05-22 09:12:13.134 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:13.135 D/NxpHal  ( 1247): > Polling Loop Started
+05-22 09:12:13.135 D/NxpTml  ( 1247): PN54X - Write requested.....
+05-22 09:12:13.135 D/NxpTml  ( 1247): PN54X - Invoking I2C Write.....(28)
+05-22 09:12:13.135 D/NxpTml  ( 1247): numWrote=0, nNbBytesToWrite=28
+05-22 09:12:13.135 D/NxpTml  ( 1247): WRITING: bytes to write = 28
+05-22 09:12:13.137 D/NxpTml  ( 1247): phTmlNfc_i2c_write: exiting... numWrote=28
+05-22 09:12:13.137 D/NxpTml  ( 1247): PN54X - I2C Write returned (28)
+05-22 09:12:13.137 D/NxpTml  ( 1247): PN54X - Printing packet.....
+05-22 09:12:13.137 D/NxpNciX ( 1247): len =  28 > 2103190C000101010201030105018001810182018301850106017001
+05-22 09:12:13.137 D/NxpTml  ( 1247): PN54X - I2C Write successful.....
+05-22 09:12:13.137 D/NxpTml  ( 1247): PN54X - Posting Fresh Write message.....
+05-22 09:12:13.137 D/NxpTml  ( 1247): PN54X - Tml Writer Thread Running................
+05-22 09:12:13.137 D/NxpHal  ( 1247): write successful status = 0x0
+05-22 09:12:13.138 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=3
+05-22 09:12:13.138 D/NxpTml  ( 1247): phTmlNfc_i2c_read(219): totalBtyesToRead=4, numRead=3
+05-22 09:12:13.140 D/NxpTml  ( 1247): phTmlNfc_i2c_read: ret_Read=1
+05-22 09:12:13.140 D/NxpNciR ( 1247): len =   1 > 00
+05-22 09:12:13.140 D/NxpNciR ( 1247): len =   4 > 41030100
+05-22 09:12:13.140 D/NxpTml  ( 1247): PN54X - I2C Read successful.....
+05-22 09:12:13.140 D/NxpNciR ( 1247): len =   4 > 41030100
+05-22 09:12:13.140 D/NxpTml  ( 1247): PN54X - Posting read message.....
+05-22 09:12:13.140 D/NxpHal  ( 1247): read successful status = 0x0
+05-22 09:12:13.141 D/NxpTml  ( 1247): PN54X - Read requested.....
+05-22 09:12:13.141 D/NxpTml  ( 1247): PN54X - Invoking I2C Read.....
+05-22 09:12:13.141 D/NxpTml  ( 1247): phTmlNfc_i2c_read(168): totalBtyesToRead=3, numRead=0
+05-22 09:12:13.143 W/Settings( 1247): Setting airplane_mode_radios has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.
+05-22 09:12:13.143 W/Settings( 1247): Setting airplane_mode_toggleable_radios has moved from android.provider.Settings.System to android.provider.Settings.Global, returning read-only value.

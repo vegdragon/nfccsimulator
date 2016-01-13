@@ -113,6 +113,7 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
   }
 
   for (idx=0;(ret = getline(&line, &len, fp)) != -1;idx++) {
+    char * pch = NULL;
     // printf("Retrieved line of length %zu :\n", read);
     printf("%s", line);
     nci_data_t nciHeader;
@@ -121,11 +122,15 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
     printf("%s: delay=%ld, prevTimestamp=%ld\n", __FUNCTION__, nciHeader.delay, prevTimestamp);
 
     strFound = strchr (line, '>'); 
-    if (strFound != NULL)
+    pch = strstr (line, "NxpNci");
+    if (strFound != NULL && pch != NULL)
     {
       strToHex (strFound+2, nciData);
       nciData.index = idx;
-      nciData.direction = *(strFound - 21);
+      nciData.direction = *(pch + 6);
+
+      printf("%s: strFound=%s, nciData.direction=%c\n", __FUNCTION__, strFound, nciData.direction);
+        
       nciData.timestamp = parseTimestamp(line);
       nciData.delay = prevTimestamp==0 ? 0:nciData.timestamp - prevTimestamp;
       prevTimestamp = nciData.timestamp;

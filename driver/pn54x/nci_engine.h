@@ -36,7 +36,8 @@ int nci_kfifo_release(void);
 int nci_kfifo_push(nci_data_t * pNciData);
 int nci_kfifo_get(nci_data_t ** ppNciData);
 
-void print_nci_data(nci_data_t * pNci);
+void print_nci_data(char * data, int len);
+
 
 
 nci_data_t * getNciReadData (void);

@@ -32,6 +32,7 @@
 typedef struct pn54x_android_dev {  
     int               val;
     char              data[300];
+    int               len;
     struct semaphore  sem;  
     struct cdev       dev;
 	wait_queue_head_t is_reading_wq;

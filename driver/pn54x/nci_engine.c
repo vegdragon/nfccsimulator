@@ -108,24 +108,30 @@ void print_current_time(int is_new_line)
     kfree(t);
 }
 
-void print_nci_data(nci_data_t * pNciData)
-{
-    if (pNciData != NULL)
-    {
-      printk(KERN_ALERT "%s=========================\n", TAG);
-      // print_current_time(0);
-      // printk(KERN_ALERT "timestamp=%ld\tdirection=%c\ndata=\n", pNciData->timestamp, pNciData->direction);
-      // for (i=0;i<pNci->len;i++)
-	  //  printk(KERN_ALERT "%02x", pNciData->data[i]);
-	  
-      printk("[%d][%ld][%c][%d]: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
-              pNciData->index, pNciData->timestamp, pNciData->direction,
-              pNciData->len,
-              pNciData->data[0],pNciData->data[1],pNciData->data[2],pNciData->data[3],pNciData->data[4],
-              pNciData->data[5],pNciData->data[6],pNciData->data[7],pNciData->data[8],pNciData->data[9]);
 
-      printk(KERN_ALERT "%s=========================\n", TAG);
+/**************************** Other functions *********************************/
+
+/*******************************************************************************
+**
+** Function         phNxpNciHal_print_packet
+**
+** Description      Print packet
+**
+** Returns          None
+**
+*******************************************************************************/
+void print_nci_data(char * data, int len)
+{
+    uint32_t i, j;
+    char print_buffer[len * 3 + 1];
+
+    memset (print_buffer, 0, sizeof(print_buffer));
+    for (i = 0; i < len; i++) {
+        snprintf(&print_buffer[i * 2], 3, "%02X", data[i]);
     }
+    printk("[[==len=%3d > %s==]]\n", len, print_buffer);
+
+    return;
 }
 
 int nci_kfifo_init(void)
@@ -167,8 +173,8 @@ int nci_kfifo_push(nci_data_t * pNciData)
 
     kfifo_put(&nci_fifo, &pNciData);
 
-    printk(KERN_ALERT "%s nci_kfifo_push: current &fifo length is : %d\n", TAG, kfifo_len(&nci_fifo));
-    print_nci_data(pNciData);
+    printk(KERN_ALERT "%s nci_kfifo_push: current &fifo length is : %d, idx[%d]\n", TAG, kfifo_len(&nci_fifo), pNciData->index);
+    print_nci_data(pNciData->data, pNciData->len);
 
         // ret = kfifo_get(&nci_fifo, &nci_data_tmp);
         // WARN_ON(!ret);
@@ -185,9 +191,8 @@ int nci_kfifo_get(nci_data_t ** ppNciData)
 
     ret = kfifo_get(&nci_fifo, ppNciData);
     WARN_ON(!ret);
-    printk(KERN_ALERT "%s nci_kfifo_get: current &fifo length is : %d, ret=%d\n", TAG, kfifo_len(&nci_fifo), ret);
-        
-    // print_nci_data(*ppNciData);
+    printk(KERN_ALERT "%s nci_kfifo_get: current &fifo length is : %d, idx[%d], ret=%d\n", TAG, kfifo_len(&nci_fifo), (*ppNciData)->index, ret);
+    print_nci_data((*ppNciData)->data, (*ppNciData)->len);
 
     TRACE_FUNC_EXIT;
     return kfifo_len(&nci_fifo);
@@ -217,7 +222,7 @@ int nci_engine_thread (void * data)
 
       // read a nci data
       ret = nci_kfifo_get (&pNciData);
-      print_nci_data(pNciData);
+      
       if (ret == 0)
       {
         printk(KERN_ALERT"nci_kfifo_get empty: ret=%d.\n", ret);
@@ -231,9 +236,6 @@ int nci_engine_thread (void * data)
       // if R, set is_data_ready=true, wait (delay), wakeup, then read the next nci data
       if ('R' == pNciData->direction)
       {
-        printk(KERN_ALERT"sleeping: delay=%ld.\n", pNciData->delay);
-        msleep (pNciData->delay);
- 
 		pr_warning("%s: waiting... is_reading=%d\n", __func__, pn54x_dev->is_reading);
         
 		ret = wait_event_interruptible(
@@ -244,6 +246,12 @@ int nci_engine_thread (void * data)
         pr_warning("%s: wake up. is_reading=%d\n", __func__, pn54x_dev->is_reading);
 		
         _pNciReadData = pNciData;
+        
+        if (_pNciReadData != NULL)
+            print_nci_data(pNciData->data, pNciData->len);
+        else
+            pr_warning("%s: _pNciReadData == NULL!!!\n", __func__);
+        
 		pn54x_dev->is_read_data_ready = true;
         wake_up (&pn54x_dev->read_wq);
       }
@@ -257,31 +265,36 @@ int nci_engine_thread (void * data)
             );
         pn54x_dev->is_write_data_ready = false;
 
-        printk("from usr: %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n",
-        pn54x_dev->data[0],pn54x_dev->data[1],pn54x_dev->data[2],pn54x_dev->data[3],pn54x_dev->data[4],
-        pn54x_dev->data[5],pn54x_dev->data[6],pn54x_dev->data[7],pn54x_dev->data[8],pn54x_dev->data[9]);
-    
-    
+        printk("[from usr: ]\n");
+        print_nci_data(pn54x_dev->data, pn54x_dev->len);
+        
         /* compare received data with cmd in the queue */
         if (memcmp(pn54x_dev->data, pNciData->data, pNciData->len) != 0)
         {
-            printk(KERN_ALERT"Nci cmd data received is not as we expected!.\n");
-            printk("from queue(%d): %02x %02x %02x %02x %02x %02x %02x %02x %02x %02x\n", pNciData->len,
-              pNciData->data[0],pNciData->data[1],pNciData->data[2],pNciData->data[3],pNciData->data[4],
-              pNciData->data[5],pNciData->data[6],pNciData->data[7],pNciData->data[8],pNciData->data[9]);
+            /* check if it is HCI session id */
+            char HCI_SET_SESSION_ID[] = {0x03,0x00,0x0B,0x81,0x01,0x01};
+            if (memcmp (pn54x_dev->data, HCI_SET_SESSION_ID, sizeof(HCI_SET_SESSION_ID))==0
+                && memcmp (pNciData->data, HCI_SET_SESSION_ID, sizeof(HCI_SET_SESSION_ID))==0)
+            {
+                printk(KERN_ALERT"Nci cmd data: HCI_SET_SESSION_ID.\n");
+            }
+            else
+            {
+                printk(KERN_ALERT"Nci cmd data received is not as we expected!.\n");
+                printk("[from queue: idx=%d]\n", pNciData->index);
+                print_nci_data(pNciData->data, pNciData->len);
 
-            ret = -EFAULT;
-            goto exit;
+                ret = -EFAULT;
+                goto exit;
+            }
         }
-        else
-        {
-            /* notify data received, so we can release data to be read */
-            // to notifiy in the next start of loop, if ('R' == pNciData->direction);
 
-            printk(KERN_ALERT "%s: pn54x_dev->is_write_complete = true.\n", __FUNCTION__);
-			pn54x_dev->is_write_complete = true;
-        	wake_up (&pn54x_dev->write_complete_wq);
-        }
+        /* notify data received, so we can release data to be read */
+        // to notifiy in the next start of loop, if ('R' == pNciData->direction);
+        printk(KERN_ALERT "%s: pn54x_dev->is_write_complete = true.\n", __FUNCTION__);
+        pn54x_dev->is_write_complete = true;
+        wake_up (&pn54x_dev->write_complete_wq);
+
       }
     }
 

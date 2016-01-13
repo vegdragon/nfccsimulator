@@ -94,11 +94,11 @@ int main(int argc, char** argv)
     printf ("help: \n\tr - read log;\n\ts - start nci engine;\n\to - stop engine;\n\tc - start communication;\n\tx- release engine\n\n");
     break;
   case 'r':
-    nlfp.readNciDataFromFile("/etc/nexus6p_nfc_on_filtered.log", fd, rxData); 
+    nlfp.readNciDataFromFile(argv[2], fd, rxData); 
     ioctl(fd, CMD_NCI_ENGINE_START, NULL);
     break;
   case 'e':
-    nlfp.readNciDataFromFile("/etc/nexus6p_nfc_on_filtered.log", fd, rxData); 
+    nlfp.readNciDataFromFile(argv[2], fd, rxData); 
     ioctl(fd, CMD_NCI_FIFO_GETALL, NULL);
     break;
   case 's':
@@ -108,7 +108,7 @@ int main(int argc, char** argv)
     ioctl(fd, CMD_NCI_ENGINE_STOP, NULL);
     break;
   case 'c':
-    nlfp.readNciDataFromFile("/etc/nexus6p_nfc_on_filtered.log", fd, rxData); 
+    nlfp.readNciDataFromFile(argv[2], fd, rxData); 
     ioctl(fd, CMD_NCI_ENGINE_START, NULL);
     usleep (20000);
     startCommunication(fd, rxData);

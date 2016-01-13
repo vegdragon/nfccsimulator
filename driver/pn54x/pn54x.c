@@ -175,6 +175,7 @@ static ssize_t pn54x_write(struct file* filp, const char __user *buf, size_t cou
         goto exit;
     }
 
+    pn54x_dev->len = count;
     pn54x_dev->is_write_data_ready = true;
     wake_up (&pn54x_dev->write_wq);
 
@@ -487,11 +488,12 @@ static long  pn54x_dev_ioctl(struct file *filp, unsigned int cmd,
     break;
   case CMD_NCI_FIFO_RELEASE:
     nci_kfifo_release();
+    nci_kfifo_init();
     break;
   case CMD_NCI_FIFO_GETALL:
     while (nci_kfifo_get(&pNciData)>0)
     {
-      print_nci_data(pNciData);
+      print_nci_data(pNciData->data, pNciData->len);
     }
     break;
   case PN544_SET_PWR:

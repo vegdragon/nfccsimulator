@@ -158,7 +158,11 @@ int nci_kfifo_init(void)
 
 int nci_kfifo_release(void)
 {
+    nci_data_t * pNciData = NULL;
     TRACE_FUNC_ENTER;
+
+    while (nci_kfifo_get(&pNciData) > 0);
+    
     kfifo_free(&nci_fifo);
     TRACE_FUNC_EXIT;
     return 0;
@@ -248,7 +252,8 @@ int nci_engine_thread (void * data)
         _pNciReadData = pNciData;
         
         if (_pNciReadData != NULL)
-            print_nci_data(pNciData->data, pNciData->len);
+            // print_nci_data(pNciData->data, pNciData->len);
+            ;
         else
             pr_warning("%s: _pNciReadData == NULL!!!\n", __func__);
         
@@ -272,7 +277,7 @@ int nci_engine_thread (void * data)
         if (memcmp(pn54x_dev->data, pNciData->data, pNciData->len) != 0)
         {
             /* check if it is HCI session id */
-            char HCI_SET_SESSION_ID[] = {0x03,0x00,0x0B,0x81,0x01,0x01};
+            const char HCI_SET_SESSION_ID[] = {0x03,0x00,0x0B,0x81,0x01,0x01};
             if (memcmp (pn54x_dev->data, HCI_SET_SESSION_ID, sizeof(HCI_SET_SESSION_ID))==0
                 && memcmp (pNciData->data, HCI_SET_SESSION_ID, sizeof(HCI_SET_SESSION_ID))==0)
             {
@@ -303,7 +308,9 @@ exit:
     wake_up (&pn54x_dev->read_wq);
     pn54x_dev->is_write_complete = true;
     wake_up (&pn54x_dev->write_complete_wq);
-	clearNciReadData();
+
+    /* cannot clear ncidata here, because read() may delay a little bit for the last response. */
+	// clearNciReadData();
 
     TRACE_FUNC_EXIT
 

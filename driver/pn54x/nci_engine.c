@@ -212,7 +212,8 @@ int nci_engine_fill (nci_data_t * pNciData)
 
 int nci_engine_thread (void * data)
 {
-    int ret = 0;  
+    int ret = 0;
+    int retKfifo = 0;
     nci_data_t * pNciData = NULL;  
     pn54x_android_dev_t * pn54x_dev = (pn54x_android_dev_t*)data;
 
@@ -225,16 +226,14 @@ int nci_engine_thread (void * data)
       if (kthread_should_stop()) break;
 
       // read a nci data
-      ret = nci_kfifo_get (&pNciData);
-      
-      if (ret == 0)
-      {
-        printk(KERN_ALERT"nci_kfifo_get empty: ret=%d.\n", ret);
-		pNciData = NULL;
-        ret = EFAULT;
-        goto exit;
-      }
+      retKfifo = nci_kfifo_get (&pNciData);
 
+      if (ret<0 || NULL == pNciData)
+      {
+         printk(KERN_ALERT"nci_kfifo_get returned error: ret=%d.\n", ret);
+         break;
+      }
+      
       // check R or X
 
       // if R, set is_data_ready=true, wait (delay), wakeup, then read the next nci data
@@ -300,6 +299,20 @@ int nci_engine_thread (void * data)
         pn54x_dev->is_write_complete = true;
         wake_up (&pn54x_dev->write_complete_wq);
 
+      }
+
+      if (0 == retKfifo)
+      {
+        printk(KERN_ALERT"nci_kfifo_get empty: ret=%d.\n", ret);
+		pNciData = NULL;
+
+        if (getNciReadData() != NULL)
+        {
+            /* there is one more data to be read */
+            pn54x_dev->is_read_data_ready = true;
+        }
+        
+        break;
       }
     }
 

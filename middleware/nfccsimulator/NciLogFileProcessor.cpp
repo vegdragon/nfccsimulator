@@ -133,6 +133,9 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
         
       nciData.timestamp = parseTimestamp(line);
       nciData.delay = prevTimestamp==0 ? 0:nciData.timestamp - prevTimestamp;
+
+      /* debug code!!! */ nciData.delay *= 20;
+      
       prevTimestamp = nciData.timestamp;
 
       if ('R' == nciData.direction)
@@ -141,7 +144,7 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
         nciHeader.index = idx;
         nciHeader.direction  = nciData.direction;
         nciHeader.timestamp = nciData.timestamp;
-        nciHeader.delay = prevTimestamp==0 ? 0:nciData.timestamp - prevTimestamp;
+        nciHeader.delay = nciData.delay;
 
         nciHeader.data[0] = nciData.data[0]; 
         nciHeader.data[1] = nciData.data[1];
@@ -160,8 +163,6 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
       }
       else if ('X' == nciData.direction)
       {
-        
-
         ioctl(fd, 1, &nciData);
         printf("%s: %s, \tdirection=%c\n", __FUNCTION__, strFound+2, nciData.direction);
         rxData.push_back(nciData);

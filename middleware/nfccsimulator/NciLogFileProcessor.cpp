@@ -121,6 +121,9 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
     
     printf("%s: delay=%ld, prevTimestamp=%ld\n", __FUNCTION__, nciHeader.delay, prevTimestamp);
 
+    /* skip comments */
+    if ('#' == line[0]) continue;
+
     strFound = strchr (line, '>'); 
     pch = strstr (line, "NxpNci");
     if (strFound != NULL && pch != NULL)
@@ -179,8 +182,8 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
     }
     else
     {
-      printf("Warning: End of file. Exiting...");
-      break;
+      printf("Warning: Invalid line, continue...");
+      continue;
     }
   }
 

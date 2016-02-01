@@ -15,3 +15,8 @@
     // enableInternal();
 
 
+- Alias
+alias dk='./external/nfccsimulator/debug.sh | tee kernel_log.txt'
+alias dm='external/nfccsimulator/dbgmw.sh'
+alias dmc='adb shell NfcMiddlewareSimulator c /etc/nexus6p_arf04.2.0_nfcon_filtered.log | tee mw_log.txt'
+

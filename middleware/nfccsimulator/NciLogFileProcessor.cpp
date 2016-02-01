@@ -137,6 +137,10 @@ int NciLogFileProcessor::readNciDataFromFile(const char * fileName,
       nciData.timestamp = parseTimestamp(line);
       nciData.delay = prevTimestamp==0 ? 0:nciData.timestamp - prevTimestamp;
 
+      /* we can cut & paste part of nci log from another log file. Handle timestamp difference */
+      if (nciData.delay<0 || nciData.delay>1000) 
+        nciData.delay = 1000;
+
       /* debug code!!! */ nciData.delay *= 20;
       
       prevTimestamp = nciData.timestamp;
